@@ -11,6 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{A7550A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTasker.Server.API", "Server\TeamTasker.Server.API\TeamTasker.Server.API.csproj", "{9B1FA8BE-986D-43E1-8757-6C93AF8D2DA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTasker.Server.Domain", "Server\TeamTasker.Server.Domain\TeamTasker.Server.Domain.csproj", "{C8F75630-4877-45ED-BCCC-EA9FA674EAF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTasker.Server.Application", "Server\TeamTasker.Server.Application\TeamTasker.Server.Application.csproj", "{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTasker.Server.Infrastructure", "Server\TeamTasker.Server.Infrastructure\TeamTasker.Server.Infrastructure.csproj", "{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{9B1FA8BE-986D-43E1-8757-6C93AF8D2DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B1FA8BE-986D-43E1-8757-6C93AF8D2DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B1FA8BE-986D-43E1-8757-6C93AF8D2DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F75630-4877-45ED-BCCC-EA9FA674EAF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F75630-4877-45ED-BCCC-EA9FA674EAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F75630-4877-45ED-BCCC-EA9FA674EAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F75630-4877-45ED-BCCC-EA9FA674EAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +52,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6E4032D8-AC52-44DB-B0EC-44A85DFA19F7} = {BC3B7522-4014-46D6-862B-B49F20F50EF8}
 		{9B1FA8BE-986D-43E1-8757-6C93AF8D2DA1} = {A7550AFD-B25C-44CD-802B-89A9479FE65C}
+		{C8F75630-4877-45ED-BCCC-EA9FA674EAF1} = {A7550AFD-B25C-44CD-802B-89A9479FE65C}
+		{538A6F90-C8DB-4E69-BB08-FA9CFE7624A2} = {A7550AFD-B25C-44CD-802B-89A9479FE65C}
+		{09AFAE2C-9605-4C7E-97D5-9F7E80A4F318} = {A7550AFD-B25C-44CD-802B-89A9479FE65C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46DC2647-B6F7-44DB-A772-AD72F4BA6F16}
