@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+#region Services Configuration
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -7,7 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#endregion
+
 var app = builder.Build();
+
+#region Application Configuration
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -23,3 +29,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#endregion
