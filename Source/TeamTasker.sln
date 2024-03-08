@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "teamtasker.client.gui", "Client\TeamTasker.Client.GUI\teamtasker.client.gui.esproj", "{6E4032D8-AC52-44DB-B0EC-44A85DFA19F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{BC3B7522-4014-46D6-862B-B49F20F50EF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{A7550AFD-B25C-44CD-802B-89A9479FE65C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,5 +24,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E4032D8-AC52-44DB-B0EC-44A85DFA19F7} = {BC3B7522-4014-46D6-862B-B49F20F50EF8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46DC2647-B6F7-44DB-A772-AD72F4BA6F16}
 	EndGlobalSection
 EndGlobal
