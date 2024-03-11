@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "TeamTasker - Http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "https": {
+    "TeamTasker - Https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
