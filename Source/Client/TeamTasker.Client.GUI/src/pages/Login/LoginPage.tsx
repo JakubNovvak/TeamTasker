@@ -36,14 +36,14 @@ export default function LoginPage()
                 placeholder="Account password"
                 />
 
-                <Button sx={{mt: "3rem", backgroundColor: "#004679", minWidth: "10rem", fontFamily: "Roboto"}} variant="filled">LOG IN</Button>
+                <Button sx={{mt: "3rem", backgroundColor: "#004679", minWidth: "10rem", fontFamily: "Roboto, sans-serif"}} variant="filled">LOG IN</Button>
 
                 <Typography sx={{mt: "1rem", ml:"0.5rem"}} color="#242c" fontSize={15}>
                     {"<Password reset placeholder>"}
                 </Typography>
 
             </Paper>
-            <Typography color="lightgray" sx={{mt:"1rem"}}>
+            <Typography color="lightgray" sx={{mt:"1rem", fontFamily: "Roboto, sans-serif"}}>
                 Designed by <span style={{color: "#242c6b", fontWeight: "bold"}}>TeamTasker</span> ©
             </Typography>
         </>
