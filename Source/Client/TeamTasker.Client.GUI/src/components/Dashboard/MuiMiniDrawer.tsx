@@ -17,11 +17,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BugReportIcon from '@mui/icons-material/BugReport';
-import UserElements from './UserElements';
 import AppsIcon from '@mui/icons-material/Apps';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
+
+import PreviewDrawerContent from "./PreviewDrawerContent";
+import UserElements from './UserElements';
+import LogoOrange from "../../assets/logo_orange.png";
 
 const drawerWidth = 240;
 
@@ -109,7 +112,7 @@ export default function MuiMiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
       <CssBaseline />
       <AppBar sx={{backgroundColor: "white"}} position="fixed" open={open}>
         <Toolbar>
@@ -197,12 +200,18 @@ export default function MuiMiniDrawer() {
           </List>
         </Box>
         {/*End of drawers sidebar body*/}
+        <Box sx={{backgroundColor: "#363b4d"}}>
+          <img src={LogoOrange} style={{width: `calc(${theme.spacing(7)} - 15px)`}}/>
+        </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 5, width: "100%"}}>
+      <Box component="main" sx={{ flexGrow: 1, p: 0}}>
         {/*Header of the Current Page <DrawerHeader sx={{backgroundColor:"red"}} />*/}
-        <Typography variant='h2'>
+        {/* <Typography variant='h2'>
           {"Page Content Placeholder"}
-        </Typography>
+        </Typography> */}
+
+        <PreviewDrawerContent/>
+
       </Box>
     </Box>
   );

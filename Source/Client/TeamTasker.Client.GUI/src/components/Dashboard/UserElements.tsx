@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -22,6 +22,8 @@ export default function UserElements()
                     <Typography variant="body1" color="#363b4d" fontWeight={550} sx={{ml: "2rem"}}>
                         <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>Placeholder 3
                     </Typography>
+
+                    <Button size="small" variant="contained" sx={{backgroundColor: "#363b4d", ml: "1.5rem"}}>Create</Button>
                 </Box>
                 
                 {/*Right Side of the Navbar*/}
