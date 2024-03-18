@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Application.Dtos
 {
-    internal class FileName
+    public class CreateCommentDto
     {
-
+        public string Content { get; set; } = string.Empty;
     }
 }
