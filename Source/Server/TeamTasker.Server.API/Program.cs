@@ -37,6 +37,10 @@ builder.Services.AddScoped<IIssueRepository, IssueRepository>();
 builder.Services.AddScoped<ILeaderRepository, LeaderRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+
+//Example Service initialization
+//builder.Services.AddScoped<IExampleService, ExampleService>();
+
 #endregion
 
 var app = builder.Build();
