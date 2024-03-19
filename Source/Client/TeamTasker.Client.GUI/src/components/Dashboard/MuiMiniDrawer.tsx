@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -26,78 +23,10 @@ import PreviewDrawerContent from "./PreviewDrawerContent";
 import UserElements from './UserElements';
 import LogoOrange from "../../assets/logo_orange.png";
 
-const drawerWidth = 240;
+import AppBar from "../Navigation/AppBar/AppBar.tsx";
+import {DrawerHeader, Drawer} from "../Navigation/Drawer/DrawerHelpers.tsx";
+import ModulesLinks from "../Navigation/Drawer/ModulesLinks.tsx";
 
-//TODO: Refactor this preview code
-
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
 
 export default function MuiMiniDrawer() {
   const theme = useTheme();
@@ -112,7 +41,7 @@ export default function MuiMiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
+    <>
       <CssBaseline />
       <AppBar sx={{backgroundColor: "white"}} position="fixed" open={open}>
         <Toolbar>
@@ -129,7 +58,7 @@ export default function MuiMiniDrawer() {
             <MenuIcon sx={{color: "#363b4d"}} />
           </IconButton>
           {/*Here is the top navbar*/}
-          <UserElements/>
+          <UserElements />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}
@@ -144,75 +73,13 @@ export default function MuiMiniDrawer() {
 
         {/*Drawers sidebar body*/}
         <Box sx={{width: "100%", height:"100%", backgroundColor: "#363b4d"}}>
-          <List>
-            {['placeholder 1', 'placeholder 2', 'placeholder 3', 'placeholder 4'].map((text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                      color: "white"
-                    }}
-                  >
-                    {index == 0 ? <AppsIcon/> : <></>}
-                    {index == 1 ? <AutoGraphIcon/> : <></>}
-                    {index == 2 ? <CalendarMonthIcon/> : <></>}
-                    {index == 3 ? <CoPresentIcon/> : <></>}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: "white"}} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider sx={{backgroundColor: "white"}} />
-          <List sx={{backgroundColor: "#363b4d"}}>
-            {['placeholder 5'].map((text) => (
-              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                      color: "white"
-                    }}
-                  >
-                    <BugReportIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: "white" }} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          <ModulesLinks isOpen={open}/>
         </Box>
         {/*End of drawers sidebar body*/}
         <Box sx={{backgroundColor: "#363b4d"}}>
           <img src={LogoOrange} style={{width: `calc(${theme.spacing(7)} - 15px)`}}/>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 0}}>
-        {/*Header of the Current Page <DrawerHeader sx={{backgroundColor:"red"}} />*/}
-        {/* <Typography variant='h2'>
-          {"Page Content Placeholder"}
-        </Typography> */}
-
-        <PreviewDrawerContent/>
-
-      </Box>
-    </Box>
+    </>
   );
 }
