@@ -12,6 +12,9 @@ namespace TeamTasker.Server.Infrastructure.Repositories
     public class CommentRepository : ICommentRepository
     {
         private readonly AppDbContext _appDbContext;
+
+        //TODO: Fix issues with the database access
+
         public CommentRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;

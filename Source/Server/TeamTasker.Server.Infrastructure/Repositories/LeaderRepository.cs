@@ -12,6 +12,9 @@ namespace TeamTasker.Server.Infrastructure.Repositories
     public class LeaderRepository : ILeaderRepository
     {
         private readonly AppDbContext _appDbContext;
+
+        //TODO: Fix issues with the database access
+
         public LeaderRepository(AppDbContext appDbcontext)
         {
             _appDbContext = appDbcontext;

@@ -13,6 +13,9 @@ namespace TeamTasker.Server.Infrastructure.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly AppDbContext _appDbContext;
+
+        //TODO: Fix issues with the database access
+
         public EmployeeRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
