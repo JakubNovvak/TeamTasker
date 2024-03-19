@@ -14,6 +14,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//TODO: Change database implementation to the SQL Server, instead of In Memory Database
+
+if (builder.Environment.IsProduction())
+{
+    //TODO: SQL Server implementation
+}
+else
+{
+    Console.WriteLine($">[DBInit] {builder.Environment.EnvironmentName} Mode - initializing In Memory Database...");
+
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseInMemoryDatabase("In Memory database")
+    );
+}
+
 //Adds repositories to the Dependency Injection Container
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
