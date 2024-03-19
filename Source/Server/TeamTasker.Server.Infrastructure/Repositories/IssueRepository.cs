@@ -12,6 +12,9 @@ namespace TeamTasker.Server.Infrastructure.Repositories
     public class IssueRepository : IIssueRepository
     {
         private readonly AppDbContext _appDbContext;
+
+        //TODO: Fix issues with the database access
+
         public IssueRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
