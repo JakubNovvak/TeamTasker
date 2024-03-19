@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Domain.Interfaces;
+using TeamTasker.Server.Infrastructure.Presistence;
+using TeamTasker.Server.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Services Configuration
@@ -9,6 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Adds repositories to the Dependency Injection Container
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IIssueRepository, IssueRepository>();
+builder.Services.AddScoped<ILeaderRepository, LeaderRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 #endregion
 
 var app = builder.Build();
