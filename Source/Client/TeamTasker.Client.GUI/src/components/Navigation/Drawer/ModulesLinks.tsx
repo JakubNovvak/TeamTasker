@@ -1,9 +1,4 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
-import BugReportIcon from '@mui/icons-material/BugReport';
-import AppsIcon from '@mui/icons-material/Apps';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CoPresentIcon from '@mui/icons-material/CoPresent';
 import { NavLink } from "react-router-dom";
 
 import ModuleButton from "./ModuleButton";
@@ -12,13 +7,18 @@ export default function ModulesLinks({isOpen}: {isOpen: boolean}){
     return(
       <>  
         <List>
-          <NavLink to="loginpage" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={1} buttonText="asdsadsadsaasd"/></NavLink>
-          <NavLink to="test" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={1} buttonText="asdsadsadsaasd"/></NavLink>
-          <NavLink to="preview" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={1} buttonText="asdsadsadsaasd"/></NavLink>
+          <NavLink to="preview" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={5} buttonText="Project Preview"/></NavLink>
+          <NavLink to="board" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={6} buttonText="Default Board"/></NavLink>
+          <NavLink to="issueslist" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={4} buttonText="Issues List"/></NavLink>
+          <NavLink to="notifications" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={9} buttonText="Notifications"/></NavLink>
+          <NavLink to="projectfeed" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={1} buttonText="Project Feed"/></NavLink>
+          <NavLink to="projectmembers" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={7} buttonText="Project Members"/></NavLink>
         </List>
           <Divider sx={{backgroundColor: "white"}} />
           <List sx={{backgroundColor: "#363b4d"}}>
-            <ModuleButton isOpen={isOpen} listKey={5} buttonText="Report a bug"/>
+            <NavLink to="usersettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={3} buttonText="User Settings"/></NavLink>
+            <NavLink to="projectsettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={8} buttonText="Project Settings"/></NavLink>
+            {/* <ModuleButton isOpen={isOpen} listKey={5} buttonText="Report a bug"/> */}
           </List>
 
       </>);

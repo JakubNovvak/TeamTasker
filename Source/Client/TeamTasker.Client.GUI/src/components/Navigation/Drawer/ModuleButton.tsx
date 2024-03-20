@@ -1,28 +1,48 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import BugReportIcon from '@mui/icons-material/BugReport';
 import AppsIcon from '@mui/icons-material/Apps';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import MessageIcon from '@mui/icons-material/Message';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CoPresentIcon from '@mui/icons-material/CoPresent';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import VideoLabelIcon from '@mui/icons-material/VideoLabel';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import BallotIcon from '@mui/icons-material/Ballot';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 function ChoosePredefinedIcon(listKey: number)
 {
-    //TODO: Implement better solution
+    //TODO: Implement better solution ASAP - this is only a temporary solution
 
     if(listKey == 0)
         return <AppsIcon/>;
 
     if(listKey == 1)
-        return <AutoGraphIcon/>;
+        return <MessageIcon/>;
 
     if(listKey == 2)
         return <CalendarMonthIcon/>;
 
+    if(listKey == 3)
+        return <ManageAccountsIcon/>;
+
     if(listKey == 4)
-        return <CoPresentIcon/>;
+        return <BallotIcon/>;
 
     if(listKey == 5)
-        return <BugReportIcon/>;
+        return <VideoLabelIcon/>;
+
+    if(listKey == 6)
+        return <ViewListIcon/>;
+
+    if(listKey == 7)
+        return <PeopleAltIcon/>;
+
+    if(listKey == 8)
+        return <SettingsSuggestIcon/>;
+
+    if(listKey == 9)
+        return <NotificationsIcon/>;
 }
 
 export default function ModuleButton({isOpen, listKey, buttonText}: {isOpen: boolean, listKey: number, buttonText: string}){

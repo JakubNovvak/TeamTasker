@@ -1,21 +1,49 @@
 import { Box, Drawer } from "@mui/material";
 import MuiMiniDrawer from "../../components/Dashboard/MuiMiniDrawer";
 import PreviewDrawerContent from "../../components/Dashboard/PreviewDrawerContent";
-import { NavLink, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+
+import Board from "../DrawerModules/Board";
+import IssuesList from "../DrawerModules/IssuesList";
+import Notifications from "../DrawerModules/Notifications";
+import ProjectFeed from "../DrawerModules/ProjectFeed";
+import ProjectMembers from "../DrawerModules/ProjectMembers";
+import ProjectPreview from "../DrawerModules/ProjectPreview";
+import ProjectSettings from "../DrawerModules/ProjectSettings";
+import UserSettings from "../DrawerModules/UserSettings";
 
 function renderSwitch(pathnName: string)
 {
     switch(pathnName)
     {
-        case "/projectname/loginpage":
+        case "/projectname/test":
             return <PreviewDrawerContent/>;
 
         case "/projectname/preview":
-                return <h1>preview</h1>;
+            return <ProjectPreview/>;
+
+        case "/projectname/issueslist":
+            return <IssuesList/>;
+
+        case "/projectname/notifications":
+            return <Notifications/>; 
+
+        case "/projectname/projectfeed":
+            return <ProjectFeed/>;
+
+        case "/projectname/projectsettings":
+            return <ProjectSettings/>;
+
+        case "/projectname/usersettings":
+            return <UserSettings/>;
+
+        case "/projectname/board":
+            return <Board/>;
+
+        case "/projectname/projectmembers":
+            return <ProjectMembers/>;
             
         default:
-            return <h1>404</h1>;
+            return <h1>404 - cannot find the module</h1>;
     }
 }
 
