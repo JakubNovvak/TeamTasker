@@ -2,6 +2,7 @@ import { AccountCircle, Key } from "@mui/icons-material";
 import { Input } from "@mui/joy";
 import { Box, Divider, Paper, Typography, styled } from "@mui/material";
 import Button from '@mui/material-next/Button';
+import { NavLink } from "react-router-dom";
 
 const ContentSeparator = styled("hr")({
     border: "0",
@@ -26,17 +27,19 @@ export default function LoginPage()
 
 
 
-                <Input sx={{alignSelf: "flex-center", backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem", mb: "1.3rem"}}
+                <Input defaultValue="TestAccount" sx={{alignSelf: "flex-center", backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem", mb: "1.3rem"}}
                 startDecorator={<AccountCircle />}
                 placeholder="Account login"
                 />
 
-                <Input sx={{backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem"}}
+                <Input defaultValue="TestAccountPassword" type="password" sx={{backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem"}}
                 startDecorator={<Key />}
                 placeholder="Account password"
                 />
 
-                <Button sx={{mt: "3rem", backgroundColor: "#004679", minWidth: "10rem", fontFamily: "Roboto, sans-serif"}} variant="filled">LOG IN</Button>
+                <NavLink to="/projectname/preview" style={{textDecoration: "none"}}>
+                    <Button sx={{mt: "3rem", backgroundColor: "#004679", minWidth: "10rem", fontFamily: "Roboto, sans-serif"}} variant="filled">LOG IN</Button>
+                </NavLink>
 
                 <Typography sx={{mt: "1rem", ml:"0.5rem"}} color="#242c" fontSize={15}>
                     {"<Password reset placeholder>"}
