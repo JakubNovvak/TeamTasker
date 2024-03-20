@@ -33,7 +33,7 @@ export default function ProjectPreview()
                                 Getting Started
                             </Typography>
 
-                            <Textarea value={tempText} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "30rem"}} variant="plain"/>
+                            <Textarea defaultValue={tempText} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "30rem"}} variant="plain"/>
 
                         </Paper>
                     </Grid>
@@ -44,7 +44,7 @@ export default function ProjectPreview()
                         </Typography>
 
                         <StatusSelect/>
-                        <Textarea value="All tasks are on schedule. The people involved know their tasks. The system is set up well." sx={{width: "97%", ml: "1rem", mt:"1rem", height: "2rem"}} variant="plain"/>
+                        <Textarea defaultValue="All tasks are on schedule. The people involved know their tasks. The system is set up well." sx={{width: "97%", ml: "1rem", mt:"1rem", height: "2rem"}} variant="plain"/>
 
                     </Paper>
                     <Paper elevation={3} sx={{display: "flex", flexDirection:"column", height: "12rem", mt: "2rem"}}>
@@ -52,7 +52,7 @@ export default function ProjectPreview()
                                 Project Description
                         </Typography>
 
-                        <Textarea value="Here is your project's description. Remember - make it simple but informative!" sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "5rem"}} variant="plain"/>
+                        <Textarea defaultValue="Here is your project's description. Remember - make it simple but informative!" sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "5rem"}} variant="plain"/>
 
                     </Paper>
                     <Paper elevation={3} sx={{display: "flex", flexDirection:"column", height: "12rem", mt: "2rem"}}>
