@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
+import { Divider, List} from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 import ModuleButton from "./ModuleButton";

@@ -1,4 +1,4 @@
-import { Box, Drawer } from "@mui/material";
+import { Box } from "@mui/material";
 import MuiMiniDrawer from "../../components/Dashboard/MuiMiniDrawer";
 import PreviewDrawerContent from "../../components/Dashboard/PreviewDrawerContent";
 

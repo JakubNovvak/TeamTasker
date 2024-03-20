@@ -1,6 +1,6 @@
 import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
 import banner_placeholder from "../../assets/banner_placeholder.png";
-import { Button, Input, Textarea } from "@mui/joy";
+import { Button, Textarea } from "@mui/joy";
 
 import tempText from "./previewText";
 import StatusSelect from "../../components/Modules/Preview/StatusSelect";

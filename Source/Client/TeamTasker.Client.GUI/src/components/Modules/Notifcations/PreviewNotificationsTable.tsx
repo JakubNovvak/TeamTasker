@@ -14,7 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Avatar, TableHead, Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -107,6 +107,7 @@ export default function PreviewNotificationsTable() {
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
+    console.log(event);
     setPage(newPage);
   };
 

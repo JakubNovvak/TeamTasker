@@ -110,6 +110,7 @@ export default function PreviewIssuesTable() {
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
+    console.log(event);
     setPage(newPage);
   };
 

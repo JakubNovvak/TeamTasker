@@ -1,5 +1,4 @@
 import { Box, Button, Typography } from "@mui/material";
-import PreviewTable from "../../components/Dashboard/PreviewTable";
 import PreviewIssuesTable from "../../components/Modules/IssuesList/PreviewIssuesTable";
 
 export default function IssuesList()
