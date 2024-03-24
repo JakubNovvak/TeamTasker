@@ -1,4 +1,4 @@
-﻿using TeamTasker.Server.Application.Dtos;
+﻿using TeamTasker.Server.Application.Dtos.Issues;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {

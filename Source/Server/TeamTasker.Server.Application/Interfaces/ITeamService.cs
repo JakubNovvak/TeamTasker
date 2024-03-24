@@ -1,4 +1,4 @@
-﻿using TeamTasker.Server.Application.Dtos;
+﻿using TeamTasker.Server.Application.Dtos.Teams;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {

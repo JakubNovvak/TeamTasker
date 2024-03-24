@@ -1,4 +1,4 @@
-﻿using TeamTasker.Server.Application.Dtos;
+﻿using TeamTasker.Server.Application.Dtos.Comments;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {

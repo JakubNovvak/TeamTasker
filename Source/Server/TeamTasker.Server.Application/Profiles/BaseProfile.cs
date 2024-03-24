@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TeamTasker.Server.Application.Dtos;
+using TeamTasker.Server.Application.Dtos.Comments;
+using TeamTasker.Server.Application.Dtos.Issues;
+using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Teams;
+using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Profiles
