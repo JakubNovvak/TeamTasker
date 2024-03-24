@@ -19,15 +19,10 @@ namespace TeamTasker.Server.Domain.Entities
         public int Prioroty { get; set; }
         public bool IsComplete { get; set; }
         public DateTime? CompleteTime { get; set; }
-        public virtual Leader Leader { get; set; } = default!;
-        //[ForeignKey("Leader")]
-        public int LeaderId { get; set; }
         public virtual Employee Employee { get; set; } = default!;
-        [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
         public virtual ICollection<Comment> Comments { get; set; } = default!;
         public virtual Project Project { get; set; } = default!;
-        [ForeignKey("Project")]
         public int ProjectId { get; set; }
     }
 }

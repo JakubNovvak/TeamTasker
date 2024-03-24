@@ -34,7 +34,6 @@ else
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IIssueRepository, IssueRepository>();
-builder.Services.AddScoped<ILeaderRepository, LeaderRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
@@ -52,6 +51,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var prepDatabase = new PrepDatabase(dbContext);
+    prepDatabase.Seed();
 }
 
 app.UseHttpsRedirection();

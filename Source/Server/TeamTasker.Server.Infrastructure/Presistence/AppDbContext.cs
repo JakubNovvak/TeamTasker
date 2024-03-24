@@ -11,6 +11,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
     public class AppDbContext : DbContext
     {
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Issue> Issues { get; set; }
@@ -28,20 +29,46 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Issue>()
-                .HasOne(i => i.Leader)                     
-                .WithMany(i => i.ReportedIssues)           
-                .HasForeignKey(i => i.LeaderId)            
-                .OnDelete(DeleteBehavior.Restrict);        
 
             modelBuilder.Entity<User>()
                 .ToTable("Users")
-                .HasDiscriminator<string>("Role")
-                .HasValue<User>("Admin")
-                .HasValue<Leader>("Leader")
-                .HasValue<Employee>("Employee");
+                .HasDiscriminator<int>("RoleId")
+                .HasValue<User>(1)
+                .HasValue<Employee>(2);
 
-            modelBuilder.Entity<UserNotification>()
+            modelBuilder.Entity<Team>()
+                 .HasOne(t => t.Leader)
+                 .WithMany()
+                 .HasForeignKey(t => t.LeaderId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Project>()
+                .HasOne(p => p.Team)
+                .WithOne(t => t.Project)
+                .HasForeignKey<Team>(t => t.ProjectId);
+
+            modelBuilder.Entity<Issue>()
+                .HasOne(i => i.Project)
+                .WithMany(p => p.Issues)
+                .HasForeignKey(i => i.ProjectId);
+
+            modelBuilder.Entity<Issue>()
+                .HasOne(i => i.Employee)
+                .WithMany(e => e.Issues)
+                .HasForeignKey(i => i.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);//aby działała relacja many to many comment user(raczej chwilowe rozwiązanie)
+
+            modelBuilder.Entity<Team>()
+                .HasMany(t => t.Employees)
+                .WithMany(e => e.Teams);
+
+            modelBuilder.Entity<Comment>()
+                .HasMany(c => c.Users)
+                .WithMany(u => u.Notifications)
+                .UsingEntity(j => j.ToTable("UserNotification"));
+
+
+            /*modelBuilder.Entity<UserNotification>()
                 .HasKey(un => new { un.NotificationId, un.UserId });
 
             modelBuilder.Entity<UserNotification>()
@@ -53,9 +80,9 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 .HasOne(u => u.User)
                 .WithMany(un => un.UserNotifications)
                 .HasForeignKey(u => u.UserId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);*/
 
-            modelBuilder.Entity<EmployeeTeam>()
+            /*modelBuilder.Entity<EmployeeTeam>()
                 .HasKey(et => new { et.TeamId, et.EmployeeId });
 
             modelBuilder.Entity<EmployeeTeam>()
@@ -67,7 +94,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 .HasOne(e => e.Employee)
                 .WithMany(et => et.EmployeeTeams)
                 .HasForeignKey(e => e.EmployeeId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
         }
 
     }
