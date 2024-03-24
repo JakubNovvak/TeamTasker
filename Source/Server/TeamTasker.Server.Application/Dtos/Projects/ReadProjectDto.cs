@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TeamTasker.Server.Domain.Entities;
 
-namespace TeamTasker.Server.Application.Dtos
+namespace TeamTasker.Server.Application.Dtos.Projects
 {
     public class ReadProjectDto
     {

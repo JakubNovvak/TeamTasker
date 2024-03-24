@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TeamTasker.Server.Application.Dtos
+namespace TeamTasker.Server.Application.Dtos.Users
 {
     public class CreateUserDto
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TeamTasker.Server.Application.Dtos;
+using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;

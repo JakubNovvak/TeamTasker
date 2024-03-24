@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TeamTasker.Server.Domain\TeamTasker.Server.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\Noitifcations\" />
+  </ItemGroup>
+
 </Project>

@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamTasker.Server.Domain.Entities;
+using TeamTasker.Server.Application.Dtos.Users;
 
-namespace TeamTasker.Server.Application.Dtos
+namespace TeamTasker.Server.Application.Dtos.Comments
 {
     public class ReadCommentDto
     {

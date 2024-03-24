@@ -1,4 +1,4 @@
-﻿using TeamTasker.Server.Application.Dtos;
+﻿using TeamTasker.Server.Application.Dtos.Projects;
 
 namespace TeamTasker.Server.Application.Interfaces
 {
