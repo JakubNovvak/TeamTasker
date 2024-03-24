@@ -15,6 +15,7 @@ namespace TeamTasker.Server.Application.Dtos.Users
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
-        public virtual ICollection<ReadCommentDto> Notifications { get; set; } = default!;
+
+        //public virtual ICollection<ReadCommentDto> Notifications { get; set; } = default!;
     }
 }

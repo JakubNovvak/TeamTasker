@@ -16,8 +16,9 @@ namespace TeamTasker.Server.Application.Dtos.Comments
         public DateTime Created { get; set; } = DateTime.Now;
         public string Content { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
-        public virtual ICollection<ReadUserDto> Users { get; set; } = default!;
         public string IssueName { get; set; } = string.Empty;
         public int IssueId { get; set; }
+
+        //public virtual ICollection<ReadUserDto> Users { get; set; } = default!;
     }
 }

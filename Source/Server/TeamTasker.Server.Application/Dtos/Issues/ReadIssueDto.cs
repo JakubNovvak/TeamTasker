@@ -22,8 +22,9 @@ namespace TeamTasker.Server.Application.Dtos.Issues
         public int LeaderId { get; set; }
         public string EmployeeName { get; set; } = string.Empty;
         public int EmployeeId { get; set; }
-        public ICollection<ReadCommentDto> Comments { get; set; } = default!;
         public string ProjectName { get; set; } = string.Empty;
         public int ProjectId { get; set; }
+
+        //public ICollection<ReadCommentDto> Comments { get; set; } = default!;
     }
 }

@@ -15,8 +15,9 @@ namespace TeamTasker.Server.Application.Dtos.Teams
         public string Name { get; set; } = string.Empty;
         public string ProjectName { get; set; } = string.Empty;
         public int ProjectId { get; set; }
-        public ICollection<ReadEmployeeDto> Employees { get; set; } = default!;
         public string LeaderName { get; set; } = string.Empty;
         public int LeaderId { get; set; }
+
+        //public ICollection<ReadEmployeeDto> Employees { get; set; } = default!;
     }
 }
