@@ -24,7 +24,15 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             if (comment == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Add(comment);
+            _appDbContext.Comments.Add(comment);
+            _appDbContext.SaveChanges();
+        }
+        public void UpdateComment(Comment comment)
+        {
+            if (comment == null)
+                throw new ArgumentNullException();
+
+            _appDbContext.Comments.Update(comment);
             _appDbContext.SaveChanges();
         }
 
@@ -35,7 +43,7 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             return allDbComments;
         }
 
-        public Comment GetComment(int id)
+        public Comment? GetComment(int? id)
         {
             return _appDbContext.Comments.FirstOrDefault(comment => comment.Id == id);
         }

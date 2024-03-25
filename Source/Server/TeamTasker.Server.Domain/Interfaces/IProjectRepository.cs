@@ -10,7 +10,8 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface IProjectRepository
     {
         void CreateProject(Project project);
+        void UpdateProject(Project project);
         IEnumerable<Project> GetAllProjects();
-        Project GetProject(int id);
+        Project? GetProject(int? id);
     }
 }

@@ -10,7 +10,8 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface IEmployeeRepository
     {
         void CreateEmployee(Employee employee);
+        void UpdateEmployee(Employee employee);
         IEnumerable<Employee> GetAllEmployees();
-        Employee GetEmployee(int id);
+        Employee? GetEmployee(int? id);
     }
 }

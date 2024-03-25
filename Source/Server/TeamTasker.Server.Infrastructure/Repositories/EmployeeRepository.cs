@@ -25,7 +25,16 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             if (employee == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Add(employee);
+            _appDbContext.Users.Add(employee);
+            _appDbContext.SaveChanges();
+        }
+
+        public void UpdateEmployee(Employee employee)
+        {
+            if (employee == null)
+                throw new ArgumentNullException();
+
+            _appDbContext.Users.Update(employee);
             _appDbContext.SaveChanges();
         }
 
@@ -36,7 +45,7 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             return allDbEmployees;
         }
 
-        public Employee GetEmployee(int id)
+        public Employee? GetEmployee(int? id)
         {
             return _appDbContext.Users.OfType<Employee>().FirstOrDefault(employee => employee.Id == id);
         }

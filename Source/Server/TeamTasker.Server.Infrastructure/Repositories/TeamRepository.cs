@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,15 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             if (team == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Add(team);
+            _appDbContext.Teams.Add(team);
+            _appDbContext.SaveChanges();
+        }
+        public void UpdateTeam(Team team)
+        {
+            if (team == null)
+                throw new ArgumentNullException();
+
+            _appDbContext.Teams.Update(team);
             _appDbContext.SaveChanges();
         }
 
@@ -35,7 +44,7 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             return allDbTeams;
         }
 
-        public Team GetTeam(int id)
+        public Team? GetTeam(int? id)
         {
             return _appDbContext.Teams.FirstOrDefault(team => team.Id == id);
         }

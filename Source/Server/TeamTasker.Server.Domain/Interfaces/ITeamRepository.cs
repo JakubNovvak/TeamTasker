@@ -10,7 +10,8 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface ITeamRepository
     {
         void CreateTeam(Team team);
+        void UpdateTeam(Team team);
         IEnumerable<Team> GetAllTeams();
-        Team GetTeam(int id);
+        Team? GetTeam(int? id);
     }
 }

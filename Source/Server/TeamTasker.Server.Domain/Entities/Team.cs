@@ -18,5 +18,6 @@ namespace TeamTasker.Server.Domain.Entities
         public virtual Employee Leader { get; set; } = default!;
         public int LeaderId { get; set; }
         public virtual ICollection<Employee> Employees { get; set; } = default!;
+        public virtual ICollection<Comment> Notifications { get; set; } = default;
     }
 }

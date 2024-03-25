@@ -24,7 +24,15 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             if (project == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Add(project);
+            _appDbContext.Projects.Add(project);
+            _appDbContext.SaveChanges();
+        }
+        public void UpdateProject(Project project)
+        {
+            if (project == null)
+                throw new ArgumentNullException();
+
+            _appDbContext.Projects.Update(project);
             _appDbContext.SaveChanges();
         }
 
@@ -35,7 +43,7 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             return allDbProjects;
         }
 
-        public Project GetProject(int id)
+        public Project? GetProject(int? id)
         {
             return _appDbContext.Projects.FirstOrDefault(project => project.Id == id);
         }

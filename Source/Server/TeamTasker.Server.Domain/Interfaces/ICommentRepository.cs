@@ -10,7 +10,8 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface ICommentRepository
     {
         void CreateComment(Comment comment);
+        void UpdateComment(Comment comment);
         IEnumerable<Comment> GetAllComments();
-        Comment GetComment(int id);
+        Comment? GetComment(int? id);
     }
 }
