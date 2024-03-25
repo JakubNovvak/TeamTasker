@@ -14,11 +14,10 @@ namespace TeamTasker.Server.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public virtual Project Project { get; set; } = default!;
-        [ForeignKey("Project")]
         public int ProjectId { get; set; }
-        public virtual ICollection<EmployeeTeam> EmployeeTeams { get; set; } = default!;
-        public virtual Leader Leader { get; set; } = default!;
-        [ForeignKey("Leader")]
+        public virtual Employee Leader { get; set; } = default!;
         public int LeaderId { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; } = default!;
+        public virtual ICollection<Comment> Notifications { get; set; } = default;
     }
 }

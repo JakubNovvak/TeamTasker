@@ -24,7 +24,15 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             if (issue == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Add(issue);
+            _appDbContext.Issues.Add(issue);
+            _appDbContext.SaveChanges();
+        }
+        public void UpdateIssue(Issue issue)
+        {
+            if (issue == null)
+                throw new ArgumentNullException();
+
+            _appDbContext.Issues.Update(issue);
             _appDbContext.SaveChanges();
         }
 
@@ -35,7 +43,7 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             return allDbIssues;
         }
 
-        public Issue GetIssue(int id)
+        public Issue? GetIssue(int? id)
         {
             return _appDbContext.Issues.FirstOrDefault(issue => issue.Id == id);
         }

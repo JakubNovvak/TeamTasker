@@ -10,7 +10,8 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface IIssueRepository
     {
         void CreateIssue(Issue issue);
+        void UpdateIssue(Issue issue);
         IEnumerable<Issue> GetAllIssues();
-        Issue GetIssue(int id);
+        Issue? GetIssue(int? id);
     }
 }

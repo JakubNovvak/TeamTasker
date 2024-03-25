@@ -8,7 +8,7 @@ namespace TeamTasker.Server.Domain.Entities
 {
     public class Employee : User
     {
-        public virtual ICollection<Issue> AssignedIssues { get; set; } = default!;
-        public virtual ICollection<EmployeeTeam> EmployeeTeams { get; set; } = default!;
+        public virtual ICollection<Team> Teams { get; set; } = default!;
+        public virtual ICollection<Issue> Issues { get; set; } = default!;
     }
 }
