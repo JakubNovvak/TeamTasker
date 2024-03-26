@@ -17,7 +17,7 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public ReadEmployeeDto CreateEmployee(CreateEmployeeDto employeeDto)
+        public ReadDetailedEmployeeDto CreateEmployee(CreateEmployeeDto employeeDto)
         {
             if (employeeDto == null)
                 throw new ArgumentNullException(nameof(employeeDto));
@@ -25,26 +25,26 @@ namespace TeamTasker.Server.Infrastructure.Services
             var employee = _mapper.Map<Employee>(employeeDto);
             _employeeRepository.CreateEmployee(employee);
 
-            var readEmployeeDto = _mapper.Map<ReadEmployeeDto>(employee);
+            var readEmployeeDto = _mapper.Map<ReadDetailedEmployeeDto>(employee);
             return readEmployeeDto;
         }
 
-        public IEnumerable<ReadEmployeeDto> GetAllEmployees()
+        public IEnumerable<ReadDetailedEmployeeDto> GetAllEmployees()
         {
             var employees = _employeeRepository.GetAllEmployees();
-            var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
+            var employeeDtos = _mapper.Map<IEnumerable<ReadDetailedEmployeeDto>>(employees);
 
             return employeeDtos;
         }
 
-        public ReadEmployeeDto GetEmployeeById(int id)
+        public ReadDetailedEmployeeDto GetEmployeeById(int id)
         {
             var employee = _employeeRepository.GetEmployee(id);
 
             if (employee == null)
                 throw new ArgumentNullException(nameof(employee));
 
-            var employeeDto = _mapper.Map<ReadEmployeeDto>(employee);
+            var employeeDto = _mapper.Map<ReadDetailedEmployeeDto>(employee);
 
             return employeeDto;
         }
@@ -67,6 +67,11 @@ namespace TeamTasker.Server.Infrastructure.Services
 
             var userDto = _mapper.Map<ReadUserDto>(user);
             return userDto.Password;
+        }
+
+        public ReadDetailedEmployeeDto UpdateEmployee(CreateEmployeeDto userDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

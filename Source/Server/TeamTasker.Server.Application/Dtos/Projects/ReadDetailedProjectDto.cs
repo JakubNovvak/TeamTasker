@@ -8,7 +8,7 @@ using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Dtos.Projects
 {
-    public class ReadProjectDto
+    public class ReadDetailedProjectDto
     {
         [Key]
         public int Id { get; set; }

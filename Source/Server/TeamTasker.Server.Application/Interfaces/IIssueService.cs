@@ -7,5 +7,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadIssueDto CreateIssue(CreateIssueDto issueDto);
         IEnumerable<ReadIssueDto> GetAllIssues();
         ReadIssueDto GetIssueById(int id);
+        ReadIssueDto UpdateIssue(CreateIssueDto updateDto);
     }
 }

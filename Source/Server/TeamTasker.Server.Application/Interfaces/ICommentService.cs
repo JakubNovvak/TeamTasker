@@ -7,5 +7,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadCommentDto CreateComment(CreateCommentDto commentDto);
         IEnumerable<ReadCommentDto> GetAllComments();
         ReadCommentDto GetCommentById(int id);
+        ReadCommentDto UpdateComment(CreateCommentDto commentDto);
     }
 }

@@ -24,7 +24,8 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Issue, ReadIssueDto>();
 
             CreateMap<CreateProjectDto, Project>();
-            CreateMap<Project, ReadProjectDto>();
+            CreateMap<Project, ReadDetailedProjectDto>();
+            CreateMap<Project, ReadCardProjectDto>();
 
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
@@ -33,8 +34,10 @@ namespace TeamTasker.Server.Application.Profiles
             // CreateMap<CreateEmployeeDto, User>();
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<User, ReadUserDto>();
-            CreateMap<Employee, ReadEmployeeDto>();
+
+            CreateMap<Employee, ReadDetailedEmployeeDto>();
             CreateMap<Employee, ReadUserDto>();
+            CreateMap<Employee, ReadCardEmployeeDto>();
         }
     }
 }

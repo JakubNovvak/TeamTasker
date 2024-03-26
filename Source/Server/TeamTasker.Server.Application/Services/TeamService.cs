@@ -47,5 +47,10 @@ namespace TeamTasker.Server.Infrastructure.Services
 
             return teamDto;
         }
+
+        public ReadTeamDto UpdateTeam(CreateTeamDto teamDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

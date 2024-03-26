@@ -10,7 +10,7 @@ using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Dtos.Users
 {
-    public class ReadEmployeeDto
+    public class ReadDetailedEmployeeDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;

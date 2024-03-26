@@ -47,5 +47,10 @@ namespace TeamTasker.Server.Infrastructure.Services
 
             return commentDto;
         }
+
+        public ReadCommentDto UpdateComment(CreateCommentDto commentDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

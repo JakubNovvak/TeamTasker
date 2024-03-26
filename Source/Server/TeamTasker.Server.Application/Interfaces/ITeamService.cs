@@ -7,5 +7,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadTeamDto CreateTeam(CreateTeamDto teamDto);
         IEnumerable<ReadTeamDto> GetAllTeams();
         ReadTeamDto GetTeamById(int id);
+        ReadTeamDto UpdateTeam(CreateTeamDto teamDto);
     }
 }

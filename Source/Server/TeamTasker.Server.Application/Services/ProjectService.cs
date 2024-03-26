@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -17,7 +18,7 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public ReadProjectDto CreateProject(CreateProjectDto projectDto)
+        public ReadDetailedProjectDto CreateProject(CreateProjectDto projectDto)
         {
             if (projectDto == null)
                 throw new ArgumentNullException(nameof(projectDto));
@@ -25,28 +26,33 @@ namespace TeamTasker.Server.Infrastructure.Services
             var project = _mapper.Map<Project>(projectDto);
             _projectRepository.CreateProject(project);
 
-            var readProjectDto = _mapper.Map<ReadProjectDto>(project);
+            var readProjectDto = _mapper.Map<ReadDetailedProjectDto>(project);
             return readProjectDto;
         }
 
-        public IEnumerable<ReadProjectDto> GetAllProjects()
+        public IEnumerable<ReadDetailedProjectDto> GetAllProjects()
         {
             var projects = _projectRepository.GetAllProjects();
-            var projectDtos = _mapper.Map<IEnumerable<ReadProjectDto>>(projects);
+            var projectDtos = _mapper.Map<IEnumerable<ReadDetailedProjectDto>>(projects);
 
             return projectDtos;
         }
 
-        public ReadProjectDto GetProjectById(int id)
+        public ReadDetailedProjectDto GetProjectById(int id)
         {
             var project = _projectRepository.GetProject(id);
 
             if (project == null)
                 throw new ArgumentNullException(nameof(project));
 
-            var projectDto = _mapper.Map<ReadProjectDto>(project);
+            var projectDto = _mapper.Map<ReadDetailedProjectDto>(project);
 
             return projectDto;
+        }
+
+        public ReadDetailedProjectDto UpdateProject(CreateTeamDto projectDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -47,5 +47,10 @@ namespace TeamTasker.Server.Infrastructure.Services
 
             return issueDto;
         }
+
+        public ReadIssueDto UpdateIssue(CreateIssueDto updateDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
