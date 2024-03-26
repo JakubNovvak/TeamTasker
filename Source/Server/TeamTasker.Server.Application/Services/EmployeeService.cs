@@ -16,12 +16,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void CreateEmployee(CreateUserDto userDto)
+        public void CreateEmployee(CreateEmployeeDto employeeDto)
         {
-            if (userDto == null)
-                throw new ArgumentNullException(nameof(userDto));
+            if (employeeDto == null)
+                throw new ArgumentNullException(nameof(employeeDto));
 
-            var employee = _mapper.Map<Employee>(userDto);
+            var employee = _mapper.Map<Employee>(employeeDto);
 
             _employeeRepository.CreateEmployee(employee);
         }
@@ -44,6 +44,26 @@ namespace TeamTasker.Server.Infrastructure.Services
             var employeeDto = _mapper.Map<ReadEmployeeDto>(employee);
 
             return employeeDto;
+        }
+
+        public ReadUserDto GetUserByEmail(string email)
+        {
+            var user = _employeeRepository.GetUserByEmail(email);
+
+            if (user == null)
+                return null;
+
+            var employeeDto = _mapper.Map<ReadUserDto>(user);
+
+            return employeeDto;
+        }
+
+        public string GetUserPassword(int id)
+        {
+            var user = _employeeRepository.GetUser(id);
+
+            var userDto = _mapper.Map<ReadUserDto>(user);
+            return userDto.Password;
         }
     }
 }

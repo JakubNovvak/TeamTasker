@@ -30,9 +30,11 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Team, ReadTeamDto>();
 
 
-            CreateMap<CreateUserDto, User>();
+            // CreateMap<CreateEmployeeDto, User>();
+            CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<User, ReadUserDto>();
             CreateMap<Employee, ReadEmployeeDto>();
+            CreateMap<Employee, ReadUserDto>();
         }
     }
 }

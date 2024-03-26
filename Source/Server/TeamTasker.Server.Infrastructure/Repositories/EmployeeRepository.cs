@@ -49,5 +49,14 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.Users.OfType<Employee>().FirstOrDefault(employee => employee.Id == id);
         }
+
+        public User? GetUserByEmail(string? email)
+        {
+            return _appDbContext.Users.FirstOrDefault(u => u.Email == email);
+        }
+        public User? GetUser(int? id)
+        {
+            return _appDbContext.Users.FirstOrDefault(employee => employee.Id == id);
+        }
     }
 }
