@@ -14,6 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { Avatar, TableHead, Typography } from '@mui/material';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -81,21 +82,25 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, calories: string, fat: string) {
-  return { name, calories, fat };
+function createData(id: number, topic: string, status: string, assignedTo: string, priority: string) {
+  return { id, topic, status, assignedTo, priority };
 }
 
 const rows = [
-  createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt', "✅", "0/1"),
-  createData('ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation', "✅", "1/1"),
-  createData('ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit', "❌", "2/2"),
-  createData('in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat', "⏺", "1/3"),
-  createData('cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', "🟪", "0/10")
+  createData(1, 'Create database model', "🟩 Done", "", "🔵 Normal"),
+  createData(2, 'Add entities based on database model', "🟩 Done", "", "🔵 Normal"),
+  createData(3, 'Create the most importnant Dtos', "🟩 Done", "", "🔵 Normal"),
+  createData(4, 'Create class AppDbContext', "🟩 Done", "", "🔵 Normal"),
+  createData(5, 'Implement Repositories', "🟩 Done", "", "🔵 Normal"),
+  createData(6, 'Add repositories to the dependency injection container in Program.cs', "🟩 Done", "", "🔵 Normal"),
+  createData(7, 'Add AutoMapper profiles to allow using dtos in services', "🟩 Done", "", "🔵 Normal"),
+  createData(8, 'Create additional initial views', "🟩 Done", "", "🔵 Normal"),
+  createData(9, 'Chair the presentation this wednesday', "🟦 In progress", "", "🔴 Urgent")
 ];
 
-export default function PreviewTable() {
+export default function PreviewIssuesTable() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(9);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -117,22 +122,42 @@ export default function PreviewTable() {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer elevation={0} component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell align="left">Topic</TableCell>
+            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Assigned to</TableCell>
+            <TableCell align="right">Priority</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.topic}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.id}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.topic}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="left">
+                {row.status}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+                <Box display={'flex'} flexDirection={'row'}>
+                    <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "2rem", height: "2rem"}}/> 
+                    <Typography sx={{alignSelf: "center", ml: "1rem"}}>
+                        Test&nbsp;Testowy
+                    </Typography>
+                </Box>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+                {row.priority}
               </TableCell>
             </TableRow>
           ))}
@@ -146,7 +171,7 @@ export default function PreviewTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={5}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}

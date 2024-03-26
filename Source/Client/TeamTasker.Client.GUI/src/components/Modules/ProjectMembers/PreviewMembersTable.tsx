@@ -14,6 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { Avatar, TableHead, Typography } from '@mui/material';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -81,21 +82,17 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, calories: string, fat: string) {
-  return { name, calories, fat };
+function createData(name: string, email: string, Role: string, status: string) {
+  return { name, email, Role, status };
 }
 
 const rows = [
-  createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt', "✅", "0/1"),
-  createData('ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation', "✅", "1/1"),
-  createData('ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit', "❌", "2/2"),
-  createData('in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat', "⏺", "1/3"),
-  createData('cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', "🟪", "0/10")
+  createData("Test Testowy", "testtestowy@test.pl", "Project Admin", "active")
 ];
 
-export default function PreviewTable() {
+export default function PreviewMembersTable() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(9);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -117,22 +114,38 @@ export default function PreviewTable() {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer elevation={0} component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <TableHead>
+          <TableRow>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">Email</TableCell>
+            <TableCell align="left">Role</TableCell>
+            <TableCell align="left">Status</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
+              <TableCell component="th" scope="row" style={{ width: 160 }}>
+                <Box display={'flex'} flexDirection={'row'}>
+                    <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "2rem", height: "2rem"}}/> 
+                    <Typography sx={{alignSelf: "center", ml: "1rem"}}>
+                        {row.name}
+                    </Typography>
+                </Box>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+              <TableCell style={{ width: 160 }} align="left">
+                {row.email}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+              <TableCell style={{ width: 160 }} align="left">
+                {row.Role}
+              </TableCell>
+              <TableCell style={{ width: 50 }} align="left">
+                {row.status}
               </TableCell>
             </TableRow>
           ))}
@@ -146,7 +159,7 @@ export default function PreviewTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={5}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}

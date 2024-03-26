@@ -14,6 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { Avatar, Typography } from '@mui/material';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -81,21 +82,22 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, calories: string, fat: string) {
-  return { name, calories, fat };
+function createData(topic: string, status: string, fromWho: string, receiveDate: string) {
+  return {topic, status, fromWho, receiveDate };
 }
 
 const rows = [
-  createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt', "✅", "0/1"),
-  createData('ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation', "✅", "1/1"),
-  createData('ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit', "❌", "2/2"),
-  createData('in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat', "⏺", "1/3"),
-  createData('cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', "🟪", "0/10")
+  createData("User 'Test Testowy' has commented on your issue", "🔵", "1", "20 march - 10:00"),
+  createData('There is something with this code...', "🔵", "", "18 march - 15:30"),
+  createData("Don't forget about the friday meeting", "", "", "17 march - 14:30"),
+  createData("A new task has been assigned to you by 'Project Manager'.", "", "1", "15 march - 12:30"),
+  createData("Your password reset request has been successfully processed.", "", "1", "14 march - 11:30")
+
 ];
 
-export default function PreviewTable() {
+export default function PreviewNotificationsTable() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(9);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -117,22 +119,44 @@ export default function PreviewTable() {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer elevation={0} component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.topic}>
               <TableCell component="th" scope="row">
-                {row.name}
+                <Typography fontSize={16} fontWeight={500}>
+                    {row.topic}
+                </Typography>
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="left">
+                {row.status}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+                <Box display={'flex'} flexDirection={'row'}>
+                    {row.fromWho == "1" ? 
+                    <>
+                        <Avatar alt="Cindy Baker" src="" sx={{width: "2rem", height: "2rem"}}/> 
+                        <Typography sx={{alignSelf: "center", ml: "1rem"}}>
+                            System
+                        </Typography>
+                    </> 
+                    : 
+                    <>
+                        <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "2rem", height: "2rem"}}/> 
+                            <Typography sx={{alignSelf: "center", ml: "1rem"}}>
+                            Test&nbsp;Testowy
+                        </Typography>
+                    </>}
+                </Box>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+                <Typography fontSize={15} sx={{fontStyle: "italic"}}>
+                    {row.receiveDate}
+                </Typography>
               </TableCell>
             </TableRow>
           ))}
@@ -146,7 +170,7 @@ export default function PreviewTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={5}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
