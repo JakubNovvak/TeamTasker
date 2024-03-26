@@ -26,7 +26,12 @@ namespace TeamTasker.Server.Application.Authorization
                 { JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(10))}
             };
 
-            var securityToken = new JwtSecurityToken(header, payload);
+            var payload2 = new JwtPayload(readUserDto.Email, null, null, null, DateTime.Now.AddMinutes(10))
+            {
+                { "roleId", readUserDto.RoleId }
+            }; //10 minutes
+
+            var securityToken = new JwtSecurityToken(header, payload2);
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
