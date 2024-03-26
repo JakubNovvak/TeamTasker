@@ -15,7 +15,7 @@ namespace TeamTasker.Server.Domain.Entities
         public DateTime Deadline { get; set; }
         public string Status { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public bool IsComplete { get; set; }
+        public bool IsComplete { get; set; } = false;
         public virtual Team Team { get; set; } = default!;
         public virtual ICollection<Issue> Issues { get; set; } = default!;
         public virtual ICollection<Comment> Comments { get; set; } = default!;

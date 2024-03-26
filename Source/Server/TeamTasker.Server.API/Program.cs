@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Interfaces;
 using TeamTasker.Server.Infrastructure.Presistence;
 using TeamTasker.Server.Infrastructure.Repositories;
@@ -41,6 +42,8 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+
 #endregion
 
 var app = builder.Build();
