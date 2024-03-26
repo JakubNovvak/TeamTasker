@@ -86,9 +86,9 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var users = new List<User>()
             {
-                new User(){ FirstName = "Admin"},
-                new Employee(){FirstName = "Employee1", Email="test@test.pl", Password ="password1"},
-                new Employee(){FirstName = "Employee2", Email="aaa@aa.pl", Password ="password2"},
+                new User(){ FirstName = "Admin", Email="admin", Password="admin"},
+                new Employee(){FirstName = "Employee1", Email="user@test.pl", Password ="password"},
+                new Employee(){FirstName = "Employee2", Email="leader@test.pl", Password ="password"},
                 new Employee(){FirstName = "Employee3"},
                 new Employee(){FirstName = "Employee4"},
                 new Employee(){FirstName = "Employee5"},
