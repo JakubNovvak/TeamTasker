@@ -19,8 +19,19 @@ namespace TeamTasker.Server.Application.Authorization
             var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
             var header = new JwtHeader(credentials);
 
-            var payload = new JwtPayload(readUserDto.Email, null, null, null, DateTime.Now.AddMinutes(10)); //10 minutes
-            var securityToken = new JwtSecurityToken(header, payload);
+            var payload = new JwtPayload
+            {
+                { "email", readUserDto.Email },
+                { "roleId", readUserDto.RoleId },
+                { JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(10))}
+            };
+
+            var payload2 = new JwtPayload(readUserDto.Email, null, null, null, DateTime.Now.AddMinutes(10))
+            {
+                { "roleId", readUserDto.RoleId }
+            }; //10 minutes
+
+            var securityToken = new JwtSecurityToken(header, payload2);
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
