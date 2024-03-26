@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Application.Services.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
@@ -43,6 +44,7 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();
 #endregion
 
