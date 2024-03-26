@@ -19,6 +19,16 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        builder => builder.WithOrigins(["http://localhost:5173/", "http://192.168.0.112:5173/"])
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+        );
+});
+
 //TODO: Change database implementation to the SQL Server, instead of In Memory Database
 
 if (builder.Environment.IsProduction())
@@ -67,6 +77,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 
