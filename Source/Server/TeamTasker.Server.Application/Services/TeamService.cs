@@ -16,14 +16,16 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void CreateTeam(CreateTeamDto teamDto)
+        public ReadTeamDto CreateTeam(CreateTeamDto teamDto)
         {
             if (teamDto == null)
                 throw new ArgumentNullException(nameof(teamDto));
 
             var team = _mapper.Map<Team>(teamDto);
-
             _teamRepository.CreateTeam(team);
+
+            var readTeamDto = _mapper.Map<ReadTeamDto>(team);
+            return readTeamDto;
         }
 
         public IEnumerable<ReadTeamDto> GetAllTeams()
@@ -34,12 +36,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             return teamDtos;
         }
 
-        public ReadTeamDto GetTeam(int id)
+        public ReadTeamDto GetTeamById(int id)
         {
             var team = _teamRepository.GetTeam(id);
 
             if (team == null)
-                return null;
+                throw new ArgumentNullException(nameof(team));
 
             var teamDto = _mapper.Map<ReadTeamDto>(team);
 

@@ -16,14 +16,16 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void CreateComment(CreateCommentDto commentDto)
+        public ReadCommentDto CreateComment(CreateCommentDto commentDto)
         {
             if (commentDto == null)
                 throw new ArgumentNullException(nameof(commentDto));
 
             var comment = _mapper.Map<Comment>(commentDto);
-
             _commentRepository.CreateComment(comment);
+            
+            var readCommentDto = _mapper.Map<ReadCommentDto>(comment);
+            return readCommentDto;
         }
 
         public IEnumerable<ReadCommentDto> GetAllComments()
@@ -34,12 +36,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             return commentDtos;
         }
 
-        public ReadCommentDto GetComment(int id)
+        public ReadCommentDto GetCommentById(int id)
         {
             var comment = _commentRepository.GetComment(id);
 
             if (comment == null)
-                return null;
+                throw new ArgumentNullException(nameof(comment));
 
             var commentDto = _mapper.Map<ReadCommentDto>(comment);
 

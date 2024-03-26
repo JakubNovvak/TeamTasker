@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Xml.Linq;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -16,14 +17,16 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void CreateEmployee(CreateEmployeeDto employeeDto)
+        public ReadEmployeeDto CreateEmployee(CreateEmployeeDto employeeDto)
         {
             if (employeeDto == null)
                 throw new ArgumentNullException(nameof(employeeDto));
 
             var employee = _mapper.Map<Employee>(employeeDto);
-
             _employeeRepository.CreateEmployee(employee);
+
+            var readEmployeeDto = _mapper.Map<ReadEmployeeDto>(employee);
+            return readEmployeeDto;
         }
 
         public IEnumerable<ReadEmployeeDto> GetAllEmployees()
@@ -34,12 +37,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             return employeeDtos;
         }
 
-        public ReadEmployeeDto GetEmployee(int id)
+        public ReadEmployeeDto GetEmployeeById(int id)
         {
             var employee = _employeeRepository.GetEmployee(id);
 
             if (employee == null)
-                return null;
+                throw new ArgumentNullException(nameof(employee));
 
             var employeeDto = _mapper.Map<ReadEmployeeDto>(employee);
 
@@ -51,14 +54,14 @@ namespace TeamTasker.Server.Infrastructure.Services
             var user = _employeeRepository.GetUserByEmail(email);
 
             if (user == null)
-                return null;
+                throw new ArgumentNullException(nameof(user));
 
             var employeeDto = _mapper.Map<ReadUserDto>(user);
 
             return employeeDto;
         }
 
-        public string GetUserPassword(int id)
+        public string GetUserPasswordById(int id)
         {
             var user = _employeeRepository.GetUser(id);
 

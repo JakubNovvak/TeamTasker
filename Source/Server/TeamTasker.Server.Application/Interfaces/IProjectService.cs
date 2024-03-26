@@ -4,8 +4,8 @@ namespace TeamTasker.Server.Application.Interfaces
 {
     public interface IProjectService
     {
-        int CreateProject(CreateProjectDto projectDto);
+        ReadProjectDto CreateProject(CreateProjectDto projectDto);
         IEnumerable<ReadProjectDto> GetAllProjects();
-        ReadProjectDto GetProject(int id);
+        ReadProjectDto GetProjectById(int id);
     }
 }

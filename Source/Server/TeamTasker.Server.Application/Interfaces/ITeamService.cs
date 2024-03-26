@@ -4,8 +4,8 @@ namespace TeamTasker.Server.Domain.Interfaces
 {
     public interface ITeamService
     {
-        void CreateTeam(CreateTeamDto teamDto);
+        ReadTeamDto CreateTeam(CreateTeamDto teamDto);
         IEnumerable<ReadTeamDto> GetAllTeams();
-        ReadTeamDto GetTeam(int id);
+        ReadTeamDto GetTeamById(int id);
     }
 }

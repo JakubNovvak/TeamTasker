@@ -17,16 +17,16 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public int CreateProject(CreateProjectDto projectDto)
+        public ReadProjectDto CreateProject(CreateProjectDto projectDto)
         {
             if (projectDto == null)
                 throw new ArgumentNullException(nameof(projectDto));
 
             var project = _mapper.Map<Project>(projectDto);
-
             _projectRepository.CreateProject(project);
 
-            return project.Id;
+            var readProjectDto = _mapper.Map<ReadProjectDto>(project);
+            return readProjectDto;
         }
 
         public IEnumerable<ReadProjectDto> GetAllProjects()
@@ -37,12 +37,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             return projectDtos;
         }
 
-        public ReadProjectDto GetProject(int id)
+        public ReadProjectDto GetProjectById(int id)
         {
             var project = _projectRepository.GetProject(id);
 
             if (project == null)
-                return null;
+                throw new ArgumentNullException(nameof(project));
 
             var projectDto = _mapper.Map<ReadProjectDto>(project);
 

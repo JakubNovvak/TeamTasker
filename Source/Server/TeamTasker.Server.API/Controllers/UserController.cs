@@ -22,9 +22,9 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet("password")]
-        public IActionResult GetUserPasword(int id)
+        public IActionResult GetUsReadTeamDtoerPasword(int id)
         {
-            var password = _employeeService.GetUserPassword(id);
+            var password = _employeeService.GetUserPasswordById(id);
             return Ok(password);
         }
     }

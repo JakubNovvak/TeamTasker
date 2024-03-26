@@ -16,14 +16,16 @@ namespace TeamTasker.Server.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void CreateIssue(CreateIssueDto issueDto)
+        public ReadIssueDto CreateIssue(CreateIssueDto issueDto)
         {
             if (issueDto == null)
                 throw new ArgumentNullException(nameof(issueDto));
 
             var issue = _mapper.Map<Issue>(issueDto);
-
             _issueRepository.CreateIssue(issue);
+
+            var readIssueDto = _mapper.Map<ReadIssueDto>(issue);
+            return readIssueDto;
         }
 
         public IEnumerable<ReadIssueDto> GetAllIssues()
@@ -34,12 +36,12 @@ namespace TeamTasker.Server.Infrastructure.Services
             return issueDtos;
         }
 
-        public ReadIssueDto GetIssue(int id)
+        public ReadIssueDto GetIssueById(int id)
         {
             var issue = _issueRepository.GetIssue(id);
 
             if (issue == null)
-                return null;
+                throw new ArgumentNullException(nameof(issue));
 
             var issueDto = _mapper.Map<ReadIssueDto>(issue);
 

@@ -4,8 +4,8 @@ namespace TeamTasker.Server.Domain.Interfaces
 {
     public interface ICommentService
     {
-        void CreateComment(CreateCommentDto commentDto);
+        ReadCommentDto CreateComment(CreateCommentDto commentDto);
         IEnumerable<ReadCommentDto> GetAllComments();
-        ReadCommentDto GetComment(int id);
+        ReadCommentDto GetCommentById(int id);
     }
 }
