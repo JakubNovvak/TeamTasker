@@ -44,6 +44,12 @@ namespace TeamTasker.Server.Infrastructure.Repositories
 
             return allDbEmployees;
         }
+        public IEnumerable<User> GetAllUsers()
+        {
+            var allDbUsers = _appDbContext.Users.ToList();
+
+            return allDbUsers;
+        }
 
         public Employee? GetEmployee(int? id)
         {

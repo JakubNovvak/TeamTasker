@@ -3,7 +3,7 @@ using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
-namespace TeamTasker.Server.Infrastructure.Services
+namespace TeamTasker.Server.Application.Services
 {
     public class EmployeeService : IEmployeeService
     {
@@ -32,6 +32,13 @@ namespace TeamTasker.Server.Infrastructure.Services
             var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
 
             return employeeDtos;
+        }
+        public IEnumerable<ReadUserDto> GetAllUsers()
+        {
+            var users = _employeeRepository.GetAllUsers();
+            var userDtos = _mapper.Map<IEnumerable<ReadUserDto>>(users);
+
+            return userDtos;
         }
 
         public ReadEmployeeDto GetEmployee(int id)
