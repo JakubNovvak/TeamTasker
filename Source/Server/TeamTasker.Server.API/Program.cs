@@ -5,7 +5,11 @@ using TeamTasker.Server.Application.Services.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
 using TeamTasker.Server.Infrastructure.Presistence;
 using TeamTasker.Server.Infrastructure.Repositories;
-using TeamTasker.Server.Infrastructure.Services;
+using TeamTasker.Server.Application.Services;
+using FluentValidation;
+using TeamTasker.Server.Application.Dtos.Users;
+using TeamTasker.Server.Application.Dtos.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
@@ -55,6 +60,9 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 //builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+
+builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
+
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();
 #endregion
 

@@ -3,7 +3,7 @@ using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
-namespace TeamTasker.Server.Infrastructure.Services
+namespace TeamTasker.Server.Application.Services
 {
     public class CommentService : ICommentService
     {

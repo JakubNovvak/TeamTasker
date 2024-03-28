@@ -4,7 +4,7 @@ using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
-namespace TeamTasker.Server.Infrastructure.Services
+namespace TeamTasker.Server.Application.Services
 {
     public class ProjectService : IProjectService
     {
