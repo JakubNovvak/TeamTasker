@@ -9,10 +9,12 @@ namespace TeamTasker.Server.Application.Services
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
+        public ProjectService(IProjectRepository projectRepository,ITeamRepository teamRepository, IMapper mapper)
         {
+            _teamRepository = teamRepository;
             _projectRepository = projectRepository;
             _mapper = mapper;
         }
@@ -28,6 +30,30 @@ namespace TeamTasker.Server.Application.Services
 
             return project.Id;
         }
+
+        public void UpdateProjectTeam(UpdateProjectTeamDto teamDto)
+        {
+
+                if(teamDto == null)
+                    throw new ArgumentNullException(nameof(teamDto));
+            
+                var project = _projectRepository.GetProject(teamDto.Id);
+                var team = _teamRepository.GetTeam(teamDto.TeamId);
+
+                if (project == null )
+                {
+                    throw new Exception("Project not found.");
+                }
+
+                if (team == null)
+                {
+                    throw new Exception("Team not found.");
+                }
+
+                project.TeamId = teamDto.TeamId;
+                _projectRepository.UpdateProject(project);
+        }
+
 
         public IEnumerable<ReadProjectDto> GetAllProjects()
         {

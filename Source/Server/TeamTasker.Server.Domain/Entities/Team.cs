@@ -14,7 +14,6 @@ namespace TeamTasker.Server.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public virtual Project Project { get; set; } = default!;
-        public int ProjectId { get; set; }
         public virtual Employee Leader { get; set; } = default!;
         public int LeaderId { get; set; }
         public virtual ICollection<Employee> Employees { get; set; } = default!;

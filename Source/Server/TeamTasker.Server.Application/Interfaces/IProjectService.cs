@@ -7,5 +7,6 @@ namespace TeamTasker.Server.Application.Interfaces
         int CreateProject(CreateProjectDto projectDto);
         IEnumerable<ReadProjectDto> GetAllProjects();
         ReadProjectDto GetProject(int id);
+        void UpdateProjectTeam(UpdateProjectTeamDto teamDto);
     }
 }

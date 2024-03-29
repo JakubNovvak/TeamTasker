@@ -42,10 +42,10 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                  .HasForeignKey(t => t.LeaderId)
                  .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Project>()
-                .HasOne(p => p.Team)
-                .WithOne(t => t.Project)
-                .HasForeignKey<Team>(t => t.ProjectId);
+            modelBuilder.Entity<Team>()
+                .HasOne(p => p.Project)
+                .WithOne(t => t.Team)
+                .HasForeignKey<Project>(t => t.TeamId);
 
             modelBuilder.Entity<Issue>()
                 .HasOne(i => i.Project)
