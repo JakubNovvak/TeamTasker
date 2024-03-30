@@ -15,31 +15,6 @@ namespace TeamTasker.Server.API.Controllers
         {
             _employeeService = employeeService;
         }
-        [HttpPost]
-        [Route("", Name = "CreateEmployee")]
-        public IActionResult CreateEmployee(CreateEmployeeDto dto)
-        {
-            try
-            {
-                _employeeService.CreateEmployee(dto);
-                return Ok();
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was no employee provided: {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new employee: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new employee: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
-            }
-        }
 
         [HttpGet]
         [Route("id", Name = "GetEmployee")]
