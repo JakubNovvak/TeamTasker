@@ -10,7 +10,6 @@ namespace TeamTasker.Server.Application.Dtos.Projects
 {
     public class ReadProjectDto
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;

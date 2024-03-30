@@ -10,8 +10,7 @@ namespace TeamTasker.Server.Application.Dtos.Teams
     public class CreateTeamDto
     {
         public string Name { get; set; } = string.Empty;
-        public ICollection<ReadEmployeeDto> Employees { get; set; } = default!;
-        public string LeaderName { get; set; } = string.Empty;
+       // public ICollection<ReadEmployeeDto> Employees { get; set; } = default!;
         public int LeaderId { get; set; }
     }
 }
