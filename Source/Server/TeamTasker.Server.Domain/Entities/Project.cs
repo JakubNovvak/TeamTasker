@@ -20,5 +20,6 @@ namespace TeamTasker.Server.Domain.Entities
         public int TeamId { get; set; }
         public virtual ICollection<Issue> Issues { get; set; } = default!;
         public virtual ICollection<Comment> Comments { get; set; } = default!;
+
     }
 }

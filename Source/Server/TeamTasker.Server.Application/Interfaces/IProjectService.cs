@@ -1,4 +1,5 @@
-﻿using TeamTasker.Server.Application.Dtos.Projects;
+﻿using TeamTasker.Server.Application.Dtos.Issues;
+using TeamTasker.Server.Application.Dtos.Projects;
 
 namespace TeamTasker.Server.Application.Interfaces
 {
@@ -8,5 +9,6 @@ namespace TeamTasker.Server.Application.Interfaces
         IEnumerable<ReadProjectDto> GetAllProjects();
         ReadProjectDto GetProject(int id);
         void UpdateProjectTeam(UpdateProjectTeamDto teamDto);
+
     }
 }

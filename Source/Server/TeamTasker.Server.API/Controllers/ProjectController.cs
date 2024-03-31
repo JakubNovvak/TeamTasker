@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
 {
@@ -10,11 +12,15 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class ProjectController : ControllerBase
     {
+        private readonly IIssueService _issueService;
         private readonly IProjectService _projectService;
+        private readonly ICommentService _commentService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService,IIssueService issueService,ICommentService commentService)
         {
             _projectService = projectService;
+            _issueService = issueService;
+            _commentService = commentService;
         }
 
         [HttpPost]
@@ -42,6 +48,36 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
+        [HttpPost]
+        [Route("AddIssueToProject", Name = "AddIssueToProject")]
+        public IActionResult AddIssueToProject(AddIssueToProjectDto dto)
+        {
+            try
+            {
+                _issueService.AddIssueToProject(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
+
+
+
         //TODO: Move to Admin Controller
         [HttpPut]
         [Route("UpdateProjectTeam", Name = "UpdateProjectTeam")]
@@ -68,6 +104,7 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
 
         [HttpGet]
         [Route("id", Name = "GetProject")]

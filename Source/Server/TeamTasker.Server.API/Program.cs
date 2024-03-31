@@ -55,15 +55,17 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IIssueRepository, IssueRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
-
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
+
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IIssueService, IssueService>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
-
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();
+
 #endregion
 
 var app = builder.Build();

@@ -7,5 +7,7 @@ namespace TeamTasker.Server.Domain.Interfaces
         void CreateComment(CreateCommentDto commentDto);
         IEnumerable<ReadCommentDto> GetAllComments();
         ReadCommentDto GetComment(int id);
+        void AddMessageToProject(AddMessageToProjectDto commentDto);
+        void UpdateMessageToProject(UpdateMessageToProjectDto messageDto);
     }
 }

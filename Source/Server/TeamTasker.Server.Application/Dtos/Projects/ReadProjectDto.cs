@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Dtos.Projects
@@ -17,6 +18,7 @@ namespace TeamTasker.Server.Application.Dtos.Projects
         public DateTime Deadline { get; set; }
         public bool IsComplete { get; set; }
         public int TeamId { get; set; }
+        public ICollection<ReadCommentDto> Comments { get; set; } = default!;
 
     }
 }

@@ -7,13 +7,35 @@ namespace TeamTasker.Server.Application.Services
 {
     public class IssueService : IIssueService
     {
+        private readonly IProjectRepository _projectRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IIssueRepository _issueRepository;
         private readonly IMapper _mapper;
 
-        public IssueService(IIssueRepository issueRepository, IMapper mapper)
+        public IssueService(IIssueRepository issueRepository,IEmployeeRepository employeeRepository,IProjectRepository projectRepository, IMapper mapper)
         {
             _issueRepository = issueRepository;
+            _employeeRepository = employeeRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
+        }
+
+        public void AddIssueToProject(AddIssueToProjectDto issueDto)
+        {
+            if (issueDto == null)
+                throw new ArgumentNullException(nameof(issueDto));
+
+            var project = _projectRepository.GetProject(issueDto.ProjectId);
+            if (project == null)
+                throw new Exception("Project not found");
+
+            var employee = _employeeRepository.GetEmployee(issueDto.EmployeeId);
+            if (employee == null)
+                throw new Exception("Employee not found or employee is admin");
+
+
+            var issue = _mapper.Map<Issue>(issueDto);
+            _issueRepository.CreateIssue(issue);
         }
 
         public void CreateIssue(CreateIssueDto issueDto)

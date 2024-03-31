@@ -22,15 +22,20 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<CreateIssueDto, Issue>();
             CreateMap<Issue, ReadIssueDto>();
+            CreateMap<AddIssueToProjectDto, Issue>();
+            CreateMap<Issue, AddIssueToProjectDto>();
 
             CreateMap<CreateProjectDto, Project>();
-            CreateMap<Project, ReadProjectDto>();
+
+            CreateMap<AddMessageToProjectDto, Comment>();
+            CreateMap<Comment, AddMessageToProjectDto>();
+
+            CreateMap<Project, ReadProjectDto>()
+                .ForMember(desc => desc.Comments, x => x.MapFrom(src => src.Comments));
 
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
 
-
-            // CreateMap<CreateEmployeeDto, User>();
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<User, ReadUserDto>();
             CreateMap<Employee, ReadEmployeeDto>();

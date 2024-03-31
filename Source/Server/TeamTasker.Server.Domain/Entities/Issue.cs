@@ -17,7 +17,7 @@ namespace TeamTasker.Server.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public DateTime Deadline { get; set; }
         public int Prioroty { get; set; }
-        public bool IsComplete { get; set; }
+        public bool IsComplete { get; set; } = false;
         public DateTime? CompleteTime { get; set; }
         public virtual Employee Employee { get; set; } = default!;
         public int EmployeeId { get; set; }
