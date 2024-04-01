@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Teams;
+using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -71,12 +72,7 @@ namespace TeamTasker.Server.Application.Services
             if (employee == null)
                 throw new Exception("Employee not found");
 
-            var employeeTeamDto = new CreateEmployeeTeamDto
-            {
-                EmployeeId = employee.Id,
-                TeamId = team.Id
-            };
-            var employeeTeam = _mapper.Map<EmployeeTeam>(employeeTeamDto);
+            var employeeTeam = _mapper.Map<EmployeeTeam>(dto);
 
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
         }
@@ -110,6 +106,18 @@ namespace TeamTasker.Server.Application.Services
             team.LeaderId = dto.LeaderId;
 
             _teamRepository.UpdateTeam(team);
+        }
+        public IEnumerable<ReadEmployeeDto> GetAllTeamEmployees(int id)
+        {
+            var team = _teamRepository.GetTeam(id);
+            if (team == null)
+                throw new Exception("Team not found");
+
+            var employees = team.EmployeeTeams.Select(e => e.Employee).ToList();
+
+            var employeeDtos = employees.Select(e => _mapper.Map<ReadEmployeeDto>(e)).ToList();
+
+            return employeeDtos;
         }
     }
 }

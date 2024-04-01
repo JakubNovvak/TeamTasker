@@ -69,5 +69,31 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting teams : {ex.Message}");
             }
         }
+
+        [HttpGet]
+        [Route("GetAllTeamEmployees", Name = "GetAllTeamEmployees")]
+        public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllTeamEmployees(int id)
+        {
+            try
+            {
+                var readEmployeesDto = _teamService.GetAllTeamEmployees(id);
+                return Ok(readEmployeesDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No employees were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no employees in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
+            }
+        }
     }
 }

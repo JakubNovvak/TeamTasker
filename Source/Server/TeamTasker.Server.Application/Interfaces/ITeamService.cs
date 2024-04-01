@@ -1,6 +1,7 @@
 ﻿using TeamTasker.Server.Application.Dtos;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Teams;
+using TeamTasker.Server.Application.Dtos.Users;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {
@@ -11,5 +12,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadTeamDto GetTeam(int id);
         void AddEmployeeToTeam(CreateEmployeeTeamDto dto);
         void ChangeTeamLeader(ChangeTeamLeaderDto dto);
+        IEnumerable<ReadEmployeeDto> GetAllTeamEmployees(int id);
     }
 }
