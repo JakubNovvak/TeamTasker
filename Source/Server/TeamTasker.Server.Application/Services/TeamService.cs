@@ -80,5 +80,36 @@ namespace TeamTasker.Server.Application.Services
 
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
         }
+
+        public void ChangeTeamLeader(ChangeTeamLeaderDto dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
+            var team = _teamRepository.GetTeam(dto.Id);
+
+            if (team == null)
+                throw new Exception("Team not exist");
+
+            var employee = _employeeRepository.GetEmployee(dto.LeaderId);
+
+            if (employee == null)
+                throw new Exception("Employee not found");
+
+            var isEmployeeTeam = _employeeTeamRepository.GetEmployeeTeam(employee.Id, team.Id);
+            if (isEmployeeTeam == null)
+            {
+                var employeeTeamDto = new CreateEmployeeTeamDto
+                {
+                    EmployeeId = employee.Id,
+                    TeamId = team.Id
+                };
+                var employeeTeam = _mapper.Map<EmployeeTeam>(employeeTeamDto);
+                _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
+            }
+            team.LeaderId = dto.LeaderId;
+
+            _teamRepository.UpdateTeam(team);
+        }
     }
 }

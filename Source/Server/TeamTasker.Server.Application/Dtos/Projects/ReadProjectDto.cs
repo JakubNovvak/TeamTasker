@@ -16,7 +16,8 @@ namespace TeamTasker.Server.Application.Dtos.Projects
         public string Description { get; set; } = string.Empty;
         public DateTime Deadline { get; set; }
         public bool IsComplete { get; set; }
-        public virtual Team Team { get; set; } = default!;
+        public int TeamId { get; set; }
+        // public virtual Team Team { get; set; } = default!;
 
 
         //public virtual ICollection<Issue> Issues { get; set; } = default!;

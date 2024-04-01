@@ -14,7 +14,7 @@ using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Profiles
 {
-    public class BaseProfile: Profile
+    public class BaseProfile : Profile
     {
         public BaseProfile()
         {
@@ -33,6 +33,7 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Team, ReadTeamDto>()
                 .ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.EmployeeTeams.Select(et => et.Employee)));
             CreateMap<ReadTeamDto, Team>();
+            CreateMap<ChangeTeamLeaderDto, Team>();
 
             // CreateMap<CreateEmployeeDto, User>();
             CreateMap<CreateEmployeeDto, Employee>();
