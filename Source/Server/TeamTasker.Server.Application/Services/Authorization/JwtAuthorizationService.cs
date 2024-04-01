@@ -36,7 +36,13 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             httpResponse.Cookies.Append("JwtToken", jwtToken, new CookieOptions 
             { 
-                HttpOnly = true
+                //HttpOnly = false,
+                //Domain = ".127.0.0.1/",
+                Path = "/",
+                Expires = DateTimeOffset.Now.AddDays(7),
+                IsEssential = true,
+                MaxAge = TimeSpan.MaxValue,
+                Secure = false
             });
         }
 

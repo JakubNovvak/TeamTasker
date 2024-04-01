@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins(["http://localhost:5173/", "http://192.168.0.112:5173/"])
+        builder => builder.WithOrigins("http://localhost:5173", "http://192.168.0.112:5173")
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials()
@@ -78,9 +78,9 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowOrigin");
-
 app.UseAuthorization();
+
+app.UseCors("AllowOrigin");
 
 app.MapControllers();
 

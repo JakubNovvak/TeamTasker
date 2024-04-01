@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces.Authorization;
@@ -85,8 +86,14 @@ namespace TeamTasker.Server.API.Controllers
         [HttpGet("authorize/admin", Name = "VerifyAdminUser")]
         public ActionResult VerifyAdminPermission()
         {
+            foreach (var cookie in Request.Cookies)
+            {
+                Console.WriteLine($"Cookie: {cookie.Key} = {cookie.Value}");
+            }
+
             try
             {
+
                 _jwtService.CheckIfHasAdminPermission(Request.Cookies["JwtToken"]);
             }
             catch (UnauthorizedAccessException)
