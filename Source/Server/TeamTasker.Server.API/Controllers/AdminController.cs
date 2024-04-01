@@ -118,8 +118,33 @@ namespace TeamTasker.Server.API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new team: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new team: {ex.Message}");
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new employee: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new employee: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting teams : {ex.Message}");
+            }
+        }
+        [HttpPut]
+        [Route("ChangeTeamLeader", Name = "ChangeTeamLeader")]
+        public IActionResult ChangeTeamLeader(ChangeTeamLeaderDto dto)
+        {
+            try
+            {
+                _teamService.ChangeTeamLeader(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no team provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting teams : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with changing team leader: {ex.Message}");
+                return BadRequest($"There was a problem with changing team leader: {ex.Message}");
             }
             catch (Exception ex)
             {
