@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -8,11 +9,13 @@ namespace TeamTasker.Server.Application.Services
     public class TeamService : ITeamService
     {
         private readonly ITeamRepository _teamRepository;
+        private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
 
-        public TeamService(ITeamRepository teamRepository, IMapper mapper)
+        public TeamService(ITeamRepository teamRepository,IProjectRepository projectRepository,IMapper mapper)
         {
             _teamRepository = teamRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
         }
 

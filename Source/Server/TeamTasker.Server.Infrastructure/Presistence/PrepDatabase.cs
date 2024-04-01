@@ -112,7 +112,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             var projects = new List<Project>()
             {
                 new Project(){ Name="projekt1",TeamId=1},
-                new Project(){ Name="projekt2",TeamId=2}
+                new Project(){ Name="projekt2"}
             };
             return projects;
         }
@@ -128,8 +128,8 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             var employee2 = employeesInTeam[2];
             var issues = new List<Issue>()
             {
-                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id},
-                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id},
+                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id,IsComplete = true},
+                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id,IsComplete = true},
                 new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
             };
             return issues;

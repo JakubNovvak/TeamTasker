@@ -1,4 +1,6 @@
-﻿using TeamTasker.Server.Application.Dtos.Issues;
+﻿using System.Linq.Expressions;
+using TeamTasker.Server.Application.Dtos.Issues;
+using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {
@@ -8,5 +10,10 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<ReadIssueDto> GetAllIssues();
         ReadIssueDto GetIssue(int id);
         void AddIssueToProject(AddIssueToProjectDto issueDto);
+
+        IEnumerable<GetCompletedIssueDto> GetCompletedIssue();
+        IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue();
+        IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(int Prioroty);
+        IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int EmployeeId);
     }
 }

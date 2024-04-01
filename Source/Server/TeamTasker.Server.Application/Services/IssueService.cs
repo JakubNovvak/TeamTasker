@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Net.Http.Headers;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -12,7 +13,7 @@ namespace TeamTasker.Server.Application.Services
         private readonly IIssueRepository _issueRepository;
         private readonly IMapper _mapper;
 
-        public IssueService(IIssueRepository issueRepository,IEmployeeRepository employeeRepository,IProjectRepository projectRepository, IMapper mapper)
+        public IssueService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository, IMapper mapper)
         {
             _issueRepository = issueRepository;
             _employeeRepository = employeeRepository;
@@ -64,8 +65,67 @@ namespace TeamTasker.Server.Application.Services
                 return null;
 
             var issueDto = _mapper.Map<ReadIssueDto>(issue);
-
             return issueDto;
         }
+
+        //1
+        public IEnumerable<GetCompletedIssueDto> GetCompletedIssue()
+        {
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.IsComplete);
+            var issueDto = issue.Select(i => new GetCompletedIssueDto
+            {
+                Id = i.Id,
+                Name = i.Name,
+                IsComplete = i.IsComplete
+            });
+            return issueDto;
+        }
+
+        public IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue()
+        {
+            var issue = _issueRepository.GetAllIssues().Where(issue => !issue.IsComplete);
+            var issueDto = issue.Select(i => new GetCompletedIssueDto
+            {
+                Id = i.Id,
+                Name = i.Name,
+                IsComplete = i.IsComplete
+            });
+            return issueDto;
+        }
+
+        public IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId)
+        {
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.EmployeeId == employeeId);
+            var issueDto = issue.Select(i => new GetIssueAssignedToEmployeeDto
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Description = i.Description,
+                Deadline = i.Deadline,
+                Prioroty = i.Prioroty,
+                ProjectId = i.ProjectId,
+            });
+
+            return issueDto;
+
+        }
+
+        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(int prioroty)
+        {
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Prioroty == prioroty);
+            var issueDto = issue.Select(i => new GetIssueByPriorityDto
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Description = i.Description,
+                Deadline = i.Deadline,
+                Prioroty = i.Prioroty,
+                ProjectId = i.ProjectId,
+                EmployeeId = i.EmployeeId
+            });
+            return issueDto;
+        }
+
+
     }
 }

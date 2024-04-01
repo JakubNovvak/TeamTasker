@@ -4,6 +4,7 @@ using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Application.Services;
 using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
@@ -14,13 +15,11 @@ namespace TeamTasker.Server.API.Controllers
     {
         private readonly IIssueService _issueService;
         private readonly IProjectService _projectService;
-        private readonly ICommentService _commentService;
 
-        public ProjectController(IProjectService projectService,IIssueService issueService,ICommentService commentService)
+        public ProjectController(IProjectService projectService,IIssueService issueService)
         {
             _projectService = projectService;
             _issueService = issueService;
-            _commentService = commentService;
         }
 
         [HttpPost]
@@ -76,16 +75,13 @@ namespace TeamTasker.Server.API.Controllers
         }
 
 
-
-
-        //TODO: Move to Admin Controller
-        [HttpPut]
-        [Route("UpdateProjectTeam", Name = "UpdateProjectTeam")]
-        public IActionResult UpdateProjectTeam(UpdateProjectTeamDto dto)
+        [HttpPost]
+        [Route("AddTeamToProject", Name = "AddTeamToProject")]
+        public IActionResult AddTeamToProject(AddTeamToProjectDto dto)
         {
             try
             {
-                _projectService.UpdateProjectTeam(dto);
+                _projectService.AddTeamToProject(dto);
                 return Ok();
             }
             catch (ArgumentNullException ex)
@@ -105,6 +101,59 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
+
+        [HttpPut]
+        [Route("UpdateTeamToProject", Name = "UpdateTeamToProject")]
+        public IActionResult UpdateTeamToProject(UpdateTeamToProjectDto dto)
+        {
+            try
+            {
+                _projectService.UpdateTeamToProject(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+        
+
+        [HttpGet]
+        [Route("GetProjectNameAndImagines", Name = "GetProjectNameAndImagines")]
+        public IActionResult GetProjectNameAndImagines(GetProjectNameAndImaginesDto dto)
+        {
+            try
+            {
+                var project = _projectService.GetProjectNameAndImagines(dto);
+                return Ok(project);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Negative project id - {ex.Message}");
+                return BadRequest($"Project id is not valid.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Project not found - {ex.Message}");
+                return BadRequest("Project not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Unhandled exception: {ex.Message}");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
 
         [HttpGet]
         [Route("id", Name = "GetProject")]

@@ -19,13 +19,27 @@ namespace TeamTasker.Server.Application.Profiles
         {
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, ReadCommentDto>();
-
+            CreateMap<CreateProjectDto, Project>();
+            CreateMap<Project, CreateProjectDto>();
             CreateMap<CreateIssueDto, Issue>();
             CreateMap<Issue, ReadIssueDto>();
             CreateMap<AddIssueToProjectDto, Issue>();
             CreateMap<Issue, AddIssueToProjectDto>();
+            CreateMap<GetIssueAssignedToEmployeeDto, Issue>();
+            CreateMap<Issue, GetIssueAssignedToEmployeeDto>();
+            CreateMap<GetIssueByPriorityDto, Issue>();
+            CreateMap<Issue, GetIssueByPriorityDto>();
 
-            CreateMap<CreateProjectDto, Project>();
+
+
+            CreateMap<Project, AddTeamToProjectDto>(); //1
+            CreateMap<AddTeamToProjectDto, Project>(); //1
+
+            CreateMap<Project, UpdateTeamToProjectDto>(); //1
+            CreateMap<UpdateTeamToProjectDto, Project>(); //1
+
+            CreateMap<Project, GetProjectNameAndImaginesDto>();
+            CreateMap<GetProjectNameAndImaginesDto, Project>();
 
             CreateMap<AddMessageToProjectDto, Comment>();
             CreateMap<Comment, AddMessageToProjectDto>();
@@ -35,6 +49,7 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
+
 
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<User, ReadUserDto>();
