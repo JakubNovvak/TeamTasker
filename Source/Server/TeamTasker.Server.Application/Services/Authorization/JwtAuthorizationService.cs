@@ -33,25 +33,23 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             var jwtToken = JwtHelperClass.GenerateToken(userReadDto);
 
-
             httpResponse.Cookies.Append("JwtToken", jwtToken, new CookieOptions 
             { 
-                //HttpOnly = false,
-                //Domain = ".127.0.0.1/",
+                HttpOnly = false,
                 Path = "/",
                 Expires = DateTimeOffset.Now.AddDays(7),
                 IsEssential = true,
                 MaxAge = TimeSpan.MaxValue,
-                Secure = false
+                SameSite = SameSiteMode.None,
+                Secure = true
             });
         }
 
         public void CheckIfHasAdminPermission(string? stringifiedToken)
         {
-            if (stringifiedToken == null)
-                throw new UnauthorizedAccessException();
+            var jwtToken = TrimHeaderToken(stringifiedToken);
 
-            var roleId = GetUserRoleFromToken(stringifiedToken);
+            var roleId = GetUserRoleFromToken(jwtToken);
 
             if (roleId != 1)
                 throw new UnauthorizedAccessException();
@@ -88,7 +86,11 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
         public int GetUserRoleFromToken(string stringifiedToken)
         {
+
+
             var verifiedToken = VerifyPassedToken(stringifiedToken);
+
+            Console.WriteLine("Token: " + verifiedToken);
 
             if(verifiedToken.Payload["roleId"]?.ToString() == null)
                 throw new UnauthorizedAccessException();
@@ -96,6 +98,19 @@ namespace TeamTasker.Server.Application.Services.Authorization
             var roleId = int.Parse(verifiedToken.Payload["roleId"]?.ToString()!);
 
             return roleId;
+        }
+
+        public string TrimHeaderToken(string? authorizationHeader)
+        {
+            if (string.IsNullOrEmpty(authorizationHeader))
+                throw new UnauthorizedAccessException();
+
+            if(!authorizationHeader.StartsWith("Bearer "))
+                throw new UnauthorizedAccessException();
+
+            string jwtToken = authorizationHeader.Substring("Bearer ".Length).Trim();
+
+            return jwtToken;
         }
     }
 }
