@@ -9,7 +9,7 @@ namespace TeamTasker.Server.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TeamController : Controller
+    public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;
 

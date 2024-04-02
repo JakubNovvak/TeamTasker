@@ -4,7 +4,7 @@ using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
 {
-    public class IssueController : Controller
+    public class IssueController : ControllerBase
     {
 
 

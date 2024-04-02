@@ -48,61 +48,6 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-
-        [HttpPost]
-        [Route("AddTeamToProject", Name = "AddTeamToProject")]
-        public IActionResult AddTeamToProject(AddTeamToProjectDto dto)
-        {
-            try
-            {
-                _projectService.AddTeamToProject(dto);
-                return Ok();
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-        }
-
-
-        [HttpPut]
-        [Route("UpdateTeamToProject", Name = "UpdateTeamToProject")]
-        public IActionResult UpdateTeamToProject(UpdateTeamToProjectDto dto)
-        {
-            try
-            {
-                _projectService.UpdateTeamToProject(dto);
-                return Ok();
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-        }
-        
-
         [HttpGet]
         [Route("GetProjectNameAndImagines", Name = "GetProjectNameAndImagines")]
         public IActionResult GetProjectNameAndImagines(GetProjectNameAndImaginesDto dto)
