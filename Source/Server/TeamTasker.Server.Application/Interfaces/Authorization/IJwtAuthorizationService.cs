@@ -14,10 +14,10 @@ namespace TeamTasker.Server.Application.Interfaces.Authorization
     {
         public void GetUserToken(LoginDto loginUserDto, HttpResponse httpResponse);
         public JwtSecurityToken VerifyPassedToken(string stringifiedToken);
-        public void CheckIfHasAdminPermission(string? stringifiedToken);
-        public void CheckIfHasLoggedInUserPermission(string? stringifiedToken);
-        public void CheckIfLeaderOfTheProject(string? stringifiedToken);
-        public int GetUserRoleFromToken(string stringifiedToken);
+        public void CheckIfHasAdminPermission(string? authorizationHeader);
+        public void CheckIfHasLoggedInUserPermission(string? authorizationHeader);
+        public void CheckIfLeaderOfTheProject(string? authorizationHeader);
+        public int GetUserRoleFromToken(string authorizationHeader);
         public string TrimHeaderToken(string? authorizationHeader);
     }
 }

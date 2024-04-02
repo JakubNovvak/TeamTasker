@@ -52,7 +52,7 @@ namespace TeamTasker.Server.API.Controllers
         [HttpGet("login/tests/getroleid", Name = "TestGetRoleId")]
         public ActionResult<int> VerifyPermission()
         {
-            var userIdRole = _jwtService.GetUserRoleFromToken(Request.Cookies["JwtToken"]!);
+            var userIdRole = _jwtService.GetUserRoleFromToken(Request.Headers["Authorization"]!);
 
             return Ok($"User has roleId: {userIdRole}");
         }
@@ -62,7 +62,7 @@ namespace TeamTasker.Server.API.Controllers
         {
             try
             {
-                _jwtService.CheckIfHasLoggedInUserPermission(Request.Cookies["JwtToken"]);
+                _jwtService.CheckIfHasLoggedInUserPermission(Request.Headers["Authorization"]);
             }
             catch (UnauthorizedAccessException)
             {
@@ -121,7 +121,7 @@ namespace TeamTasker.Server.API.Controllers
         {
             try
             {
-                _jwtService.CheckIfLeaderOfTheProject(Request.Cookies["JwtToken"]);
+                _jwtService.CheckIfLeaderOfTheProject(Request.Headers["Authorization"]);
             }
             catch (UnauthorizedAccessException)
             {

@@ -45,9 +45,9 @@ namespace TeamTasker.Server.Application.Services.Authorization
             });
         }
 
-        public void CheckIfHasAdminPermission(string? stringifiedToken)
+        public void CheckIfHasAdminPermission(string? authorizationHeader)
         {
-            var jwtToken = TrimHeaderToken(stringifiedToken);
+            var jwtToken = TrimHeaderToken(authorizationHeader);
 
             var roleId = GetUserRoleFromToken(jwtToken);
 
@@ -55,22 +55,24 @@ namespace TeamTasker.Server.Application.Services.Authorization
                 throw new UnauthorizedAccessException();
         }
 
-        public void CheckIfHasLoggedInUserPermission(string? stringifiedToken)
+        public void CheckIfHasLoggedInUserPermission(string? authorizationHeader)
         {
-            if (stringifiedToken == null)
+            if (authorizationHeader == null)
                 throw new UnauthorizedAccessException();
 
+            var stringifiedToken = TrimHeaderToken(authorizationHeader);
             var roleId = GetUserRoleFromToken(stringifiedToken);
 
             if(roleId != 2)
                 throw new UnauthorizedAccessException();
         }
 
-        public void CheckIfLeaderOfTheProject(string? stringifiedToken)
+        public void CheckIfLeaderOfTheProject(string? authorizationHeader)
         {
-            if (stringifiedToken == null)
+            if (authorizationHeader == null)
                 throw new UnauthorizedAccessException();
 
+            var stringifiedToken = TrimHeaderToken(authorizationHeader);
             var verifiedToken = VerifyPassedToken(stringifiedToken);
             
             if(verifiedToken.Issuer.ToString() != "leader@test.pl")
@@ -84,11 +86,10 @@ namespace TeamTasker.Server.Application.Services.Authorization
             return verifiedToken;
         }
 
-        public int GetUserRoleFromToken(string stringifiedToken)
+        public int GetUserRoleFromToken(string authorizationHeader)
         {
-
-
-            var verifiedToken = VerifyPassedToken(stringifiedToken);
+            var jwToken = TrimHeaderToken(authorizationHeader);
+            var verifiedToken = VerifyPassedToken(jwToken);
 
             Console.WriteLine("Token: " + verifiedToken);
 
