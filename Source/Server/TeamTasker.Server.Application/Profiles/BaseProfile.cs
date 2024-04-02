@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamTasker.Server.Application.Dtos.Comments;
+using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
@@ -13,7 +14,7 @@ using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Profiles
 {
-    public class BaseProfile: Profile
+    public class BaseProfile : Profile
     {
         public BaseProfile()
         {
@@ -50,11 +51,22 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
 
+            CreateMap<Team, ReadTeamDto>()
+                .ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.EmployeeTeams.Select(et => et.Employee)));
+            CreateMap<ReadTeamDto, Team>();
+            CreateMap<ChangeTeamLeaderDto, Team>();
 
-            CreateMap<CreateEmployeeDto, Employee>();
+
             CreateMap<User, ReadUserDto>();
+            CreateMap<User, ReadUserNameDto>();
+            CreateMap<User, ReadUserNameAndEmailDto>();
+            CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<Employee, ReadEmployeeDto>();
+            CreateMap<ReadEmployeeDto, Employee>();
             CreateMap<Employee, ReadUserDto>();
+
+            CreateMap<EmployeeTeam, CreateEmployeeTeamDto>();
+            CreateMap<CreateEmployeeTeamDto, EmployeeTeam>();
         }
     }
 }

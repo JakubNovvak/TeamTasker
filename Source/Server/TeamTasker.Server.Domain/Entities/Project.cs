@@ -17,7 +17,7 @@ namespace TeamTasker.Server.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public bool IsComplete { get; set; } = false;
         public virtual Team Team { get; set; } = default!;
-        public int TeamId { get; set; } = default!;
+        public int? TeamId { get; set; }  
         public virtual ICollection<Issue> Issues { get; set; } = default!;
         public virtual ICollection<Comment> Comments { get; set; } = default!;
 

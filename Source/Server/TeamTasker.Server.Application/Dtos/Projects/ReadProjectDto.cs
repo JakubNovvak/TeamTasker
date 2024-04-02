@@ -19,6 +19,6 @@ namespace TeamTasker.Server.Application.Dtos.Projects
         public bool IsComplete { get; set; }
         public int TeamId { get; set; }
         public ICollection<ReadCommentDto> Comments { get; set; } = default!;
-
+        //public virtual ICollection<Issue> Issues { get; set; } = default!;
     }
 }

@@ -10,5 +10,7 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadEmployeeDto GetEmployee(int id);
         ReadUserDto GetUserByEmail(string email);
         string GetUserPassword(int id);
+        ReadUserNameDto GetUserName(int id);
+        ReadUserNameAndEmailDto GetUserNameAndEmail(int id);
     }
 }

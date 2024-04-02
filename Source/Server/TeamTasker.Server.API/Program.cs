@@ -55,6 +55,8 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IIssueRepository, IssueRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IEmployeeTeamRepository, EmployeeTeamRepository>();
+
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
 
