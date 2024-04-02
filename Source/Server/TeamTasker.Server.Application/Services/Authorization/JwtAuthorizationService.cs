@@ -33,40 +33,48 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             var jwtToken = JwtHelperClass.GenerateToken(userReadDto);
 
-
             httpResponse.Cookies.Append("JwtToken", jwtToken, new CookieOptions 
             { 
-                HttpOnly = true
+                //HttpOnly = false,
+                Path = "/",
+                Expires = DateTimeOffset.Now.AddDays(7),
+                IsEssential = true,
+                MaxAge = TimeSpan.MaxValue,
+                SameSite = SameSiteMode.None,
+                Secure = true
             });
         }
 
-        public void CheckIfHasAdminPermission(string? stringifiedToken)
+        public void CheckIfHasAdminPermission(string? authorizationHeader)
         {
-            if (stringifiedToken == null)
-                throw new UnauthorizedAccessException();
+            var jwtToken = TrimHeaderToken(authorizationHeader);
 
-            var roleId = GetUserRoleFromToken(stringifiedToken);
+            var roleId = GetUserRoleFromToken(jwtToken);
+
+            Console.WriteLine($"Admin RoleId: {roleId}");
 
             if (roleId != 1)
                 throw new UnauthorizedAccessException();
         }
 
-        public void CheckIfHasLoggedInUserPermission(string? stringifiedToken)
+        public void CheckIfHasLoggedInUserPermission(string? authorizationHeader)
         {
-            if (stringifiedToken == null)
+            if (authorizationHeader == null)
                 throw new UnauthorizedAccessException();
 
+            var stringifiedToken = TrimHeaderToken(authorizationHeader);
             var roleId = GetUserRoleFromToken(stringifiedToken);
 
             if(roleId != 2)
                 throw new UnauthorizedAccessException();
         }
 
-        public void CheckIfLeaderOfTheProject(string? stringifiedToken)
+        public void CheckIfLeaderOfTheProject(string? authorizationHeader)
         {
-            if (stringifiedToken == null)
+            if (authorizationHeader == null)
                 throw new UnauthorizedAccessException();
 
+            var stringifiedToken = TrimHeaderToken(authorizationHeader);
             var verifiedToken = VerifyPassedToken(stringifiedToken);
             
             if(verifiedToken.Issuer.ToString() != "leader@test.pl")
@@ -84,12 +92,29 @@ namespace TeamTasker.Server.Application.Services.Authorization
         {
             var verifiedToken = VerifyPassedToken(stringifiedToken);
 
+            Console.WriteLine("Token: " + verifiedToken);
+
             if(verifiedToken.Payload["roleId"]?.ToString() == null)
                 throw new UnauthorizedAccessException();
 
             var roleId = int.Parse(verifiedToken.Payload["roleId"]?.ToString()!);
 
             return roleId;
+        }
+
+        public string TrimHeaderToken(string? authorizationHeader)
+        {
+            Console.WriteLine($"Before Trim: {authorizationHeader}");
+            if (string.IsNullOrEmpty(authorizationHeader))
+                throw new UnauthorizedAccessException();
+
+            if(!authorizationHeader.StartsWith("Bearer "))
+                throw new UnauthorizedAccessException();
+
+            string jwtToken = authorizationHeader.Substring("Bearer ".Length).Trim();
+            Console.WriteLine($"Trimmed token: {jwtToken}");
+
+            return jwtToken;
         }
     }
 }

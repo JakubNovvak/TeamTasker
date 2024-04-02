@@ -1,4 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Application.Services.Authorization;
@@ -27,11 +34,45 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins(["http://localhost:5173/", "http://192.168.0.112:5173/"])
+        builder => builder.WithOrigins("http://localhost:5173", "http://192.168.0.112:5173")
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials()
         );
+});
+
+//Adds token retrieving
+builder.Services.AddAuthentication(options => 
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options => 
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            //TODO: Implement accessible Security Key - without development hard coded key.
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtHelperClass.developmentSecureKey))
+        };
+    });
+
+//Adds roles Policies
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy(AuthorizationPolicies.AdminUserPolicy, policy => 
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("roleId", "1");
+    });
+
+    options.AddPolicy(AuthorizationPolicies.LoggedInUserPolicy, policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("roleId", "2");
+    });
 });
 
 //TODO: Change database implementation to the SQL Server, instead of In Memory Database
@@ -93,6 +134,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowOrigin");
 
+//app.UseAuthentication(); Not needed - used before .Net7
 app.UseAuthorization();
 
 app.MapControllers();
