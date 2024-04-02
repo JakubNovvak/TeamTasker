@@ -116,5 +116,19 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             return jwtToken;
         }
+
+        public string GetEmailFromToken(string? authorizationHeader)
+        {
+            if (authorizationHeader == null)
+                throw new UnauthorizedAccessException();
+
+            var stringifiedToken = TrimHeaderToken(authorizationHeader);
+            var verifiedToken = VerifyPassedToken(stringifiedToken);
+
+            if (verifiedToken.Issuer == null)
+                throw new UnauthorizedAccessException();
+
+            return verifiedToken.Issuer;
+        }
     }
 }

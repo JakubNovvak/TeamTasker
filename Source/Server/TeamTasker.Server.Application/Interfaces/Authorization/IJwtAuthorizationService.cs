@@ -19,5 +19,6 @@ namespace TeamTasker.Server.Application.Interfaces.Authorization
         public void CheckIfLeaderOfTheProject(string? authorizationHeader);
         public int GetUserRoleFromToken(string stringifiedToken);
         public string TrimHeaderToken(string? authorizationHeader);
+        public string GetEmailFromToken(string? authorizationHeader);
     }
 }

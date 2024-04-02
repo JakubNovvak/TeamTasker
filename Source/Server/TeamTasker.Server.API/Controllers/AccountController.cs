@@ -13,15 +13,16 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly IEmployeeService _employeeService;
+        //private readonly IEmployeeService _employeeService;
         private readonly IJwtAuthorizationService _jwtService;
 
-        public AccountController(IEmployeeService employeeService, IJwtAuthorizationService jwtService)
+        public AccountController(/*IEmployeeService employeeService,*/ IJwtAuthorizationService jwtService)
         {
-            _employeeService = employeeService;
+            //_employeeService = employeeService;
             _jwtService = jwtService;
         }
 
+        [AllowAnonymous]
         [HttpPost("login/credentials", Name = "UserLogin")]
         public ActionResult LoginRequest(LoginDto loginUserDto)
         {
@@ -49,20 +50,22 @@ namespace TeamTasker.Server.API.Controllers
             return Ok("Login was successfull - the Token also has been created successfully.");
         }
 
+        [AllowAnonymous]
         [HttpGet("login/tests/getroleid", Name = "TestGetRoleId")]
-        public ActionResult<int> VerifyPermission()
+        public ActionResult<int> GetUserRoleId()
         {
-            var userIdRole = _jwtService.GetUserRoleFromToken(Request.Headers["Authorization"]!);
+            var userIdRole = _jwtService.GetUserRoleFromToken(Request.Headers.Authorization!);
 
             return Ok($"User has roleId: {userIdRole}");
         }
 
+        [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [HttpGet("authorize/loggedin", Name = "VerifyLoggedInUser")]
         public ActionResult VerifyLoggedInUserPermission()
         {
             try
             {
-                _jwtService.CheckIfHasLoggedInUserPermission(Request.Headers["Authorization"]);
+                _jwtService.CheckIfHasLoggedInUserPermission(Request.Headers.Authorization);
             }
             catch (UnauthorizedAccessException)
             {
@@ -116,12 +119,13 @@ namespace TeamTasker.Server.API.Controllers
             return Ok("User is allowed to use this admin resource.");
         }
 
+        [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [HttpGet("authorize/leader", Name = "VerifyProjectLeader")]
         public ActionResult VerifyProjectLeader(/*int Project Id*/)
         {
             try
             {
-                _jwtService.CheckIfLeaderOfTheProject(Request.Headers["Authorization"]);
+                _jwtService.CheckIfLeaderOfTheProject(Request.Headers.Authorization);
             }
             catch (UnauthorizedAccessException)
             {
@@ -141,6 +145,33 @@ namespace TeamTasker.Server.API.Controllers
             }
 
             return Ok("User is allowed to use this leader resource.");
+        }
+
+        [AllowAnonymous]
+        [HttpGet("authorize/email", Name = "GetEmailFromToken")]
+        public ActionResult<string> GetEmailFromToken()
+        {
+            try
+            {
+                var userEmail = _jwtService.GetEmailFromToken(Request.Headers.Authorization);
+                return Ok(userEmail);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized("You don't have enough permissions, to access this reasource.");
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                return Unauthorized("Your sessions has expired.");
+            }
+            catch (ArgumentNullException)
+            {
+                return Unauthorized("There was no identity token provided.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"An unexpected error has occured: {ex.Message}");
+            }
         }
     }
 }
