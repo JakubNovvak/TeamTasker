@@ -35,6 +35,15 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
+            /*if (_appDbContext.Database.CanConnect())
+            {
+                if (!_appDbContext.Teams.Any())
+                {
+                    var teams = GetTeams();
+                    _appDbContext.Teams.AddRange(teams);
+                    _appDbContext.SaveChanges();
+                }
+            }*/
             if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Projects.Any())
@@ -44,17 +53,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
-            if (_appDbContext.Database.CanConnect())
-            {
-                if (!_appDbContext.Teams.Any())
-                {
-                    var teams = GetTeams();
-                    _appDbContext.Teams.AddRange(teams);
-                    _appDbContext.SaveChanges();
-                }
-            }
-
-            if (_appDbContext.Database.CanConnect())
+            /*if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Issues.Any())
                 {
@@ -62,7 +61,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.Issues.AddRange(issues);
                     _appDbContext.SaveChanges();
                 }
-            }
+            }*/
             if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Comments.Any())
@@ -96,44 +95,57 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             };
             return users;
         }
-        private IEnumerable<Team> GetTeams()
+        /*private IEnumerable<Team> GetTeams()
         {
             var selectedUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee2" || u.FirstName == "Employee3" || u.FirstName == "Employee4").Select(u => (Employee)u).ToList();
 
             var teams = new List<Team>()
             {
-                new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers, ProjectId=1},
-                new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers, ProjectId=2}
+                new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers},
+                new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers}
             };
             return teams;
-        }
+        }*/
         private IEnumerable<Project> GetProjects()
         {
             var projects = new List<Project>()
             {
-                new Project(){ Name="projekt1"},
+                new Project(){ Name="projekt1",TeamId=1},
                 new Project(){ Name="projekt2"}
             };
             return projects;
         }
-        private IEnumerable<Issue> GetIssues()
-        {
-            var team = _appDbContext.Teams.FirstOrDefault(t => t.Id == 1);
-            //var employeesInTeam = _appDbContext.Users.Where(user => team.Employees.Any(employee => employee.Id == user.Id)).ToList();
-            var employeeIdsInTeam = team.Employees.Select(employee => employee.Id).ToList();
-            var employeesInTeam = _appDbContext.Users.Where(user => employeeIdsInTeam.Contains(user.Id)).ToList();
+        /* private IEnumerable<Issue> GetIssues()
+         {
+             var team = _appDbContext.Teams.FirstOrDefault(t => t.Id == 1);
+             //var employeesInTeam = _appDbContext.Users.Where(user => team.Employees.Any(employee => employee.Id == user.Id)).ToList();
+             var employeeIdsInTeam = team.Employees.Select(employee => employee.Id).ToList();
+             var employeesInTeam = _appDbContext.Users.Where(user => employeeIdsInTeam.Contains(user.Id)).ToList();
+
 
             var employee = employeesInTeam[0];
             var employee1 = employeesInTeam[1];
             var employee2 = employeesInTeam[2];
             var issues = new List<Issue>()
             {
-                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id},
-                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id},
+                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id,IsComplete = true},
+                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id,IsComplete = true},
                 new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
             };
             return issues;
         }
+             var employee = employeesInTeam[0];
+             var employee1 = employeesInTeam[1];
+             var employee2 = employeesInTeam[2];
+             var issues = new List<Issue>()
+             {
+                 new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id},
+                 new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id},
+                 new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
+             };
+             return issues;
+         }*/
+
         private IEnumerable<Comment> GetNotifications()
         {
             var notificationUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee5" || u.FirstName == "Employee4" || u.FirstName == "Employee1").ToList();

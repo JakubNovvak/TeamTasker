@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Application.Services;
+using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
 {
@@ -10,20 +13,22 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class ProjectController : ControllerBase
     {
+        private readonly IIssueService _issueService;
         private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService,IIssueService issueService)
         {
             _projectService = projectService;
+            _issueService = issueService;
         }
 
         [HttpPost]
-        [Route("", Name = "CreateProject")]
-        public IActionResult CreateProject(CreateProjectDto dto)
+        [Route("AddIssueToProject", Name = "AddIssueToProject")]
+        public IActionResult AddIssueToProject(AddIssueToProjectDto dto)
         {
             try
             {
-                _projectService.CreateProject(dto);
+                _issueService.AddIssueToProject(dto);
                 return Ok();
             }
             catch (ArgumentNullException ex)
@@ -40,6 +45,32 @@ namespace TeamTasker.Server.API.Controllers
             {
                 Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetProjectNameAndImagines", Name = "GetProjectNameAndImagines")]
+        public IActionResult GetProjectNameAndImagines(GetProjectNameAndImaginesDto dto)
+        {
+            try
+            {
+                var project = _projectService.GetProjectNameAndImagines(dto);
+                return Ok(project);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Negative project id - {ex.Message}");
+                return BadRequest($"Project id is not valid.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Project not found - {ex.Message}");
+                return BadRequest("Project not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[ProjectController] <GetProjectNameAndImagines> Unhandled exception: {ex.Message}");
+                return StatusCode(500, "Internal server error.");
             }
         }
 

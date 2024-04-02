@@ -16,31 +16,6 @@ namespace TeamTasker.Server.API.Controllers
         {
             _employeeService = employeeService;
         }
-        [HttpPost]
-        [Route("", Name = "CreateEmployee")]
-        public IActionResult CreateEmployee(CreateEmployeeDto dto)
-        {
-            try
-            {
-                _employeeService.CreateEmployee(dto);
-                return Ok();
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was no employee provided: {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new employee: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new employee: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
-            }
-        }
 
         [HttpGet]
         [Route("id", Name = "GetEmployee")]
@@ -121,7 +96,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Route("", Name = "GetAllEmployees")]
+        [Route("GetAllEmployees", Name = "GetAllEmployees")]
         public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllEmployees()
         {
             try
@@ -143,6 +118,84 @@ namespace TeamTasker.Server.API.Controllers
             {
                 Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAllUsers", Name = "GetAllUsers")]
+        public ActionResult<IEnumerable<ReadUserDto>> GetAllUsers()
+        {
+            try
+            {
+                var readUsersDto = _employeeService.GetAllUsers();
+                return Ok(readUsersDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No users were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no users in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetUserName", Name = "GetUserName")]
+        public IActionResult GetUserName(int id)
+        {
+            try
+            {
+                var name = _employeeService.GetUserName(id);
+                return Ok(name);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> negative user id \"{id}\" - {ex.Message}");
+                return BadRequest($"User id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> There is no user with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no user with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetUserNameAndEmail", Name = "GetUserNameAndEmail")]
+        public IActionResult GetUserNameAndEmail(int id)
+        {
+            try
+            {
+                var user = _employeeService.GetUserNameAndEmail(id);
+                return Ok(user);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> negative user id \"{id}\" - {ex.Message}");
+                return BadRequest($"User id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> There is no user with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no user with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
             }
         }
     }

@@ -12,6 +12,7 @@ namespace TeamTasker.Server.Domain.Interfaces
         void CreateEmployee(Employee employee);
         void UpdateEmployee(Employee employee);
         IEnumerable<Employee> GetAllEmployees();
+        IEnumerable<User> GetAllUsers();
         Employee? GetEmployee(int? id);
         User? GetUserByEmail(string? email);
         User? GetUser(int? id);

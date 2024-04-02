@@ -5,7 +5,7 @@ using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
-using TeamTasker.Server.Infrastructure.Services;
+using TeamTasker.Server.Application.Services;
 
 namespace TeamTasker.Server.API.Controllers
 {
