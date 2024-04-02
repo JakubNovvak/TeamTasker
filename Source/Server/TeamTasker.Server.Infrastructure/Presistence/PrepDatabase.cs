@@ -110,7 +110,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var projects = new List<Project>()
             {
-                new Project(){ Name="projekt1"},
+                new Project(){ Name="projekt1",TeamId=1},
                 new Project(){ Name="projekt2"}
             };
             return projects;
@@ -122,6 +122,18 @@ namespace TeamTasker.Server.Infrastructure.Presistence
              var employeeIdsInTeam = team.Employees.Select(employee => employee.Id).ToList();
              var employeesInTeam = _appDbContext.Users.Where(user => employeeIdsInTeam.Contains(user.Id)).ToList();
 
+
+            var employee = employeesInTeam[0];
+            var employee1 = employeesInTeam[1];
+            var employee2 = employeesInTeam[2];
+            var issues = new List<Issue>()
+            {
+                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id,IsComplete = true},
+                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id,IsComplete = true},
+                new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
+            };
+            return issues;
+        }
              var employee = employeesInTeam[0];
              var employee1 = employeesInTeam[1];
              var employee2 = employeesInTeam[2];
@@ -133,6 +145,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
              };
              return issues;
          }*/
+
         private IEnumerable<Comment> GetNotifications()
         {
             var notificationUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee5" || u.FirstName == "Employee4" || u.FirstName == "Employee1").ToList();

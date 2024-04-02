@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;

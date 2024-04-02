@@ -47,6 +47,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 .HasOne(p => p.Team)
                 .WithOne(t => t.Project)
                 .HasForeignKey<Team>(t => t.ProjectId);*/
+                
             modelBuilder.Entity<Team>()
                 .HasOne(t => t.Project)
                 .WithOne(p => p.Team)
