@@ -145,5 +145,57 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
             }
         }
+
+        [HttpGet]
+        [Route("GetUserName", Name = "GetUserName")]
+        public IActionResult GetUserName(int id)
+        {
+            try
+            {
+                var name = _employeeService.GetUserName(id);
+                return Ok(name);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> negative user id \"{id}\" - {ex.Message}");
+                return BadRequest($"User id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> There is no user with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no user with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetUserNameAndEmail", Name = "GetUserNameAndEmail")]
+        public IActionResult GetUserNameAndEmail(int id)
+        {
+            try
+            {
+                var user = _employeeService.GetUserNameAndEmail(id);
+                return Ok(user);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> negative user id \"{id}\" - {ex.Message}");
+                return BadRequest($"User id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> There is no user with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no user with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetById> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
+            }
+        }
     }
 }

@@ -112,7 +112,7 @@ namespace TeamTasker.Server.Application.Services
             var team = _teamRepository.GetTeam(id);
             if (team == null)
                 throw new Exception("Team not found");
-
+              
             var employees = team.EmployeeTeams.Select(e => e.Employee).ToList();
 
             var employeeDtos = employees.Select(e => _mapper.Map<ReadEmployeeDto>(e)).ToList();
