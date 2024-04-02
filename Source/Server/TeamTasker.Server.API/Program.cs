@@ -66,7 +66,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(AuthorizationPolicies.LoggedInUserPolicy, policy =>
     {
         policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireClaim("roleId", "0");
+        policy.RequireClaim("roleId", "2");
     });
 });
 
