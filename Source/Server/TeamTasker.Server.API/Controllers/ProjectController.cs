@@ -23,32 +23,6 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpPost]
-        [Route("", Name = "CreateProject")]
-        public IActionResult CreateProject(CreateProjectDto dto)
-        {
-            try
-            {
-                _projectService.CreateProject(dto);
-                return Ok();
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
-                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-        }
-
-        [HttpPost]
         [Route("AddIssueToProject", Name = "AddIssueToProject")]
         public IActionResult AddIssueToProject(AddIssueToProjectDto dto)
         {
