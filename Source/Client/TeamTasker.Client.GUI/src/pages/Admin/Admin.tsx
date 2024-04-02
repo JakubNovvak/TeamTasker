@@ -1,13 +1,12 @@
 import { CircularProgress, Typography } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosProxyConfig, AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
 async function FetchData(setRoleState: React.Dispatch<React.SetStateAction<boolean>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>)
 {
-    const options = {
-        withCredentials: true,
+    const options: AxiosRequestConfig = {
         headers: {
-            'JwtToken': `JwtToken=${document.cookie}`
+            Authorization: 'Bearer ' + document.cookie.split('; ').filter(row => row.startsWith('JwtToken')).map(c => c.split('=')[1])[0]
         }
     };
     setSendingState(true);
