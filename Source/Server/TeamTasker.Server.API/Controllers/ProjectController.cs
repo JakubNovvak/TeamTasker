@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
@@ -23,6 +25,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [Route("AddIssueToProject", Name = "AddIssueToProject")]
         public IActionResult AddIssueToProject(AddIssueToProjectDto dto)
         {
@@ -49,6 +52,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetProjectNameAndImagines", Name = "GetProjectNameAndImagines")]
         public IActionResult GetProjectNameAndImagines(GetProjectNameAndImaginesDto dto)
         {
@@ -75,6 +79,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("id", Name = "GetProject")]
         public IActionResult GetProject(int id)
         {
@@ -101,6 +106,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("", Name = "GetAllProjects")]
         public ActionResult<IEnumerable<ReadProjectDto>> GetAllProjects()
         {

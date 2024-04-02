@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -17,7 +18,9 @@ namespace TeamTasker.Server.API.Controllers
             _employeeService = employeeService;
         }
 
+
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("id", Name = "GetEmployee")]
         public IActionResult GetEmployee(int id)
         {
@@ -44,6 +47,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("email", Name = "GetUserByEmail")]
         public IActionResult GetUserByEmail(string email)
         {
@@ -70,6 +74,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [Route("getPassword_id", Name = "GetUserPassword")]
         public IActionResult GetUserPasword(int id)
         {
@@ -96,6 +101,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("GetAllEmployees", Name = "GetAllEmployees")]
         public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllEmployees()
         {
@@ -122,6 +128,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("GetAllUsers", Name = "GetAllUsers")]
         public ActionResult<IEnumerable<ReadUserDto>> GetAllUsers()
         {
@@ -148,6 +155,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetUserName", Name = "GetUserName")]
         public IActionResult GetUserName(int id)
         {
@@ -174,6 +182,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetUserNameAndEmail", Name = "GetUserNameAndEmail")]
         public IActionResult GetUserNameAndEmail(int id)
         {

@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
@@ -20,6 +22,7 @@ namespace TeamTasker.Server.API.Controllers
 
         [HttpGet]
         [Route("id", Name = "GetTeam")]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         public IActionResult GetTeam(int id)
         {
             try
@@ -45,6 +48,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("GetAllTeams", Name = "GetAllTeams")]
         public ActionResult<IEnumerable<ReadTeamDto>> GetAllTeams()
         {
@@ -71,6 +75,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetAllTeamEmployees", Name = "GetAllTeamEmployees")]
         public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllTeamEmployees(int id)
         {

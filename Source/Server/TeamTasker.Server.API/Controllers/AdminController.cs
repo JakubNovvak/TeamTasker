@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
@@ -10,6 +12,7 @@ using TeamTasker.Server.Domain.Interfaces;
 namespace TeamTasker.Server.API.Controllers
 {
     [ApiController]
+    [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
