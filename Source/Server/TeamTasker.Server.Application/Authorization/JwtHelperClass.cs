@@ -9,7 +9,7 @@ using TeamTasker.Server.Application.Dtos.Users;
 
 namespace TeamTasker.Server.Application.Authorization
 {
-    static internal class JwtHelperClass
+    static public class JwtHelperClass
     {
         private static readonly string developmentSecureKey = "This is a temp secure key, definitely NOT for Production";
 
@@ -22,13 +22,13 @@ namespace TeamTasker.Server.Application.Authorization
             var payload = new JwtPayload
             {
                 { "email", readUserDto.Email },
-                { "roleId", readUserDto.RoleId },
+                { "roleId", readUserDto.RoleId.ToString() },
                 { JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(10))}
             };
 
             var payload2 = new JwtPayload(readUserDto.Email, null, null, null, DateTime.Now.AddMinutes(10))
             {
-                { "roleId", readUserDto.RoleId }
+                { "roleId", readUserDto.RoleId.ToString() }
             }; //10 minutes
 
             var securityToken = new JwtSecurityToken(header, payload2);
