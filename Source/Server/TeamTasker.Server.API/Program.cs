@@ -73,6 +73,12 @@ builder.Services.AddAuthorization(options =>
         policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
         policy.RequireClaim("roleId", "2");
     });
+
+    options.AddPolicy(AuthorizationPolicies.BothUserPolicy, policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("roleId", ["1", "2"]);
+    });
 });
 
 //TODO: Change database implementation to the SQL Server, instead of In Memory Database

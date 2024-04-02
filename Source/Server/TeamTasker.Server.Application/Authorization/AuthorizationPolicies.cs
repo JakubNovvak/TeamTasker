@@ -10,5 +10,6 @@ namespace TeamTasker.Server.Application.Authorization
     {
         public const string AdminUserPolicy = "AdminUserPolicy";
         public const string LoggedInUserPolicy = "LoggedInUserPolicy";
+        public const string BothUserPolicy = "BothUserPolicy";
     }
 }
