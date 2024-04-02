@@ -1,4 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Application.Services.Authorization;
@@ -27,6 +34,40 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod()
         .AllowCredentials()
         );
+});
+
+//Adds token retrieving
+builder.Services.AddAuthentication(options => 
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options => 
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            //TODO: Implement accessible Security Key - without development hard coded key.
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("This is a temp secure key, definitely NOT for Production"))
+        };
+    });
+
+//Adds roles Policies
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy(AuthorizationPolicies.AdminUserPolicy, policy => 
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("roleId", "1");
+    });
+
+    options.AddPolicy(AuthorizationPolicies.LoggedInUserPolicy, policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("roleId", "0");
+    });
 });
 
 //TODO: Change database implementation to the SQL Server, instead of In Memory Database
@@ -78,9 +119,10 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseCors("AllowOrigin");
+
+//app.UseAuthentication(); Not needed - used before .Net7
+app.UseAuthorization();
 
 app.MapControllers();
 
