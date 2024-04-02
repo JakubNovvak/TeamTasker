@@ -90,7 +90,7 @@ namespace TeamTasker.Server.API.Controllers
         {
             try
             {
-                _jwtService.CheckIfHasAdminPermission(Request.Headers["Authorization"]);
+                _jwtService.CheckIfHasAdminPermission(Request.Headers.Authorization);
             }
             catch (UnauthorizedAccessException)
             {

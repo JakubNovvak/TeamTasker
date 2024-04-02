@@ -50,7 +50,7 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = false,
             ValidateIssuerSigningKey = true,
             //TODO: Implement accessible Security Key - without development hard coded key.
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("This is a temp secure key, definitely NOT for Production"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtHelperClass.developmentSecureKey))
         };
     });
 

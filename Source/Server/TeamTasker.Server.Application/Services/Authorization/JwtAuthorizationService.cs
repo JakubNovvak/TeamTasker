@@ -35,7 +35,7 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             httpResponse.Cookies.Append("JwtToken", jwtToken, new CookieOptions 
             { 
-                HttpOnly = false,
+                //HttpOnly = false,
                 Path = "/",
                 Expires = DateTimeOffset.Now.AddDays(7),
                 IsEssential = true,
@@ -50,6 +50,8 @@ namespace TeamTasker.Server.Application.Services.Authorization
             var jwtToken = TrimHeaderToken(authorizationHeader);
 
             var roleId = GetUserRoleFromToken(jwtToken);
+
+            Console.WriteLine($"Admin RoleId: {roleId}");
 
             if (roleId != 1)
                 throw new UnauthorizedAccessException();
@@ -86,10 +88,9 @@ namespace TeamTasker.Server.Application.Services.Authorization
             return verifiedToken;
         }
 
-        public int GetUserRoleFromToken(string authorizationHeader)
+        public int GetUserRoleFromToken(string stringifiedToken)
         {
-            var jwToken = TrimHeaderToken(authorizationHeader);
-            var verifiedToken = VerifyPassedToken(jwToken);
+            var verifiedToken = VerifyPassedToken(stringifiedToken);
 
             Console.WriteLine("Token: " + verifiedToken);
 
@@ -103,6 +104,7 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
         public string TrimHeaderToken(string? authorizationHeader)
         {
+            Console.WriteLine($"Before Trim: {authorizationHeader}");
             if (string.IsNullOrEmpty(authorizationHeader))
                 throw new UnauthorizedAccessException();
 
@@ -110,6 +112,7 @@ namespace TeamTasker.Server.Application.Services.Authorization
                 throw new UnauthorizedAccessException();
 
             string jwtToken = authorizationHeader.Substring("Bearer ".Length).Trim();
+            Console.WriteLine($"Trimmed token: {jwtToken}");
 
             return jwtToken;
         }

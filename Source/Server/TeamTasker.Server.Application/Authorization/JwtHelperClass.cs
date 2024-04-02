@@ -11,7 +11,7 @@ namespace TeamTasker.Server.Application.Authorization
 {
     static public class JwtHelperClass
     {
-        private static readonly string developmentSecureKey = "This is a temp secure key, definitely NOT for Production";
+        public static readonly string developmentSecureKey = "This is a temp secure key, definitely NOT for Production";
 
         public static string GenerateToken(ReadUserDto readUserDto)
         {

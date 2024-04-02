@@ -17,7 +17,7 @@ namespace TeamTasker.Server.Application.Interfaces.Authorization
         public void CheckIfHasAdminPermission(string? authorizationHeader);
         public void CheckIfHasLoggedInUserPermission(string? authorizationHeader);
         public void CheckIfLeaderOfTheProject(string? authorizationHeader);
-        public int GetUserRoleFromToken(string authorizationHeader);
+        public int GetUserRoleFromToken(string stringifiedToken);
         public string TrimHeaderToken(string? authorizationHeader);
     }
 }
