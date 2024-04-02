@@ -3,9 +3,7 @@ import axios from "axios";
 
 export default async function FetchData(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
-    const options = {
-        withCredentials: true
-    };
+    const options = {withCredentials: true};
     setSendingState(true);
     try{
         //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
