@@ -72,5 +72,23 @@ namespace TeamTasker.Server.Application.Services
             var userDto = _mapper.Map<ReadUserDto>(user);
             return userDto.Password;
         }
+        public ReadUserNameDto GetUserName(int id)
+        {
+            var user = _employeeRepository.GetUser(id);
+            if (user == null)
+                throw new Exception("User not found");
+
+            var userDto = _mapper.Map<ReadUserNameDto>(user);
+            return userDto;
+        }
+        public ReadUserNameAndEmailDto GetUserNameAndEmail(int id)
+        {
+            var user = _employeeRepository.GetUser(id);
+            if (user == null)
+                throw new Exception("User not found");
+
+            var userDto = _mapper.Map<ReadUserNameAndEmailDto>(user);
+            return userDto;
+        }
     }
 }
