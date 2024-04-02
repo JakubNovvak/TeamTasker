@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
@@ -83,33 +84,32 @@ namespace TeamTasker.Server.API.Controllers
             return Ok("User is allowed to use this resource.");
         }
 
+        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [HttpGet("authorize/admin", Name = "VerifyAdminUser")]
-        public ActionResult VerifyAdminPermission()
+        public IActionResult VerifyAdminPermission()
         {
-            foreach (var cookie in Request.Cookies)
-            {
-                Console.WriteLine($"Cookie: {cookie.Key} = {cookie.Value}");
-            }
-
             try
             {
-
-                _jwtService.CheckIfHasAdminPermission(Request.Cookies["JwtToken"]);
+                _jwtService.CheckIfHasAdminPermission(Request.Headers["Authorization"]);
             }
             catch (UnauthorizedAccessException)
             {
+                Console.WriteLine("You don't have enough permissions, to access this admin page.");
                 return Unauthorized("You don't have enough permissions, to access this admin page.");
             }
             catch (SecurityTokenExpiredException)
             {
+                Console.WriteLine("Your sessions has expired.");
                 return Unauthorized("Your sessions has expired.");
             }
             catch (ArgumentNullException)
             {
+                Console.WriteLine("There was no identity token provided.");
                 return Unauthorized("There was no identity token provided.");
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"An unexpected error has occured: {ex.Message}");
                 return BadRequest($"An unexpected error has occured: {ex.Message}");
             }
 
