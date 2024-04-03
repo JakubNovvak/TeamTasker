@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import MuiMiniDrawer from "../../components/Dashboard/MuiMiniDrawer";
 import PreviewDrawerContent from "../../components/Dashboard/PreviewDrawerContent";
 
@@ -10,6 +10,11 @@ import ProjectMembers from "../DrawerModules/ProjectMembers";
 import ProjectPreview from "../DrawerModules/ProjectPreview";
 import ProjectSettings from "../DrawerModules/ProjectSettings";
 import UserSettings from "../DrawerModules/UserSettings";
+import { useState } from "react";
+import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
+import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
+import { NavLink } from "react-router-dom";
+import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
 
 function renderSwitch(pathnName: string)
 {
@@ -49,9 +54,32 @@ function renderSwitch(pathnName: string)
 
 export default function ModulesContainer()
 {
+    const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
+    const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+
+    CheckLoggedInPermission(setloggedInUserPermission);
+    CheckAdminPermission(setAdminUserPermission);
     let pathName = location.pathname;
 
     console.log(pathName);
+
+    if(!adminUserPermission && !loggedInUserPermission)
+        return(
+            <>
+                <h1>You need to login first to use this resource.</h1>
+                <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained">LOG IN</Button></NavLink>
+            </>
+            );
+
+    if(adminUserPermission && !loggedInUserPermission)
+        return(
+            <>
+                <h1>Admin account cannot be used for project management.</h1>
+                <h1>Please login to your employee account instead.</h1>
+                <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
+            </>
+            );
+
     return(
         <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
             
@@ -62,11 +90,5 @@ export default function ModulesContainer()
 
             </Box>
         </Box>
-    );
-
-    return(
-        <>
-            <MuiMiniDrawer />
-        </>
     );
 }

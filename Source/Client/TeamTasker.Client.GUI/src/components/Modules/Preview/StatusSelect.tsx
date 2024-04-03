@@ -4,9 +4,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import CheckLeaderPermission from '../../Connection/API/CheckLeaderPermission';
 
 export default function StatusSelect() {
   const [age, setAge] = React.useState('10');
+
+  const [userPermission, setUserPermission] = React.useState<boolean>(false);
+  CheckLeaderPermission(setUserPermission);
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
@@ -22,6 +26,7 @@ export default function StatusSelect() {
           value={age}
           label=""
           onChange={handleChange}
+          disabled={userPermission ? false : true}
           
         >
           <MenuItem value={10}>✅ On the right path</MenuItem>
