@@ -1,65 +1,41 @@
-import { CircularProgress, Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import axios, { AxiosProxyConfig, AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
-
-async function FetchData(setRoleState: React.Dispatch<React.SetStateAction<boolean>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>)
-{
-    const options: AxiosRequestConfig = {
-        headers: {
-            Authorization: 'Bearer ' + document.cookie.split('; ').filter(row => row.startsWith('JwtToken')).map(c => c.split('=')[1])[0]
-        }
-    };
-    setSendingState(true);
-    try{
-        //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
-        const response = await axios.get('https://localhost:7014/api/Account/authorize/admin', options);
-        console.log("POST: Respone from API" + response.data);
-        setSendingState(false);
-        setRoleState(true);
-        //await new Promise(resolve => setTimeout(resolve, 4000));
-        //location.href = "/";
-    }
-    catch(error)
-    {
-        console.error("There was an issie with \"FetchData\" POST request: ", {error});
-        setRoleState(false);
-        setSendingState(false);
-    }
-}
-
+import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
+import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
+import { NavLink } from "react-router-dom";
+import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
+import MuiAdminNavbar from "../../components/Admin/MuiAdminNavbar";
 
 
 export default function Admin()
 {
-    const [roleState, setRoleState] = useState<boolean>(false);
-    const [sendingState, setSendingState] = useState<boolean>(false);
-    
-    useEffect(() => {
-        FetchData(setRoleState, setSendingState);
-    }, []);
+    const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
+    const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
 
-    if(sendingState)
-        return(
-            <>
-                <CircularProgress sx={{mt: "3rem"}}/>
-            </>
-        );
+    CheckLoggedInPermission(setloggedInUserPermission);
+    CheckAdminPermission(setAdminUserPermission);
 
-        
-    if(roleState)
+    if(!adminUserPermission && !loggedInUserPermission)
         return(
             <>
-            <Typography fontWeight={550} fontSize={70}>
-                This message can only be seen by Admin user.
-            </Typography>
+                <h1>You need to login first to use this resource.</h1>
+                <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained">LOG IN</Button></NavLink>
             </>
-        );
-    else
+            );
+
+    if(!adminUserPermission && loggedInUserPermission)
         return(
             <>
-            <Typography fontWeight={550} fontSize={70}>
-                You can't see Admin message...
-            </Typography>
+                <h1>This resource requires admin account.</h1>
+                <h1>Please login with a valid account to continue.</h1>
+                <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
             </>
-        );
+            );
+
+    return(
+        <>
+            <MuiAdminNavbar />
+        </>
+    );
 }
