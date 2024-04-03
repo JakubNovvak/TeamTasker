@@ -2,8 +2,14 @@ import { Divider, List} from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 import ModuleButton from "./ModuleButton";
+import { useState } from "react";
+import CheckLeaderPermission from "../../Connection/API/CheckLeaderPermission";
 
 export default function ModulesLinks({isOpen}: {isOpen: boolean}){
+    const [userPermission, setUserPermission] = useState<boolean>(false);
+
+    CheckLeaderPermission(setUserPermission);
+
     return(
       <>  
         <List>
@@ -17,7 +23,12 @@ export default function ModulesLinks({isOpen}: {isOpen: boolean}){
           <Divider sx={{backgroundColor: "white"}} />
           <List sx={{backgroundColor: "#363b4d"}}>
             <NavLink to="usersettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={3} buttonText="User Settings"/></NavLink>
-            <NavLink to="projectsettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={8} buttonText="Project Settings"/></NavLink>
+            {userPermission ? 
+             <NavLink to="projectsettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={8} buttonText="Project Settings"/></NavLink>
+             :
+             <></>  
+          }
+            {/* <NavLink to="projectsettings" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={8} buttonText="Project Settings"/></NavLink> */}
             {/* <ModuleButton isOpen={isOpen} listKey={5} buttonText="Report a bug"/> */}
           </List>
 

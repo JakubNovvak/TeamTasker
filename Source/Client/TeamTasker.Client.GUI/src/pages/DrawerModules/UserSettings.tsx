@@ -7,7 +7,7 @@ export default function UserSettings()
             <Box sx={{width: "100%", height: "42rem"}}>
                 <Box sx={{display: "flex", mb: "1.5rem"}}>
                     <Typography variant="h4" sx={{marginRight: "auto"}}>
-                        Project Settings
+                        User Settings
                     </Typography>
                 </Box>
             </Box>

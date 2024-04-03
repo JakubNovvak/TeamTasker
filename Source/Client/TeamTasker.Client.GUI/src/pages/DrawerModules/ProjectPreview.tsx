@@ -5,9 +5,14 @@ import { Button, Textarea } from "@mui/joy";
 import tempText from "./previewText";
 import StatusSelect from "../../components/Modules/Preview/StatusSelect";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 
 export default function ProjectPreview()
 {
+    const [userPermission, setUserPermission] = useState<boolean>(false);
+    CheckLeaderPermission(setUserPermission);
+
     return(
         <>
             <Box sx={{width: "100%", height: "95%", mt: "5rem"}}>
@@ -72,9 +77,12 @@ export default function ProjectPreview()
                         </Box>
 
                         <Box sx={{display: "flex", flexDirection: "row", ml: "1.5rem"}}>
-                            <Button sx={{width: "5rem", mt: "1.5rem"}}>
-                                Add+
-                            </Button>
+                            {userPermission ?
+                                <Button sx={{width: "5rem", mt: "1.5rem"}}>Add+</Button>
+                            :
+                                <></>
+                            }
+                        
                             <NavLink to="projectmembers" style={{textDecoration: "none"}}>
                                 <Button variant="outlined" sx={{width: "10rem", ml: "1.5rem", mt: "1.5rem"}}>
                                     Show all members
