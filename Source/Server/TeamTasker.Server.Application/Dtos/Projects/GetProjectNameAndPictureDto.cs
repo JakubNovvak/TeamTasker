@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Application.Dtos.Projects
 {
-    public class GetProjectNameAndImaginesDto
+    public class GetProjectNameAndPictureDto
     {
-        public int ProjectId { get; set; }
         public string Name { get; set; }
-        public IDictionary<int, string> Imagines { get; set; }
+        public string Picture { get; set; }
     }
 }

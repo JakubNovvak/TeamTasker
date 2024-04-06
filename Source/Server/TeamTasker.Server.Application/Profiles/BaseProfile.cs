@@ -39,8 +39,8 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Project, UpdateTeamToProjectDto>(); //1
             CreateMap<UpdateTeamToProjectDto, Project>(); //1
 
-            CreateMap<Project, GetProjectNameAndImaginesDto>();
-            CreateMap<GetProjectNameAndImaginesDto, Project>();
+            CreateMap<Project, GetProjectNameAndPictureDto>();
+            CreateMap<GetProjectNameAndPictureDto, Project>();
 
             CreateMap<AddMessageToProjectDto, Comment>();
             CreateMap<Comment, AddMessageToProjectDto>();

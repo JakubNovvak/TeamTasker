@@ -77,47 +77,16 @@ namespace TeamTasker.Server.Application.Services
         }
 
         //1
-        public GetProjectNameAndImaginesDto GetProjectNameAndImagines(GetProjectNameAndImaginesDto projectNameAndImaginesDto)
+        public GetProjectNameAndPictureDto GetProjectNameAndImagines(int id)
         {
-            if (projectNameAndImaginesDto == null)
-                throw new ArgumentNullException(nameof(projectNameAndImaginesDto));
-
-            var project = _projectRepository.GetProject(projectNameAndImaginesDto.ProjectId);
+            var project = _projectRepository.GetProject(id);
 
             if (project == null)
                 throw new Exception("Project not found");
 
-            var projectName = project.Name;
-            var projectImages = new Dictionary<int, string>();
+            var projectDto = _mapper.Map<GetProjectNameAndPictureDto>(project);
 
-            // Ścieżka do folderu zawierającego obrazy związane z projektem
-            string projectImagesFolderPath = Path.Combine("ProjectImages", projectName);
-
-            // Sprawdzenie, czy folder z obrazami istnieje
-            if (!Directory.Exists(projectImagesFolderPath))
-                throw new Exception("Project images folder not found");
-
-            // Pobranie wszystkich plików obrazów w folderze projektu
-            string[] imageFiles = Directory.GetFiles(projectImagesFolderPath);
-
-            // Dodanie każdego obrazu do mapy obrazów projektu
-            foreach (string imagePath in imageFiles)
-            {
-                // Pobranie nazwy pliku (bez ścieżki)
-                string imageName = Path.GetFileName(imagePath);
-                // Dodanie obrazu do mapy
-                projectImages.Add(projectImages.Count + 1, imageName);
-            }
-
-            // Tworzenie nowego obiektu DTO i przypisanie nazwy projektu i mapy obrazów
-            var resultDto = new GetProjectNameAndImaginesDto
-            {
-                Name = projectName,
-                Imagines = projectImages
-            };
-
-            // Zwracanie obiektu DTO
-            return resultDto;
+            return projectDto;
         }
 
 
@@ -142,6 +111,17 @@ namespace TeamTasker.Server.Application.Services
             return projectDto;
         }
 
-        
+        public void AddPictureToProject(AddPictureToProjectDto addPictureToProjectDto)
+        {
+            if (addPictureToProjectDto == null)
+                throw new ArgumentNullException(nameof(addPictureToProjectDto));
+
+            var project = _projectRepository.GetProject(addPictureToProjectDto.Id);
+            if(project == null)
+                throw new Exception("Project not found");
+
+            project.Picture = addPictureToProjectDto.Picture;
+            _projectRepository.UpdateProject(project);
+        }
     }
 }
