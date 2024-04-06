@@ -51,8 +51,6 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
             var roleId = GetUserRoleFromToken(jwtToken);
 
-            Console.WriteLine($"Admin RoleId: {roleId}");
-
             if (roleId != 1)
                 throw new UnauthorizedAccessException();
         }
@@ -92,8 +90,6 @@ namespace TeamTasker.Server.Application.Services.Authorization
         {
             var verifiedToken = VerifyPassedToken(stringifiedToken);
 
-            Console.WriteLine("Token: " + verifiedToken);
-
             if(verifiedToken.Payload["roleId"]?.ToString() == null)
                 throw new UnauthorizedAccessException();
 
@@ -104,7 +100,6 @@ namespace TeamTasker.Server.Application.Services.Authorization
 
         public string TrimHeaderToken(string? authorizationHeader)
         {
-            Console.WriteLine($"Before Trim: {authorizationHeader}");
             if (string.IsNullOrEmpty(authorizationHeader))
                 throw new UnauthorizedAccessException();
 
@@ -112,7 +107,6 @@ namespace TeamTasker.Server.Application.Services.Authorization
                 throw new UnauthorizedAccessException();
 
             string jwtToken = authorizationHeader.Substring("Bearer ".Length).Trim();
-            Console.WriteLine($"Trimmed token: {jwtToken}");
 
             return jwtToken;
         }

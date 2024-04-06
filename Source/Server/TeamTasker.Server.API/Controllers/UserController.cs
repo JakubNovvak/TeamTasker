@@ -128,33 +128,6 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
-        [Route("GetAllUsers", Name = "GetAllUsers")]
-        public ActionResult<IEnumerable<ReadUserDto>> GetAllUsers()
-        {
-            try
-            {
-                var readUsersDto = _employeeService.GetAllUsers();
-                return Ok(readUsersDto);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> No users were found - the table is empty!: {ex.Message}");
-                return NotFound("There is no users in the database.");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
-                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
-            }
-        }
-
-        [HttpGet]
         [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetUserName", Name = "GetUserName")]
         public IActionResult GetUserName(int id)
@@ -205,6 +178,34 @@ namespace TeamTasker.Server.API.Controllers
             {
                 Console.WriteLine($">[TasksCtr] <GetById> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        //TODO: Add authnetication header for swagger testing
+        //[Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+        [Route("GetAllUsers", Name = "GetAllUsers")]
+        public ActionResult<IEnumerable<ReadUserDto>> GetAllUsers()
+        {
+            try
+            {
+                var readUsersDto = _employeeService.GetAllUsers();
+                return Ok(readUsersDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No users were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no users in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
             }
         }
     }

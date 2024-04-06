@@ -22,7 +22,8 @@ namespace TeamTasker.Server.API.Controllers
 
         [HttpGet]
         [Route("id", Name = "GetTeam")]
-        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        //TODO: Add authnetication header for swagger testing
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         public IActionResult GetTeam(int id)
         {
             try
@@ -48,7 +49,8 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+        //TODO: Add authnetication header for swagger testing
+        //[Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("GetAllTeams", Name = "GetAllTeams")]
         public ActionResult<IEnumerable<ReadTeamDto>> GetAllTeams()
         {
@@ -75,7 +77,8 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        //TODO: Add authnetication header for swagger testing
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetAllTeamEmployees", Name = "GetAllTeamEmployees")]
         public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllTeamEmployees(int id)
         {

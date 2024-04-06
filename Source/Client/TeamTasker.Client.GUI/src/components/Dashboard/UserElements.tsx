@@ -1,14 +1,19 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Input } from "@mui/joy";
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from "react";
+import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
+import React from "react";
+import UserAvatarMenu from "./UserAvatarMenu";
 
 
 function renderSwitch(pathnName: string): string[]
 {
-
+    const [userPermission, setUserPermission] = useState<boolean>(false);
+    CheckLeaderPermission(setUserPermission);
     //TODO: Implement better solution ASAP - this is only a temporary solution
 
     switch(pathnName)
@@ -17,7 +22,10 @@ function renderSwitch(pathnName: string): string[]
             return ["", "", ""];
 
         case "/projectname/preview":
-            return ["Components", "Add", "Remove"];
+            if(userPermission)
+                return ["Components", "Add", "Remove"];
+            else
+                return ["", "", ""];
 
         case "/projectname/issueslist":
             return ["Your Issues", "", ""];
@@ -26,7 +34,10 @@ function renderSwitch(pathnName: string): string[]
             return ["Mentions", "Shared", ""];
 
         case "/projectname/projectfeed":
-            return ["Publish", "", ""];
+            if(userPermission)
+                return ["Publish", "", ""];
+            else
+                return ["", "", ""];
 
         case "/projectname/projectsettings":
             return ["", "", ""];
@@ -38,7 +49,10 @@ function renderSwitch(pathnName: string): string[]
             return ["Switch Board", "", ""];
 
         case "/projectname/projectmembers":
-            return ["Manage Users", "Manage Roles", ""];
+            if(userPermission)
+                return ["Manage Users", "Manage Roles", ""];
+            else
+                return ["", "", ""];
             
         default:
             return ["", "", ""];
@@ -47,7 +61,6 @@ function renderSwitch(pathnName: string): string[]
 
 export default function UserElements()
 {
-
     let pathName = location.pathname;
 
     return(
@@ -79,8 +92,7 @@ export default function UserElements()
                     <Badge badgeContent={4} color="primary" sx={{mr: "1.5rem"}}>
                         <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
                     </Badge>
-                    <ArrowDropDownIcon sx={{color: "#363b4d"}}/>
-                    <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" />
+                    <UserAvatarMenu />
                 </Box>
             </Box>
     );

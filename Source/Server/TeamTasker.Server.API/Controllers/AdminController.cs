@@ -12,7 +12,8 @@ using TeamTasker.Server.Domain.Interfaces;
 namespace TeamTasker.Server.API.Controllers
 {
     [ApiController]
-    [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+    //TODO: Add authnetication header for swagger testing
+    //[Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {

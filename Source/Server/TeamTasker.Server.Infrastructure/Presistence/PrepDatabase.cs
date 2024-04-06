@@ -35,7 +35,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
-            /*if (_appDbContext.Database.CanConnect())
+            if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Teams.Any())
                 {
@@ -43,7 +43,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.Teams.AddRange(teams);
                     _appDbContext.SaveChanges();
                 }
-            }*/
+            }
             if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Projects.Any())
@@ -86,8 +86,8 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             var users = new List<User>()
             {
                 new User(){ FirstName = "Admin", Email="admin", Password="admin"},
-                new Employee(){FirstName = "Employee1", Email="user@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee2", Email="leader@test.pl", Password ="password"},
+                new Employee(){FirstName = "Regular", LastName="User", Position="Software Developer", Email="user@test.pl", Password ="password"},
+                new Employee(){FirstName = "Leader", LastName="User", Position="Project Admin", Email="leader@test.pl", Password ="password"},
                 new Employee(){FirstName = "Employee3"},
                 new Employee(){FirstName = "Employee4"},
                 new Employee(){FirstName = "Employee5"},
@@ -95,17 +95,18 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             };
             return users;
         }
-        /*private IEnumerable<Team> GetTeams()
+        private IEnumerable<Team> GetTeams()
         {
-            var selectedUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee2" || u.FirstName == "Employee3" || u.FirstName == "Employee4").Select(u => (Employee)u).ToList();
+            //var selectedUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee2" || u.FirstName == "Employee3" || u.FirstName == "Employee4").Select(u => (Employee)u).ToList();
 
             var teams = new List<Team>()
             {
-                new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers},
-                new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers}
+                //new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers},
+                //new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers}
+                new Team(){ Name = "team1"}
             };
             return teams;
-        }*/
+        }
         private IEnumerable<Project> GetProjects()
         {
             var projects = new List<Project>()

@@ -4,9 +4,14 @@ import SwapCallsIcon from '@mui/icons-material/SwapCalls';
 import EditNotificationsIcon from '@mui/icons-material/EditNotifications';
 import IssueCard from "../../components/Modules/Board/IssueCard";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 
 export default function Board()
 {
+    const [userPermission, setUserPermission] = useState<boolean>(false);
+    CheckLeaderPermission(setUserPermission);
+
     return(
         <>
              <Box sx={{width: "100%", height: "95%", mt: "5rem"}}>
@@ -41,7 +46,12 @@ export default function Board()
                                     Status
                                 </Typography>
                                 <Typography fontWeight={550} sx={{marginRight: "auto"}}>
-                                    New Issue <NavLink to="/projectname/issueslist"><Button sx={{width:"5rem", height: "1.5rem", ml: "2rem"}} variant="outlined">+</Button></NavLink>
+                                    New Issue
+                                    {userPermission ? 
+                                        <NavLink to="/projectname/issueslist"><Button sx={{width:"5rem", height: "1.5rem", ml: "2rem"}} variant="outlined">+</Button></NavLink>
+                                    :
+                                        <></>
+                                    }
                                 </Typography>
                             </Box>
                             <Divider sx={{mt: "1rem"}}/>

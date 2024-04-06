@@ -3,10 +3,13 @@ import { Input } from "@mui/joy";
 import { Paper, Typography, styled, CircularProgress } from "@mui/material";
 import Button from '@mui/material-next/Button';
 import { Form, Formik, useFormikContext } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, redirect } from "react-router-dom";
 import { LoginDto } from "../../components/Types/LoginDto";
 import FetchData from "../../components/Login/API/FetchData";
 import { useState } from "react";
+import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
+import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
+import PostErorrSnackbar from "../../components/Connection/Notifies/PostSnackbar";
 
 const ContentSeparator = styled("hr")({
     border: "0",
@@ -18,12 +21,18 @@ const ContentSeparator = styled("hr")({
     height: "1px"
 });
 
-function onSubmit(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
-{
+function onSubmit(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>, sendSucess: number)
+{    
     FetchData(LoginDto, setSendingState, setSendSucess);
+
+    // if(sendSucess == 1)
+    // {
+    //     console.log("Success!");
+    //     location.reload();// = "/projectspage";
+    // }
 }
 
-function LoginPageContent({sendSucess}: {sendSucess: number})
+function LoginPageContent({sendingState}: {sendingState: boolean})
 {
     const formikProps = useFormikContext<LoginDto>();
 
@@ -48,7 +57,7 @@ function LoginPageContent({sendSucess}: {sendSucess: number})
 
                 {/* <NavLink to="/projectname/preview" style={{textDecoration: "none"}}> */}
                     {   
-                        sendSucess == 2
+                        sendingState
                         ?
                         <CircularProgress sx={{mt: "3rem"}}/>
                         :
@@ -73,12 +82,31 @@ export default function LoginPage()
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
 
+    const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
+    const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+
+    CheckLoggedInPermission(setloggedInUserPermission);
+    CheckAdminPermission(setAdminUserPermission);
+
+    if(loggedInUserPermission && !adminUserPermission)
+    {
+        location.href = "/projectspage";
+        return(<></>);
+    }
+
+    if(!loggedInUserPermission && adminUserPermission)
+    {
+        location.href = "/admindashboard";
+        return(<></>);
+    }
+
     return(
         <>
+            {sendingState == false && sendSucess == 2 ? <PostErorrSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             <Formik initialValues={{email: "", password: ""}}
-            onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess)}}
+            onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess, sendSucess)}}
             >
-                <LoginPageContent sendSucess={sendSucess}/>
+                <LoginPageContent sendingState={sendingState}/>
             </Formik>
         </>
     );    

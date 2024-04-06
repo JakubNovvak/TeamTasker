@@ -13,6 +13,7 @@ export default async function FetchData(LoginDto: LoginDto, setSendingState: Rea
         setSendSucess(1);
         //await new Promise(resolve => setTimeout(resolve, 4000));
         //location.href = "/admin";
+        location.reload();
     }
     catch(error)
     {
