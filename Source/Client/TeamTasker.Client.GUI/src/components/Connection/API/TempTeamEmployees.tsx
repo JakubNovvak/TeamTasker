@@ -5,11 +5,19 @@ import { AxiosOptions } from "../../Types/AxiosOptions";
 async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<boolean>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>)
 {
     setSendingState(true);
+    setUserPermission(false);
     try{
-        const response = await axios.get('https://localhost:7014/api/Account/authorize/loggedin', AxiosOptions);
-        console.log("POST: Respone from API" + response.data);
+        
+        //TODO: Another endpoint needed - get user id by token
+        const responeEmail = await axios.get('https://localhost:7014/api/Account/authorize/email', AxiosOptions);
+        const responseEmployees = await axios.get('https://localhost:7014/api/Team/GetAllTeamEmployees?id=1', AxiosOptions);
+        for (const employee of responseEmployees.data) {
+            console.log("Employee Name: " + employee.email);
+            if(employee.email == responeEmail.data)
+                setUserPermission(true);
+        }
         setSendingState(false);
-        setUserPermission(true);
+        //setUserPermission(false);
     
         //await new Promise(resolve => setTimeout(resolve, 4000));
         //location.href = "/";
@@ -22,7 +30,7 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
     }
 }
 
-export default function CheckLoggedInPermission(setUserPermission: React.Dispatch<React.SetStateAction<boolean>>)
+export default function TempTeamEmployees(setUserPermission: React.Dispatch<React.SetStateAction<boolean>>)
 {
     //const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(false);
     const [sendingState, setSendingState] = useState<boolean>(false);

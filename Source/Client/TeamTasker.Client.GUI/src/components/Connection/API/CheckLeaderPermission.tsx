@@ -6,7 +6,6 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
 {
     setSendingState(true);
     try{
-        //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
         const response = await axios.get('https://localhost:7014/api/Account/authorize/leader', AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
