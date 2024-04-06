@@ -15,7 +15,7 @@ export default function PostErorrSnackbar({TextIndex, IsDangerSnackBar}: {TextIn
   const { vertical, horizontal } = state;
 
   const ErrorTexts = [
-    "Temp text 1", 
+    "Invalid Login Credentials", 
     "Temp text 2",
     "Temp text 3"
   ];
