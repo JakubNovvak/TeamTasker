@@ -9,6 +9,7 @@ import FetchData from "../../components/Login/API/FetchData";
 import { useState } from "react";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
+import PostErorrSnackbar from "../../components/Connection/Notifies/PostSnackbar";
 
 const ContentSeparator = styled("hr")({
     border: "0",
@@ -31,7 +32,7 @@ function onSubmit(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetS
     // }
 }
 
-function LoginPageContent({sendSucess}: {sendSucess: number})
+function LoginPageContent({sendingState}: {sendingState: boolean})
 {
     const formikProps = useFormikContext<LoginDto>();
 
@@ -56,7 +57,7 @@ function LoginPageContent({sendSucess}: {sendSucess: number})
 
                 {/* <NavLink to="/projectname/preview" style={{textDecoration: "none"}}> */}
                     {   
-                        sendSucess == 2
+                        sendingState
                         ?
                         <CircularProgress sx={{mt: "3rem"}}/>
                         :
@@ -101,10 +102,11 @@ export default function LoginPage()
 
     return(
         <>
+            {sendingState == false && sendSucess == 2 ? <PostErorrSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             <Formik initialValues={{email: "", password: ""}}
             onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess, sendSucess)}}
             >
-                <LoginPageContent sendSucess={sendSucess}/>
+                <LoginPageContent sendingState={sendingState}/>
             </Formik>
         </>
     );    

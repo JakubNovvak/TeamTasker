@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
+import TempTeamEmployees from "../../components/Connection/API/TempTeamEmployees";
 
 export default function ProjectsPage()
 {
@@ -15,8 +16,10 @@ export default function ProjectsPage()
     const [readUserName, setUserName] = useState<string>("");
     const [userPermission, setUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+    const [teamUserPermission, setTeamUserPermission] = useState<boolean>(false);
 
     CheckAdminPermission(setAdminUserPermission);
+    TempTeamEmployees(setTeamUserPermission);
 
     useEffect(() => {
         GetUserName(setUserName, setSendingState);
@@ -45,6 +48,24 @@ export default function ProjectsPage()
                 <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
             </>
             );
+
+    if(userPermission && !teamUserPermission)
+        return(
+            <>
+                <Typography fontSize={45} fontWeight={550} mt={-10}>
+                    Welcome {readUserName}!
+                </Typography>
+                <Typography fontSize={45} fontWeight={550} mb={7}>
+                    Currently, you are not assigned to any project.
+                </Typography>
+
+                <Typography fontSize={45} fontWeight={550} mb={7}>
+                    Contact your admninistrator.
+                </Typography>
+
+                <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
+            </>
+        );
 
     return(<>
         <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
