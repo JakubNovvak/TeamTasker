@@ -51,14 +51,43 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
-        [Route("GetProjectNameAndImagines", Name = "GetProjectNameAndImagines")]
-        public IActionResult GetProjectNameAndImagines(GetProjectNameAndImaginesDto dto)
+        
+        
+        [HttpPut]
+       // [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
+        [Route("AddPictureToProject", Name = "AddPictureToProject")]
+        public IActionResult AddPictureToProjectDto(AddPictureToProjectDto dto)
         {
             try
             {
-                var project = _projectService.GetProjectNameAndImagines(dto);
+                _projectService.AddPictureToProject(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("GetProjectNameAndPictureDto", Name = "GetProjectNameAndPictureDto")]
+        public IActionResult GetProjectNameAndImagines(int id)
+        {
+            try
+            {
+                var project = _projectService.GetProjectNameAndImagines(id);
                 return Ok(project);
             }
             catch (ArgumentOutOfRangeException ex)
@@ -79,7 +108,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("id", Name = "GetProject")]
         public IActionResult GetProject(int id)
         {
