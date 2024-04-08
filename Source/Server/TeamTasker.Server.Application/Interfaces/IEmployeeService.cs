@@ -12,5 +12,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         string GetUserPassword(int id);
         ReadUserNameDto GetUserName(int id);
         ReadUserNameAndEmailDto GetUserNameAndEmail(int id);
+        void AddAvatarToUser(AddAvatarToUserDto dto);
     }
 }

@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeamTasker.Server.Application.Authorization;
+using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
+using TeamTasker.Server.Application.Services;
 using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
@@ -205,6 +207,32 @@ namespace TeamTasker.Server.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        [Route("AddAvatarTouser", Name = "AddAvatarTouser")]
+        public IActionResult AddAvatarTouser(AddAvatarToUserDto dto)
+        {
+            try
+            {
+                _employeeService.AddAvatarToUser(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no user provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with changing user's avatar: {ex.Message}");
+                return BadRequest($"There was a problem with changing user's avatar: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
             }
         }

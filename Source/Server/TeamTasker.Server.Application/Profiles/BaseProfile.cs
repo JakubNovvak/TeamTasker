@@ -60,6 +60,7 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<User, ReadUserDto>();
             CreateMap<User, ReadUserNameDto>();
             CreateMap<User, ReadUserNameAndEmailDto>();
+            CreateMap<AddAvatarToUserDto, User>();
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<Employee, ReadEmployeeDto>();
             CreateMap<ReadEmployeeDto, Employee>();

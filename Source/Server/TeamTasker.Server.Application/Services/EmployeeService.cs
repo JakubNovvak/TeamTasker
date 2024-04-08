@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -89,6 +90,18 @@ namespace TeamTasker.Server.Application.Services
 
             var userDto = _mapper.Map<ReadUserNameAndEmailDto>(user);
             return userDto;
+        }
+        public void AddAvatarToUser(AddAvatarToUserDto dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
+            var user = _employeeRepository.GetUser(dto.Id);
+            if (user == null)
+                throw new Exception("User not found");
+
+            user.Avatar = dto.Avatar;
+            _employeeRepository.UpdateUser(user);
         }
     }
 }
