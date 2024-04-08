@@ -29,12 +29,12 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             _appDbContext.SaveChanges();
         }
 
-        public void UpdateEmployee(Employee employee)
+        public void UpdateUser(User user)
         {
-            if (employee == null)
+            if (user == null)
                 throw new ArgumentNullException();
 
-            _appDbContext.Users.Update(employee);
+            _appDbContext.Users.Update(user);
             _appDbContext.SaveChanges();
         }
 
