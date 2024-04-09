@@ -32,51 +32,30 @@ namespace TeamTasker.Server.Application.Services
 
             return project.Id;
         }
-        //1
+        
         public void AddTeamToProject(AddTeamToProjectDto teamToProjectDto)
         {
             if (teamToProjectDto == null)
                 throw new ArgumentNullException(nameof(teamToProjectDto));
 
-            var project = _projectRepository.GetProject(teamToProjectDto.ProjectId);
+            var team = _teamRepository.GetTeam(teamToProjectDto.TeamId);
+            if (team == null)
+                throw new Exception("Team not found");
 
+            var project = _projectRepository.GetProject(teamToProjectDto.Id);
             if (project == null)
                 throw new Exception("Project not found");
 
-            var team = _mapper.Map<Team>(teamToProjectDto);
-            _teamRepository.CreateTeam(team);
-
-
-            project.TeamId = team.Id;
-            project.Name = team.Name;
-            _projectRepository.UpdateProject(project);
-        }
-        //1
-        public void UpdateTeamToProject(UpdateTeamToProjectDto teamToProjectDto)
-        {
-            if (teamToProjectDto == null)
-                throw new ArgumentNullException(nameof(teamToProjectDto));
-
-            var project = _projectRepository.GetProject(teamToProjectDto.Id);
-            var team = _teamRepository.GetTeam(teamToProjectDto.TeamId);
-
-
-            if (team == null)
+            var allProjects = _projectRepository.GetAllProjects();
+            if(allProjects.Any(p => p.TeamId == team.Id))
             {
-                throw new Exception("Team not found.");
-            }
-
-            if (project == null)
-            {
-                throw new Exception("Project not found.");
+                throw new Exception("Team already in other project");
             }
 
             project.TeamId = team.Id;
             _projectRepository.UpdateProject(project);
-
         }
-
-        //1
+       
         public GetProjectNameAndPictureDto GetProjectNameAndImagines(int id)
         {
             var project = _projectRepository.GetProject(id);
@@ -88,8 +67,6 @@ namespace TeamTasker.Server.Application.Services
 
             return projectDto;
         }
-
-
 
         public IEnumerable<ReadProjectDto> GetAllProjects()
         {

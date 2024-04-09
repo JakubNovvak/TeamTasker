@@ -1,4 +1,6 @@
-﻿using TeamTasker.Server.Application.Dtos.Users;
+﻿using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Teams;
+using TeamTasker.Server.Application.Dtos.Users;
 
 namespace TeamTasker.Server.Domain.Interfaces
 {
@@ -13,5 +15,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadUserNameDto GetUserName(int id);
         ReadUserNameAndEmailDto GetUserNameAndEmail(int id);
         void AddAvatarToUser(AddAvatarToUserDto dto);
+        IEnumerable<ReadProjectDto> GetUserProjects(int id);
     }
 }

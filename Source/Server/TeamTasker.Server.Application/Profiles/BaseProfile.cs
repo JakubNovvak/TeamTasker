@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
 using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
@@ -11,6 +13,7 @@ using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TeamTasker.Server.Application.Profiles
 {
@@ -36,8 +39,6 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Project, AddTeamToProjectDto>(); //1
             CreateMap<AddTeamToProjectDto, Project>(); //1
 
-            CreateMap<Project, UpdateTeamToProjectDto>(); //1
-            CreateMap<UpdateTeamToProjectDto, Project>(); //1
 
             CreateMap<Project, GetProjectNameAndPictureDto>();
             CreateMap<GetProjectNameAndPictureDto, Project>();
@@ -50,6 +51,7 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
+           // CreateMap<AddTeamToProjectDto, Team>();
 
             CreateMap<Team, ReadTeamDto>()
                 .ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.EmployeeTeams.Select(et => et.Employee)));
@@ -63,6 +65,7 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<AddAvatarToUserDto, User>();
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<Employee, ReadEmployeeDto>();
+               // .ForMember(dest => dest.Teams, opt => opt.MapFrom(src => src.EmployeeTeams.Select(et => et.Team)));
             CreateMap<ReadEmployeeDto, Employee>();
             CreateMap<Employee, ReadUserDto>();
 

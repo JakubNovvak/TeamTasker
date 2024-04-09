@@ -21,6 +21,12 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.EmployeeTeams.FirstOrDefault(e => e.EmployeeId == employeeId && e.TeamId == teamId);
         }
+        public IEnumerable<EmployeeTeam> GetAllEmployeeTeams(int employeeId)
+        {
+            var allDbEmployeeTeams = _appDbContext.EmployeeTeams.Where(e=>e.EmployeeId==employeeId).ToList();
+
+            return allDbEmployeeTeams;
+        }
         public void AddEmployeeTeam(EmployeeTeam employeeTeam)
         {
             if (employeeTeam == null)
