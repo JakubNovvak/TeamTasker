@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ReadEmployeeDto } from '../../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../../Types/AxiosOptions';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
 import { FormikUsersSetValue } from '../../../Types/CommonTypes';
 import { ReadTeamDto } from '../../../Types/ReadTeamDto';
 
+//TODO: Create generic Employees Select component. This in only a temporary, development solution
 
-export default function TeamsSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikUsersSetValue, idName: string})
+export default function AssignTeamSelectTeams({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikUsersSetValue, idName: string})
 {
     const [teams, setTeams] = useState<ReadTeamDto[]>([]);
 

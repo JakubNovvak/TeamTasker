@@ -12,7 +12,6 @@ export default function UsersSelect({FormikValue, formikSetValue, idName}: {Form
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
 
     useEffect(() => {
-        
         axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/User/GetAllEmployees`, AxiosOptions)
             .then(response => 
                 {

@@ -45,10 +45,7 @@ function CreateTeamContent({sendingState}: {sendingState: boolean})
                                             Name a team: 
                                         </Typography>
                                             <FormControl>
-                                                <Input id="name" placeholder="Team's name" sx={{minWidth: "18rem"}} 
-                                                value={formikProps.values.name}
-                                                onChange={formikProps.handleChange}
-                                                />
+                                                <Input id="name" placeholder="Team's name" sx={{minWidth: "18rem"}}/>
                                             </FormControl>
                                     </FormLabel>
                                 </Grid>

@@ -1,4 +1,5 @@
 import { FormikErrors } from "formik";
+import { CreateProjectDto } from "./CreateProjectDto";
 
 export interface AddUserToTeamForm {
     employeeId: number,
@@ -20,3 +21,10 @@ export type FormikUsersSetValue = (field: string, value: any, shouldValidate?: b
 export type FormikCreateTeamSetValue = (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void | FormikErrors<CreateTeamForm>>;
 
 export type FormikChangeTeamSetValue = (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void | FormikErrors<ChangeTeamLeader>>;
+
+export type FormikCreateProjectSetValue = (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void | FormikErrors<CreateProjectDto>>;
+
+export type FormikOnChangeHandler = {
+    (e: React.ChangeEvent<any>): void;
+    <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
+};
