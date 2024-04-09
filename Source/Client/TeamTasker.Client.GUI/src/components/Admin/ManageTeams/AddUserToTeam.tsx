@@ -7,7 +7,7 @@ import { AddUserToTeamForm } from "../../Types/CommonTypes";
 import TeamsSelect from "./Forms/TeamsSelect";
 import { useState } from "react";
 import DataPostSnackbar from "../../Connection/Notifies/DataPostSnackbar";
-import AddUserToTeamRequest from "./TeamsApi";
+import { AddUserToTeamRequest } from "./TeamsApi";
 
 function onSubmit(formikValues: FormikValues, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, sendSucess: React.Dispatch<React.SetStateAction<number>>)
 {

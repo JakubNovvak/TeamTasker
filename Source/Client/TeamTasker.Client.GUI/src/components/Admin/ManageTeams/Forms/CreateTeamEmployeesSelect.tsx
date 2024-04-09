@@ -4,15 +4,15 @@ import { ReadEmployeeDto } from '../../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../../Types/AxiosOptions';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
-import { FormikUsersSetValue } from '../../../Types/CommonTypes';
+import { FormikCreateTeamSetValue } from '../../../Types/CommonTypes';
 
+//TODO: Create generic Employees Select component. This in only a temporary, development solution
 
-export default function UsersSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikUsersSetValue, idName: string})
+export default function CreateTeamEmployeesSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikCreateTeamSetValue, idName: string})
 {
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
 
     useEffect(() => {
-        
         axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/User/GetAllEmployees`, AxiosOptions)
             .then(response => 
                 {
@@ -27,7 +27,7 @@ export default function UsersSelect({FormikValue, formikSetValue, idName}: {Form
     return(
         <>
             <FormControl>
-                <Select placeholder="Select User to add" value={FormikValue} onChange={(event, value) => {formikSetValue(idName, value), event}} sx={{minWidth: "18rem"}}>
+                <Select placeholder="Select leader" value={FormikValue} onChange={(event, value) => {formikSetValue(idName, value), event}} sx={{minWidth: "18rem"}}>
                     {employees.map(employee => (
                         <Option key={employee.id} value={employee.id}>
                             {employee.firstName} {employee.lastName}, {employee.email === "" ? "<email placeholder>" : employee.email}
