@@ -11,6 +11,8 @@ import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from "../../components/Navigation/AppBar/AppBar.tsx";
 import ManageTeamsPage from "./Teams/ManageTeamsPage.tsx";
+import ManageProjectsPage from "./Projects/ManageProjectsPage.tsx";
+import ManageUsersPage from "./Users/ManageUsersPage.tsx";
 
 function renderSwitch(pathnName: string)
 {
@@ -27,11 +29,11 @@ function renderSwitch(pathnName: string)
         } 
         else if (pathnName.startsWith("/admindashboard/manageprojects"))
         {
-            return <h1>Manage Projects</h1>;
+            return <ManageProjectsPage />
         } 
         else if (pathnName.startsWith("/admindashboard/manageusers"))
         {
-            return <h1>Manage Users</h1>;
+            return <ManageUsersPage />;
         }
     }
     
