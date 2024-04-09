@@ -18,7 +18,7 @@ namespace TeamTasker.Server.Application.Dtos.Projects
         public DateTime Deadline { get; set; }
         public bool IsComplete { get; set; }
         public int TeamId { get; set; }
-        public string Picture {  get; set; }
+        public string? Picture { get; set; } = string.Empty;
         public ICollection<ReadCommentDto> Comments { get; set; } = default!;
         //public virtual ICollection<Issue> Issues { get; set; } = default!;
     }

@@ -157,7 +157,7 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [Route("AddTeamToProject", Name = "AddTeamToProject")]
         public IActionResult AddTeamToProject(AddTeamToProjectDto dto)
         {
@@ -182,7 +182,7 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
-
+*/
 
         [HttpPut]
         [Route("UpdateTeamToProject", Name = "UpdateTeamToProject")]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -9,11 +10,13 @@ namespace TeamTasker.Server.Application.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeTeamRepository _employeeTeamRepository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper)
+        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeTeamRepository employeeTeamRepository, IMapper mapper)
         {
             _employeeRepository = employeeRepository;
+            _employeeTeamRepository = employeeTeamRepository;
             _mapper = mapper;
         }
 
@@ -102,6 +105,20 @@ namespace TeamTasker.Server.Application.Services
 
             user.Avatar = dto.Avatar;
             _employeeRepository.UpdateUser(user);
+        }
+
+        public IEnumerable<ReadProjectDto> GetUserProjects(int id)
+        {
+            var employee = _employeeRepository.GetEmployee(id);
+            if (employee == null)
+                throw new Exception("Employee not found!");
+
+            var employeeTeams = _employeeTeamRepository.GetAllEmployeeTeams(id);
+            var teams = employeeTeams.Select(t => t.Team).ToList();
+
+            var userProjects = teams.Select(t => t.Project).ToList();
+            var projectDtos = _mapper.Map<IEnumerable<ReadProjectDto>>(userProjects);
+            return projectDtos;
         }
     }
 }

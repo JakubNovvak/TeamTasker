@@ -135,7 +135,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+       // [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("", Name = "GetAllProjects")]
         public ActionResult<IEnumerable<ReadProjectDto>> GetAllProjects()
         {
