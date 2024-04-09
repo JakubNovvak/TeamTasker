@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeamTasker.Server.Application.Authorization;
+using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Services;
@@ -103,7 +104,7 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+       // [Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
         [Route("GetAllEmployees", Name = "GetAllEmployees")]
         public ActionResult<IEnumerable<ReadEmployeeDto>> GetAllEmployees()
         {
@@ -234,6 +235,34 @@ namespace TeamTasker.Server.API.Controllers
             {
                 Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        //TODO: Add authnetication header for swagger testing
+        //[Authorize(Policy = AuthorizationPolicies.AdminUserPolicy)]
+        [Route("GetAllEmployeeProjects", Name = "GetAllEmployeeProjects")]
+        public ActionResult<IEnumerable<ReadProjectDto>> GetAllEmployeeProjects(int id)
+        {
+            try
+            {
+                var readUserProjectsDto = _employeeService.GetUserProjects(id);
+                return Ok(readUserProjectsDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
     }
