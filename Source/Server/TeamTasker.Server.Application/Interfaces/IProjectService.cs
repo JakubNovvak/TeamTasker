@@ -10,7 +10,6 @@ namespace TeamTasker.Server.Application.Interfaces
         ReadProjectDto GetProject(int id);
       //  void UpdateProjectTeam(UpdateProjectTeamDto teamDto);
         void AddTeamToProject(AddTeamToProjectDto teamToProjectDto);
-        void UpdateTeamToProject(UpdateTeamToProjectDto teamToProjectDto);
         GetProjectNameAndPictureDto GetProjectNameAndImagines(int id);
         void AddPictureToProject(AddPictureToProjectDto addPictureToProjectDto);
 
