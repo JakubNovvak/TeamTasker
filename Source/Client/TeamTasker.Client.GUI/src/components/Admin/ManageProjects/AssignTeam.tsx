@@ -14,7 +14,7 @@ export default function AssignTeam()
                             <ArrowBackIcon sx={{color: "black", fontSize: "2rem"}}/>
                         </Button>
                         <Typography variant="h4">
-                            AssignTeam
+                            Assign Team
                         </Typography>
                     </Grid>
 
