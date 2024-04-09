@@ -58,6 +58,16 @@ export default function ManageTeamsHome()
                 </motion.div>
                 </NavLink>
             </Grid>
+
+            <Grid item xs={3}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+              <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+              <Typography>
+                Edit Team
+              </Typography>
+            </Paper>
+          </Grid>
+
             </Grid>
         </Box>
         </>
