@@ -28,7 +28,7 @@ export default function MuiAdminNavbar() {
               Administration
             </Typography>
           </Grid>
-          
+
           <Grid item xs={3}>
             <NavLink to="/admindashboard/manageusers" style={{textDecoration: "none"}}>
               <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
@@ -69,7 +69,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
               <SettingsIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Manage System
@@ -80,7 +80,7 @@ export default function MuiAdminNavbar() {
           {/*Fillers*/}
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Placeholder 1
@@ -89,7 +89,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Placeholder 2
@@ -98,7 +98,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
               Placeholder 3
@@ -107,7 +107,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
               Placeholder 4
