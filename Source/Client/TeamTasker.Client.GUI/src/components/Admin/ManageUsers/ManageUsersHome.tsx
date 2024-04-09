@@ -1,8 +1,9 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 export default function ManageUsersHome()
 {
@@ -24,7 +25,7 @@ export default function ManageUsersHome()
                 <NavLink to="/admindashboard/manageusers/createuser" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
                 <Paper elevation={5} sx={{padding: "2rem"}}>
-                    <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+                    <PersonAddIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                         Create User
                     </Typography>
@@ -32,6 +33,15 @@ export default function ManageUsersHome()
                 </motion.div>
                 </NavLink>
             </Grid>
+
+            <Grid item xs={3}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+              <ManageAccountsIcon sx={{fontSize: "3rem"}}/>
+              <Typography>
+                Edit User
+              </Typography>
+            </Paper>
+          </Grid>
 
             </Grid>
         </Box>

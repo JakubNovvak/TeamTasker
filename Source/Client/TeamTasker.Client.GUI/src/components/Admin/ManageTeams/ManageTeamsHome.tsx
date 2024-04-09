@@ -3,6 +3,10 @@ import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LoupeIcon from '@mui/icons-material/Loupe';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 export default function ManageTeamsHome()
 {
@@ -24,7 +28,7 @@ export default function ManageTeamsHome()
                 <NavLink to="/admindashboard/manageteams/addusertoteam" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
                 <Paper elevation={5} sx={{padding: "2rem"}}>
-                    <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+                    <GroupAddIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Add User to the Team
                     </Typography>
@@ -37,7 +41,7 @@ export default function ManageTeamsHome()
                 <NavLink to="/admindashboard/manageteams/createteam" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
                 <Paper elevation={5} sx={{padding: "2rem"}}>
-                    <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+                    <LoupeIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Create New Team
                     </Typography>
@@ -50,7 +54,7 @@ export default function ManageTeamsHome()
                 <NavLink to="/admindashboard/manageteams/manageteamleader" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
                 <Paper elevation={5} sx={{padding: "2rem"}}>
-                    <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+                    <EngineeringIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Manage Team Leader
                     </Typography>
@@ -61,7 +65,7 @@ export default function ManageTeamsHome()
 
             <Grid item xs={3}>
             <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
-              <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+              <ManageAccountsIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Edit Team
               </Typography>
