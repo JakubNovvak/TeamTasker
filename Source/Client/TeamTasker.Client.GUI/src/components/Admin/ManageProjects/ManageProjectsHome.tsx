@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import CallToActionIcon from '@mui/icons-material/CallToAction';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 export default function ManageProjectsHome()
 {
@@ -55,7 +56,16 @@ export default function ManageProjectsHome()
                 Edit Project
               </Typography>
             </Paper>
-          </Grid>
+            </Grid>
+
+            <Grid item xs={3}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+              <ViewListIcon sx={{fontSize: "3rem"}}/>
+              <Typography>
+                Projects List
+              </Typography>
+            </Paper>
+            </Grid>
 
             </Grid>
         </Box>

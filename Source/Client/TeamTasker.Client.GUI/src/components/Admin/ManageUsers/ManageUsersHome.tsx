@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
 
 export default function ManageUsersHome()
 {
@@ -41,7 +42,16 @@ export default function ManageUsersHome()
                 Edit User
               </Typography>
             </Paper>
-          </Grid>
+            </Grid>
+
+            <Grid item xs={3}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+              <RecentActorsIcon sx={{fontSize: "3rem"}}/>
+              <Typography>
+                Users User
+              </Typography>
+            </Paper>
+            </Grid>
 
             </Grid>
         </Box>

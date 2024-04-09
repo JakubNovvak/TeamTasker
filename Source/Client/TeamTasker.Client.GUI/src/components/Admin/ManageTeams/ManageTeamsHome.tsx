@@ -7,6 +7,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LoupeIcon from '@mui/icons-material/Loupe';
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 export default function ManageTeamsHome()
 {
@@ -70,7 +71,16 @@ export default function ManageTeamsHome()
                 Edit Team
               </Typography>
             </Paper>
-          </Grid>
+            </Grid>
+
+            <Grid item xs={3}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+              <ViewListIcon sx={{fontSize: "3rem"}}/>
+              <Typography>
+                Teams List
+              </Typography>
+            </Paper>
+            </Grid>
 
             </Grid>
         </Box>
