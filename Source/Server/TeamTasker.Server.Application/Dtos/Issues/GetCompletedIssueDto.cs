@@ -10,6 +10,6 @@ namespace TeamTasker.Server.Application.Dtos.Issues
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool IsComplete { get; set; }
+        public string Status { get; set; }
     }
 }
