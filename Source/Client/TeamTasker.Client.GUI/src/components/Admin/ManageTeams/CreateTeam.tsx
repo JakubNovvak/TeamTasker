@@ -15,6 +15,8 @@ function onSubmit(formikValues: CreateTeamForm, setSendingState: React.Dispatch<
         leaderId: formikValues.leaderId
     }
 
+    console.log(formikValues.name);
+
     CreateTeamRequest(teamToCreate, setSendingState, sendSucess);
 }
 
@@ -45,7 +47,7 @@ function CreateTeamContent({sendingState}: {sendingState: boolean})
                                             Name a team: 
                                         </Typography>
                                             <FormControl>
-                                                <Input id="name" placeholder="Team's name" sx={{minWidth: "18rem"}}/>
+                                                <Input id="name" value={formikProps.values.name} onChange={formikProps.handleChange} placeholder="Team's name" sx={{minWidth: "18rem"}}/>
                                             </FormControl>
                                     </FormLabel>
                                 </Grid>
