@@ -1,19 +1,12 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import CssBaseline from '@mui/material/CssBaseline';
-
-import AppBar from "../Navigation/AppBar/AppBar.tsx";
-import UserAvatarMenu from '../Dashboard/UserAvatarMenu.tsx';
 import { Grid, Paper, Typography } from '@mui/material';
-
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupsIcon from '@mui/icons-material/Groups';
 import VideoLabelIcon from '@mui/icons-material/VideoLabel';
 import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
-
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import InfoIcon from '@mui/icons-material/Info';
 import {motion} from "framer-motion";
 import { NavLink } from 'react-router-dom';
 
@@ -81,18 +74,18 @@ export default function MuiAdminNavbar() {
 
           <Grid item xs={3}>
             <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
-              <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+              <NotificationsActiveIcon sx={{fontSize: "3rem"}}/>
               <Typography>
-                Placeholder 1
+                Notifications
               </Typography>
             </Paper>
           </Grid>
 
           <Grid item xs={3}>
             <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
-              <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
+              <InfoIcon sx={{fontSize: "3rem"}}/>
               <Typography>
-                Placeholder 2
+                Informations
               </Typography>
             </Paper>
           </Grid>

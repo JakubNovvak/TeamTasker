@@ -1,5 +1,4 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
@@ -29,7 +28,7 @@ export default function ManageProjectsHome()
                 <Paper elevation={5} sx={{padding: "2rem"}}>
                     <AddBoxIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
-                    Create Project
+                    Create New Project
                     </Typography>
                 </Paper>
                 </motion.div>
