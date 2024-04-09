@@ -1,9 +1,9 @@
 import { Button, CircularProgress, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
-import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
-import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
+import CheckAdminPermission from "../Connection/API/CheckAdminPermission.tsx";
+import CheckLoggedInPermission from "../Connection/API/CheckLoggedInPermission.tsx";
 import { NavLink } from "react-router-dom";
-import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
+import DeleteTokenFromCookies from "../Connection/DeleteTokenFromCookies.tsx";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
