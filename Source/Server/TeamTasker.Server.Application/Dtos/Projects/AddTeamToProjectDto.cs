@@ -9,7 +9,7 @@ namespace TeamTasker.Server.Application.Dtos.Projects
 {
     public class AddTeamToProjectDto
     {
-        public string Name { get; set; } = string.Empty;
-        public int ProjectId { get; set; }
+        public int Id { get; set; }
+        public int TeamId { get; set; }
     }
 }
