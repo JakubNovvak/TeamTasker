@@ -8,10 +8,43 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 
-export default function ProjectPreview()
+export default function ProjectPreview({projectId}: {projectId: string | undefined})
 {
     const [userPermission, setUserPermission] = useState<boolean>(false);
     CheckLeaderPermission(setUserPermission);
+
+    if(projectId == undefined)
+        return(
+        <>403 - There is an invalid project id in the url.</>
+    );
+
+    const iamges = 
+    [
+      "https://t4.ftcdn.net/jpg/02/56/10/07/360_F_256100731_qNLp6MQ3FjYtA3Freu9epjhsAj2cwU9c.jpg", 
+      "https://picsum.photos/seed/picsum/200/300", 
+      "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
+      "https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg"
+    ];
+  
+    var index = 0;
+  
+    switch (projectId) {
+      case "1":
+        index = 0;
+        break;
+    
+      case "2":
+        index = 1;
+        break;
+  
+      case "3":
+        index = 2;
+        break;
+  
+      default:
+        index = 3;
+        break;
+    }
 
     return(
         <>
@@ -25,7 +58,7 @@ export default function ProjectPreview()
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper elevation={3} sx={{height: "20rem", background: "lightgray"}}>
-                            <img src={banner_placeholder} style={{width: "100%", height: "100%"}}/>
+                            <img src={iamges[index]} style={{width: "100%", height: "100%"}}/>
                             {/* <Typography variant="h4">
                                 This is a place for your project's banner.
                             </Typography> */}

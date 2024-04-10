@@ -10,41 +10,46 @@ import ProjectMembers from "../DrawerModules/ProjectMembers";
 import ProjectPreview from "../DrawerModules/ProjectPreview";
 import ProjectSettings from "../DrawerModules/ProjectSettings";
 import UserSettings from "../DrawerModules/UserSettings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
+import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
+import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
 
-function renderSwitch(pathnName: string)
+function renderSwitch(pathnName: string, projectId: string | undefined)
 {
+    if(projectId == undefined)
+        return <h1>404 - invalid project's id in the url</h1>;
+
     switch(pathnName)
     {
         case "/projectname/test":
             return <PreviewDrawerContent/>;
 
-        case "/projectname/preview":
-            return <ProjectPreview/>;
+        case `/projectname/${projectId}/preview`:
+            return <ProjectPreview projectId={projectId}/>;
 
-        case "/projectname/issueslist":
+        case `/projectname/${projectId}/issueslist`:
             return <IssuesList/>;
 
-        case "/projectname/notifications":
+        case `/projectname/${projectId}/notifications`:
             return <Notifications/>; 
 
-        case "/projectname/projectfeed":
+        case `/projectname/${projectId}/projectfeed`:
             return <ProjectFeed/>;
 
-        case "/projectname/projectsettings":
+        case `/projectname/${projectId}/projectsettings`:
             return <ProjectSettings/>;
 
-        case "/projectname/usersettings":
+        case `/projectname/${projectId}/usersettings`:
             return <UserSettings/>;
 
-        case "/projectname/board":
+        case `/projectname/${projectId}/board`:
             return <Board/>;
 
-        case "/projectname/projectmembers":
+        case `/projectname/${projectId}/projectmembers`:
             return <ProjectMembers/>;
             
         default:
@@ -54,14 +59,34 @@ function renderSwitch(pathnName: string)
 
 export default function ModulesContainer()
 {
+    const temp: ReadProjectDto = {
+        id: 0,
+        name: "",
+        description: "",
+        deadline: "",
+        isComplete: false,
+        teamId: 0,
+        picture: "",
+        comments: []
+    }
+
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+    const [project, setProject] = useState<ReadProjectDto>(temp);
+    const [sendingState, setSendingState] = useState<boolean>(false);
+    const [sendSucess, setSendSucess] = useState<number>(0);
 
     CheckLoggedInPermission(setloggedInUserPermission);
     CheckAdminPermission(setAdminUserPermission);
     let pathName = location.pathname;
 
-    console.log(pathName);
+    const { projectId } = useParams<{projectId: string}>();
+
+    useEffect(() => {
+        GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
+    }, [projectId]);
+
+    //console.log("Zmienna z url: " + projectId);
 
     if(!adminUserPermission && !loggedInUserPermission)
         return(
@@ -83,10 +108,10 @@ export default function ModulesContainer()
     return(
         <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
             
-            <MuiMiniDrawer />
+            <MuiMiniDrawer/>
             <Box component="main" sx={{ flexGrow: 1, p: 0}}>
                 
-                {renderSwitch(pathName)}
+                {renderSwitch(pathName, projectId)}
 
             </Box>
         </Box>

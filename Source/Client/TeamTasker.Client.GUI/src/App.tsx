@@ -5,7 +5,7 @@ import ModulesContainer from './pages/ModulesContainer/ModulesContainer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import ProjectsPage from './pages/ProjectsPage/ProjectsPage';
-import ManageTeams from './components/Admin/ManageTeamsDepricated';
+//import ManageTeams from './components/Admin/ManageTeams';
 
 function temp()
 {
@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" Component={LoginPage}/>
-          <Route path="projectname/*" Component={ModulesContainer}/>
+          <Route path="projectname/:projectId/*" Component={ModulesContainer}/>
           <Route path="/" Component={temp}/>
           <Route path="/admindashboard/*" Component={AdminDashboard}/>
           <Route path="/projectspage" Component={ProjectsPage}/>

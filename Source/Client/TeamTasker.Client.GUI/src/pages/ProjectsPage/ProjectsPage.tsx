@@ -8,6 +8,8 @@ import CheckLoggedInPermission from "../../components/Connection/API/CheckLogged
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
 import TempTeamEmployees from "../../components/Connection/API/TempTeamEmployees";
+import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
+import { GetUsersProjects } from "../../components/ProjectsPage/API/GetUsersProjects";
 
 export default function ProjectsPage()
 {
@@ -16,14 +18,21 @@ export default function ProjectsPage()
     const [readUserName, setUserName] = useState<string>("");
     const [userPermission, setUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-    const [teamUserPermission, setTeamUserPermission] = useState<boolean>(false);
+    //const [teamUserPermission, setTeamUserPermission] = useState<boolean>(false);
+    const [projects, setProjects] = useState<ReadProjectDto[]>([]);
+    const [userId, setUserId] = useState<number>(0);
+
+    console.log("PRZED:::  userPermission: " + userPermission + "projects.length: " + projects.length);
 
     CheckAdminPermission(setAdminUserPermission);
-    TempTeamEmployees(setTeamUserPermission);
+    //TempTeamEmployees(setTeamUserPermission);
 
     useEffect(() => {
-        GetUserName(setUserName, setSendingState);
-    }, []);
+        GetUserName(setUserName, setSendingState, setUserId);
+        GetUsersProjects(userId, setProjects);
+    }, [userId]);
+
+
 
     CheckLoggedInPermission(setUserPermission);
 
@@ -49,7 +58,19 @@ export default function ProjectsPage()
             </>
             );
 
-    if(userPermission && !teamUserPermission)
+    console.log("userPermission: " + userPermission + "projects.length: " + projects.length);
+    //console.log(projects[0].name);
+
+    var tempIterator = 0;
+
+    projects.map(project => 
+        {
+            if(project == null)
+                tempIterator = tempIterator + 1;
+        }
+    );
+
+    if((userPermission && projects.length == 0) || tempIterator == projects.length)
         return(
             <>
                 <Typography fontSize={45} fontWeight={550} mt={-10}>
@@ -58,11 +79,11 @@ export default function ProjectsPage()
                 <Typography fontSize={45} fontWeight={550} mb={7}>
                     Currently, you are not assigned to any project.
                 </Typography>
-
+            
                 <Typography fontSize={45} fontWeight={550} mb={7}>
-                    Contact your admninistrator.
+                    Contact your administrator.
                 </Typography>
-
+            
                 <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
             </>
         );
@@ -75,7 +96,18 @@ export default function ProjectsPage()
             <Typography fontSize={45} fontWeight={550} mb={7}>
                 Choose a project to work on:
             </Typography>
-            <NavLink to="/projectname/preview" style={{textDecoration: "none"}}><ProjectCard/></NavLink>
+            {/* <NavLink to="/projectname/preview" style={{textDecoration: "none"}}><ProjectCard/></NavLink> */}
+            <Box sx={{display: "flex", flexDirection: "row"}}>
+                {projects.map(project => (
+       
+                project == null 
+                ? 
+                <></> 
+                :
+                <NavLink key={project.id} to={`/projectname/${project.id}/preview`} style={{textDecoration: "none", marginLeft: "1rem", marginRight: "1rem"}}><ProjectCard id={project.id} name={project.name} description={project.description}/></NavLink>
+
+                ))}
+            </Box>
         </Box>
     
     </>);
