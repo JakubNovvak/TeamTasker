@@ -5,6 +5,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteTokenFromCookies from '../Connection/DeleteTokenFromCookies';
 import { Avatar } from '@mui/material';
+import CheckAdminPermission from '../Connection/API/CheckAdminPermission';
+import { useState } from 'react';
 
 function onLogoutClick()
 {
@@ -12,7 +14,8 @@ function onLogoutClick()
     location.href = "/login";
 }
 
-export default function UserAvatarMenu() {
+export default function UserAvatarMenu() 
+{
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,6 +24,9 @@ export default function UserAvatarMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+  CheckAdminPermission(setAdminUserPermission);
 
   return (
     <>
@@ -43,6 +49,7 @@ export default function UserAvatarMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        {!adminUserPermission ? <MenuItem onClick={() => {location.href = "/projectspage"}}>Projects Page</MenuItem> : <></>}
         <MenuItem onClick={() => {onLogoutClick()}}>Logout</MenuItem>
       </Menu>
     </>

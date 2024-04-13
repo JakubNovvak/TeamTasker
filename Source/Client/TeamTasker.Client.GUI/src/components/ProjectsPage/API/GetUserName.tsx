@@ -3,7 +3,8 @@ import { ReadUserDto } from "../../Types/ReadUserDto";
 import axios from "axios";
 
 export default async function GetUserName(setUserName: React.Dispatch<React.SetStateAction<string>>, 
-                                          setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
+                                          setSendingState: React.Dispatch<React.SetStateAction<boolean>>,
+                                          setUserId: React.Dispatch<React.SetStateAction<number>>
                                           /*setSendSucess: React.Dispatch<React.SetStateAction<number>>*/)
 {
     setSendingState(true);
@@ -15,7 +16,10 @@ export default async function GetUserName(setUserName: React.Dispatch<React.SetS
         
         tempUser = responseUserName.data;
         
+        console.log("Id: " + tempUser.id);
+
         setUserName(tempUser.firstName);
+        setUserId(tempUser.id);
 
         setSendingState(false);
         //setSendSucess(1);

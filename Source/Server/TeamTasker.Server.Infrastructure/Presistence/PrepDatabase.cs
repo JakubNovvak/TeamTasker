@@ -88,10 +88,10 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 new User(){ FirstName = "Admin", Email="admin", Password="admin"},
                 new Employee(){FirstName = "Regular", LastName="User", Position="Software Developer", Email="user@test.pl", Password ="password"},
                 new Employee(){FirstName = "Leader", LastName="User", Position="Project Admin", Email="leader@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee3"},
-                new Employee(){FirstName = "Employee4"},
-                new Employee(){FirstName = "Employee5"},
-                new Employee(){FirstName = "Employee6"},
+                new Employee(){FirstName = "Employee", LastName = "No. 1", Position="Testing", Email="employee1@test.pl", Password ="password"},
+                new Employee(){FirstName = "Employee", LastName = "No. 2", Position="Testing", Email="employee2@test.pl", Password ="password"},
+                new Employee(){FirstName = "Employee", LastName = "No. 3", Position="Testing", Email="employee3@test.pl", Password ="password"},
+                new Employee(){FirstName = "Employee", LastName = "No. 4", Position="Testing", Email="employee4@test.pl", Password ="password"},
             };
             return users;
         }
@@ -103,7 +103,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             {
                 //new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers},
                 //new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers}
-                new Team(){ Name = "team1"}
+                new Team(){ Name = "Team 1"}
             };
             return teams;
         }
@@ -111,8 +111,8 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var projects = new List<Project>()
             {
-                new Project(){ Name="projekt1",TeamId=1},
-                new Project(){ Name="projekt2"}
+                new Project(){ Name="Project 1", Description = "This is an example project."},
+                new Project(){ Name="Project 2"}
             };
             return projects;
         }
