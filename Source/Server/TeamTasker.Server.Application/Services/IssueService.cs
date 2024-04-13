@@ -71,24 +71,24 @@ namespace TeamTasker.Server.Application.Services
         //1
         public IEnumerable<GetCompletedIssueDto> GetCompletedIssue()
         {
-            var issue = _issueRepository.GetAllIssues().Where(issue => issue.IsComplete);
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "completed");
             var issueDto = issue.Select(i => new GetCompletedIssueDto
             {
                 Id = i.Id,
                 Name = i.Name,
-                IsComplete = i.IsComplete
+                Status = i.Status
             });
             return issueDto;
         }
 
         public IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue()
         {
-            var issue = _issueRepository.GetAllIssues().Where(issue => !issue.IsComplete);
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "uncompleted");
             var issueDto = issue.Select(i => new GetCompletedIssueDto
             {
                 Id = i.Id,
                 Name = i.Name,
-                IsComplete = i.IsComplete
+                Status = i.Status
             });
             return issueDto;
         }
@@ -110,7 +110,7 @@ namespace TeamTasker.Server.Application.Services
 
         }
 
-        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(int prioroty)
+        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(string prioroty)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Prioroty == prioroty);
             var issueDto = issue.Select(i => new GetIssueByPriorityDto
@@ -125,7 +125,5 @@ namespace TeamTasker.Server.Application.Services
             });
             return issueDto;
         }
-
-
     }
 }

@@ -120,11 +120,11 @@ namespace TeamTasker.Server.API.Controllers
 
         [HttpGet]
         [Route("GetIssueByPriority", Name = "GetIssueByPriority")]
-        public IActionResult GetIssueByPriority(int id)
+        public IActionResult GetIssueByPriority(string priority)
         {
             try
             {
-                var issue = _issueService.GetIssueByPriority(id);
+                var issue = _issueService.GetIssueByPriority(priority);
                 return Ok(issue);
             }
             catch (KeyNotFoundException ex)
