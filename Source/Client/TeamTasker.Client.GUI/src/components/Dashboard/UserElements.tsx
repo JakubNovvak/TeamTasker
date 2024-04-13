@@ -8,7 +8,6 @@ import { useState } from "react";
 import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
 import React from "react";
 import UserAvatarMenu from "./UserAvatarMenu";
-import CheckAdminPermission from "../Connection/API/CheckAdminPermission";
 
 
 function renderSwitch(pathnName: string): string[]
@@ -62,9 +61,6 @@ function renderSwitch(pathnName: string): string[]
 
 export default function UserElements()
 {
-    const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-    CheckAdminPermission(setAdminUserPermission);
-
     let pathName = location.pathname;
 
     return(
