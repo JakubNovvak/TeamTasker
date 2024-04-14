@@ -9,6 +9,6 @@ namespace TeamTasker.Server.Application.Interfaces
 {
     public interface ILeaderService
     {
-        public void AddIssueToEmployee(CreateIssueDto dto);
+        void CreateIssue(CreateIssueDto issueDto, string email);
     }
 }

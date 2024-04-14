@@ -19,13 +19,11 @@ namespace TeamTasker.Server.API.Controllers
     {
         private readonly IJwtAuthorizationService _jwtService;
         private readonly ILeaderService _leaderService;
-        private readonly IIssueService _issueService;
 
         public LeaderController(IJwtAuthorizationService jwtService ,ILeaderService leaderService, IIssueService issueService)
         {
             _jwtService = jwtService;
             _leaderService = leaderService;
-            _issueService = issueService;
         }
         [HttpPost]
         [Route("CreateIssue", Name = "CreateIssue")]
@@ -34,7 +32,7 @@ namespace TeamTasker.Server.API.Controllers
             try
             {
                 var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
-                _issueService.CreateIssue(dto, email);
+                _leaderService.CreateIssue(dto, email);
                 return Ok();
             }
             catch (ArgumentNullException ex)

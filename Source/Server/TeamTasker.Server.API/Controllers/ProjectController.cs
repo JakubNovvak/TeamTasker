@@ -24,7 +24,8 @@ namespace TeamTasker.Server.API.Controllers
             _issueService = issueService;
         }
 
-        [HttpPost]
+        //Probably unnecessary 
+        /*[HttpPost]
         [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [Route("AddIssueToProject", Name = "AddIssueToProject")]
         public IActionResult AddIssueToProject(AddIssueToProjectDto dto)
@@ -49,10 +50,10 @@ namespace TeamTasker.Server.API.Controllers
                 Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
-        }
+        }*/
 
-        
-        
+
+
         [HttpPut]
        // [Authorize(Policy = AuthorizationPolicies.LoggedInUserPolicy)]
         [Route("AddPictureToProject", Name = "AddPictureToProject")]
