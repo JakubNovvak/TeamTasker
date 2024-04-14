@@ -40,7 +40,8 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        [HttpGet]
+        //TODO: Change this methods to 4 methods returning 4 types of status.
+        /*[HttpGet]
         [Route("GetCompletedIssue", Name = "GetCompletedIssue")]
         public IActionResult GetCompletedIssue()
         {
@@ -90,7 +91,7 @@ namespace TeamTasker.Server.API.Controllers
                 Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
-        }
+        }*/
 
         [HttpGet]
         [Route("GetIssueAssignedToEmployee", Name = "GetIssueAssignedToEmployee")]
