@@ -8,6 +8,7 @@ using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
@@ -16,11 +17,13 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class LeaderController : ControllerBase
     {
+        private readonly IJwtAuthorizationService _jwtService;
         private readonly ILeaderService _leaderService;
         private readonly IIssueService _issueService;
 
-        public LeaderController(ILeaderService leaderService, IIssueService issueService)
+        public LeaderController(IJwtAuthorizationService jwtService ,ILeaderService leaderService, IIssueService issueService)
         {
+            _jwtService = jwtService;
             _leaderService = leaderService;
             _issueService = issueService;
         }
@@ -30,7 +33,8 @@ namespace TeamTasker.Server.API.Controllers
         {
             try
             {
-                _issueService.CreateIssue(dto);
+                var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
+                _issueService.CreateIssue(dto, email);
                 return Ok();
             }
             catch (ArgumentNullException ex)

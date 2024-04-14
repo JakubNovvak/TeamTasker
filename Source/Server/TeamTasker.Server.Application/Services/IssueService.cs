@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using System.Net.Http.Headers;
 using TeamTasker.Server.Application.Dtos.Issues;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -9,15 +9,19 @@ namespace TeamTasker.Server.Application.Services
     public class IssueService : IIssueService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IJwtAuthorizationService _jwtService;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IIssueRepository _issueRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
 
-        public IssueService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository, IMapper mapper)
+        public IssueService(IIssueRepository issueRepository, ITeamRepository teamRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository, IJwtAuthorizationService jwtService, IMapper mapper)
         {
             _issueRepository = issueRepository;
+            _teamRepository = teamRepository;
             _employeeRepository = employeeRepository;
             _projectRepository = projectRepository;
+            _jwtService = jwtService;
             _mapper = mapper;
         }
 
@@ -39,12 +43,33 @@ namespace TeamTasker.Server.Application.Services
             _issueRepository.CreateIssue(issue);
         }
 
-        public void CreateIssue(CreateIssueDto issueDto)
+        /*public void CreateIssue(CreateIssueDto issueDto)
         {
             if (issueDto == null)
                 throw new ArgumentNullException(nameof(issueDto));
 
             var issue = _mapper.Map<Issue>(issueDto);
+
+            _issueRepository.CreateIssue(issue);
+        }*/
+
+        public void CreateIssue(CreateIssueDto issueDto, string email)
+        {
+            var employee = _employeeRepository.GetUserByEmail(email);
+           
+            if (issueDto == null)
+                throw new ArgumentNullException(nameof(issueDto));
+
+            var issue = _mapper.Map<Issue>(issueDto);
+            var project = _projectRepository.GetProject(issue.ProjectId);
+            if (project == null)
+                throw new Exception("You are trying to add an issue to a project that does not exist!");
+
+            var team = _teamRepository.GetTeam(project.TeamId);
+            if (team == null)
+                throw new Exception("Your team is not in this project!");
+            if (employee.Id != team.LeaderId)
+                throw new Exception("You can't create an issue! You are not team leader!");
 
             _issueRepository.CreateIssue(issue);
         }

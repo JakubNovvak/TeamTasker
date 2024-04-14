@@ -6,7 +6,7 @@ namespace TeamTasker.Server.Domain.Interfaces
 {
     public interface IIssueService
     {
-        void CreateIssue(CreateIssueDto issueDto);
+        void CreateIssue(CreateIssueDto issueDto, string email);
         IEnumerable<ReadIssueDto> GetAllIssues();
         ReadIssueDto GetIssue(int id);
         void AddIssueToProject(AddIssueToProjectDto issueDto);
