@@ -69,29 +69,30 @@ namespace TeamTasker.Server.Application.Services
         }
 
         //1
-        public IEnumerable<GetCompletedIssueDto> GetCompletedIssue()
-        {
-            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "completed");
-            var issueDto = issue.Select(i => new GetCompletedIssueDto
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Status = i.Status
-            });
-            return issueDto;
-        }
+        //TODO: Change this methods to 4 methods returning 4 types of status. It's good to change the name of dto to match the methods.
+        /* public IEnumerable<GetCompletedIssueDto> GetCompletedIssue()
+         {
+             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "completed");
+             var issueDto = issue.Select(i => new GetCompletedIssueDto
+             {
+                 Id = i.Id,
+                 Name = i.Name,
+                 Status = i.Status
+             });
+             return issueDto;
+         }
 
-        public IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue()
-        {
-            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "uncompleted");
-            var issueDto = issue.Select(i => new GetCompletedIssueDto
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Status = i.Status
-            });
-            return issueDto;
-        }
+         public IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue()
+         {
+             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "uncompleted");
+             var issueDto = issue.Select(i => new GetCompletedIssueDto
+             {
+                 Id = i.Id,
+                 Name = i.Name,
+                 Status = i.Status
+             });
+             return issueDto;
+         }*/
 
         public IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId)
         {
@@ -102,7 +103,7 @@ namespace TeamTasker.Server.Application.Services
                 Name = i.Name,
                 Description = i.Description,
                 Deadline = i.Deadline,
-                Prioroty = i.Prioroty,
+                Priority = i.Priority,
                 ProjectId = i.ProjectId,
             });
 
@@ -112,14 +113,14 @@ namespace TeamTasker.Server.Application.Services
 
         public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(string prioroty)
         {
-            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Prioroty == prioroty);
+            var issue = _issueRepository.GetAllIssues().Where(issue => issue.Priority == prioroty);
             var issueDto = issue.Select(i => new GetIssueByPriorityDto
             {
                 Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
                 Deadline = i.Deadline,
-                Prioroty = i.Prioroty,
+                Priority = i.Priority,
                 ProjectId = i.ProjectId,
                 EmployeeId = i.EmployeeId
             });
