@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Dtos.Issues
 {
@@ -10,13 +11,12 @@ namespace TeamTasker.Server.Application.Dtos.Issues
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public DateTime Deadline { get; set; }
-        public string Priority { get; set; }
-        public string LeaderName { get; set; } = string.Empty;
-        public int LeaderId { get; set; }
-        public string EmployeeName { get; set; } = string.Empty;
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Priority { get; set; } = string.Empty;
+        public StatusValue Status { get; set; } = StatusValue.NewIssue;
         public int EmployeeId { get; set; }
-        public string ProjectName { get; set; } = string.Empty;
         public int ProjectId { get; set; }
+
     }
 }

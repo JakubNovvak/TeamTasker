@@ -15,9 +15,10 @@ namespace TeamTasker.Server.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public DateTime Deadline { get; set; }
+        public DateTime StartDate {get; set; }
+        public DateTime EndDate { get; set; }
         public string Priority { get; set; } = string.Empty;
-        public StatusValue Status { get; set; }
+        public StatusValue Status { get; set; } = StatusValue.NewIssue;
         public DateTime? CompleteTime { get; set; }
         public virtual Employee Employee { get; set; } = default!;
         public int EmployeeId { get; set; }

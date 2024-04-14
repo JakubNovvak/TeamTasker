@@ -102,7 +102,7 @@ namespace TeamTasker.Server.Application.Services
                 Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
-                Deadline = i.Deadline,
+                Deadline = i.EndDate,
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
             });
@@ -119,7 +119,7 @@ namespace TeamTasker.Server.Application.Services
                 Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
-                Deadline = i.Deadline,
+                Deadline = i.EndDate,
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
                 EmployeeId = i.EmployeeId
