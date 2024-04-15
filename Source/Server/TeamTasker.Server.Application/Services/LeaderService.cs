@@ -44,6 +44,10 @@ namespace TeamTasker.Server.Application.Services
             if (employee.Id != team.LeaderId)
                 throw new Exception("You can't create an issue! You are not team leader!");
 
+            var teamEmployees = team.EmployeeTeams.Select(e => e.Employee).ToList();
+            if (!teamEmployees.Any(e => e.Id == issue.EmployeeId))
+                throw new Exception("You can't assign issue to employee that is not assigned to this project!");
+
             _issueRepository.CreateIssue(issue);
         }
     }
