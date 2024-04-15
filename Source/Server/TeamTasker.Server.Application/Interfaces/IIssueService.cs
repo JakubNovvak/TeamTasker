@@ -15,6 +15,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(IssuePriority prioroty);
         IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId);
         IEnumerable<ReadIssueDto> GetAllIssuesFromProject(int projectId);
-        IEnumerable<ReadIssueDto> GetUserIssuesFromProject(int empployeeId, int projectId);
+        IEnumerable<ReadIssueDto> GetEmployeeIssuesFromProject(int empployeeId, int projectId);
     }
 }
