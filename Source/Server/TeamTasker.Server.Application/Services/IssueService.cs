@@ -101,7 +101,7 @@ namespace TeamTasker.Server.Application.Services
 
         }
 
-        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(PriorityValue prioroty)
+        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(IssuePriority prioroty)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Priority == prioroty);
             /*var issueDto = issue.Select(i => new GetIssueByPriorityDto //mapper better?

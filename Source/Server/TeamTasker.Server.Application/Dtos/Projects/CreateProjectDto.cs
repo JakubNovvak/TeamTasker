@@ -12,8 +12,7 @@ namespace TeamTasker.Server.Application.Dtos.Projects
     {
         public string Name { get; set; } = string.Empty;
         public DateTime Deadline { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public ProjectStatus Status { get; set; }
         public string Description { get; set; } = string.Empty;
-        public bool IsComplete { get; set; } = false;
     }
 }

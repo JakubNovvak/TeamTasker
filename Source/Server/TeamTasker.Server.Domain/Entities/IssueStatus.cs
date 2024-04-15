@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Domain.Entities
 {
-    public enum StatusValue
+    public enum IssueStatus
     {
         NewIssue = 1,
         InProgress = 2,
