@@ -23,6 +23,6 @@ namespace TeamTasker.Server.Application.Dtos.Users
 
         //public ICollection<ReadCommentDto> Notifications { get; set; } = default!;
         //public ICollection<ReadIssueDto> AssignedIssues { get; set; } = default!;
-        public ICollection<ReadTeamDto> Teams { get; set; } = default!;
+        //public ICollection<ReadTeamDto> Teams { get; set; } = default!;
     }
 }
