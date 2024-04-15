@@ -5,16 +5,21 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import CheckLeaderPermission from '../../Connection/API/CheckLeaderPermission';
+import { useEffect } from 'react';
 
-export default function StatusSelect() {
-  const [age, setAge] = React.useState('10');
+export default function StatusSelect({projectStatus}: {projectStatus: string}) {
+  const [age, setAge] = React.useState("OnTheRightPath");
 
-  const [userPermission, setUserPermission] = React.useState<boolean>(false);
-  CheckLeaderPermission(setUserPermission);
+  const [leaderPermission, setLeaderPermission] = React.useState<boolean>(false);
+  CheckLeaderPermission(setLeaderPermission);
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
+
+  useEffect(() => {
+    setAge(projectStatus);
+  }, []);
 
   return (
     <Box sx={{ maxWidth: 230, ml: "1.5rem", mt: "1rem" }}>
@@ -26,13 +31,13 @@ export default function StatusSelect() {
           value={age}
           label=""
           onChange={handleChange}
-          disabled={userPermission ? false : true}
+          disabled={leaderPermission ? false : true}
           
         >
-          <MenuItem value={10}>✅ On the right path</MenuItem>
-          <MenuItem value={20}>⏺ On hold</MenuItem>
-          <MenuItem value={30}>🟪 Finished</MenuItem>
-          <MenuItem value={40}>❌Critically off the path</MenuItem>
+          <MenuItem value={"OnTheRightPath"}>✅ On the right path</MenuItem>
+          <MenuItem value={"OnHold"}>⏺ On hold</MenuItem>
+          <MenuItem value={"Finished"}>🟪 Finished</MenuItem>
+          <MenuItem value={"CriticallyOffThePath"}>❌Critically off the path</MenuItem>
         </Select>
       </FormControl>
     </Box>

@@ -50,7 +50,7 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
             return <Board/>;
 
         case `/projectname/${projectId}/projectmembers`:
-            return <ProjectMembers/>;
+            return <ProjectMembers projectId={projectId}/>;
             
         default:
             return <h1>404 - cannot find the module</h1>;
@@ -59,20 +59,20 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
 
 export default function ModulesContainer()
 {
-    const temp: ReadProjectDto = {
-        id: 0,
-        name: "",
-        description: "",
-        deadline: "",
-        isComplete: false,
-        teamId: 0,
-        picture: "",
-        comments: []
-    }
+    // const temp: ReadProjectDto = {
+    //     id: 0,
+    //     name: "",
+    //     description: "",
+    //     deadline: "",
+    //     isComplete: false,
+    //     teamId: 0,
+    //     picture: "",
+    //     comments: []
+    // }
 
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-    const [project, setProject] = useState<ReadProjectDto>(temp);
+    //const [project, setProject] = useState<ReadProjectDto>(temp);
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
 
@@ -83,8 +83,8 @@ export default function ModulesContainer()
     const { projectId } = useParams<{projectId: string}>();
 
     useEffect(() => {
-        GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
-    }, [projectId]);
+        //GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
+    }, [projectId, loggedInUserPermission]);
 
     //console.log("Zmienna z url: " + projectId);
 
