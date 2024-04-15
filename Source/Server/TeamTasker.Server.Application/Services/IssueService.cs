@@ -128,7 +128,7 @@ namespace TeamTasker.Server.Application.Services
             var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
             return issueDtos;
         }
-        public IEnumerable<ReadIssueDto> GetUserIssuesFromProject(int employeeId, int projectId)
+        public IEnumerable<ReadIssueDto> GetEmployeeIssuesFromProject(int employeeId, int projectId)
         {
             var employee =_employeeRepository.GetEmployee(employeeId);
             if (employee == null)

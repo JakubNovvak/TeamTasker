@@ -1,5 +1,6 @@
 ﻿using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Users;
 
 namespace TeamTasker.Server.Application.Interfaces
 {
@@ -12,6 +13,6 @@ namespace TeamTasker.Server.Application.Interfaces
         void AddTeamToProject(AddTeamToProjectDto teamToProjectDto);
         GetProjectNameAndPictureDto GetProjectNameAndImagines(int id);
         void AddPictureToProject(AddPictureToProjectDto addPictureToProjectDto);
-
+        IEnumerable<ReadEmployeeDto> GetEmployeesFromProject(int projectId);
     }
 }

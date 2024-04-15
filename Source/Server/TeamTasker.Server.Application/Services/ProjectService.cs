@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System.Data;
 using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -99,6 +100,18 @@ namespace TeamTasker.Server.Application.Services
 
             project.Picture = addPictureToProjectDto.Picture;
             _projectRepository.UpdateProject(project);
+        }
+        public IEnumerable<ReadEmployeeDto> GetEmployeesFromProject(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+            var team = project.Team;
+            if (team == null)
+                throw new Exception("This project have not team assigned!");
+            var employees = team.EmployeeTeams.Select(e => e.Employee).ToList();
+            var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
+            return employeeDtos;
         }
     }
 }

@@ -173,12 +173,12 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserIssuesFromProject", Name = "GetUserIssuesFromProject")]
-        public IActionResult GetUserIssuesFromProject(int employeeId, int projectId)
+        [Route("GetEmployeeIssuesFromProject", Name = "GetEmployeeIssuesFromProject")]
+        public IActionResult GetEmployeeIssuesFromProject(int employeeId, int projectId)
         {
             try
             {
-                var issues = _issueService.GetUserIssuesFromProject(employeeId, projectId);
+                var issues = _issueService.GetEmployeeIssuesFromProject(employeeId, projectId);
                 return Ok(issues);
             }
             catch (KeyNotFoundException ex)
