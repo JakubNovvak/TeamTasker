@@ -113,8 +113,9 @@ namespace TeamTasker.Server.Application.Services
             if (employee == null)
                 throw new Exception("Employee not found!");
 
-            var employeeTeams = _employeeTeamRepository.GetAllEmployeeTeams(id);
-            var teams = employeeTeams.Select(t => t.Team).ToList();
+            // var employeeTeams = _employeeTeamRepository.GetAllEmployeeTeams(id);
+            // var teams = employeeTeams.Select(t => t.Team).ToList();
+            var teams = employee.EmployeeTeams.Select(t => t.Team).ToList();
 
             var userProjects = teams.Select(t => t.Project).ToList();
             var projectDtos = _mapper.Map<IEnumerable<ReadProjectDto>>(userProjects);
