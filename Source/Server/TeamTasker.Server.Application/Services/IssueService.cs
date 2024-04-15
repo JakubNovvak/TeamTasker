@@ -87,7 +87,7 @@ namespace TeamTasker.Server.Application.Services
         public IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.EmployeeId == employeeId);
-            var issueDto = issue.Select(i => new GetIssueAssignedToEmployeeDto
+            /*var issueDto = issue.Select(i => new GetIssueAssignedToEmployeeDto //mapper better?
             {
                 Id = i.Id,
                 Name = i.Name,
@@ -95,16 +95,16 @@ namespace TeamTasker.Server.Application.Services
                 Deadline = i.EndDate,
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
-            });
-
-            return issueDto;
+            });*/
+            var issueDtos = _mapper.Map<IEnumerable<GetIssueAssignedToEmployeeDto>>(issue);
+            return issueDtos;
 
         }
 
-        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(string prioroty)
+        public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(PriorityValue prioroty)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Priority == prioroty);
-            var issueDto = issue.Select(i => new GetIssueByPriorityDto
+            /*var issueDto = issue.Select(i => new GetIssueByPriorityDto //mapper better?
             {
                 Id = i.Id,
                 Name = i.Name,
@@ -113,8 +113,9 @@ namespace TeamTasker.Server.Application.Services
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
                 EmployeeId = i.EmployeeId
-            });
-            return issueDto;
+            });*/
+            var issueDtos = _mapper.Map<IEnumerable<GetIssueByPriorityDto>>(issue);
+            return issueDtos;
         }
     }
 }
