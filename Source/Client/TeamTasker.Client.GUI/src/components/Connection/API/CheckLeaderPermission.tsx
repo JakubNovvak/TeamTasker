@@ -16,7 +16,7 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
     }
     catch(error)
     {
-        console.error("There was an issue with \"CheckLoggedInPermission\" POST request: ", {error});
+        console.error("There was an issue with \"Check if Leader\" GET request: ", {error});
         setUserPermission(false);
         setSendingState(false);
     }
