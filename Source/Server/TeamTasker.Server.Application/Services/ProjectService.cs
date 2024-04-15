@@ -82,7 +82,7 @@ namespace TeamTasker.Server.Application.Services
             var project = _projectRepository.GetProject(id);
 
             if (project == null)
-                return null;
+                throw new KeyNotFoundException();
 
             var projectDto = _mapper.Map<ReadProjectDto>(project);
 
