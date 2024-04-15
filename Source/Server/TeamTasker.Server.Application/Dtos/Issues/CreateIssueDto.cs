@@ -13,7 +13,7 @@ namespace TeamTasker.Server.Application.Dtos.Issues
         public string Description { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string Priority { get; set; } = string.Empty;
+        public PriorityValue Priority { get; set; }
       //  public StatusValue Status { get; set; } = StatusValue.NewIssue;
         public int EmployeeId { get; set; }
         public int ProjectId { get; set; }

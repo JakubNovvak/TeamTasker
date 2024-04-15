@@ -111,7 +111,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var projects = new List<Project>()
             {
-                new Project(){ Name="Project 1", Description = "This is an example project."},
+                new Project(){ Name="Project 1", Description = "This is an example project.", TeamId=1},
                 new Project(){ Name="Project 2"}
             };
             return projects;

@@ -12,7 +12,7 @@ namespace TeamTasker.Server.Domain.Interfaces
 
         //IEnumerable<GetCompletedIssueDto> GetCompletedIssue();
         //IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue();
-        IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(string prioroty);
+        IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(PriorityValue prioroty);
         IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamTasker.Server.Application.Services;
+using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
@@ -121,7 +122,7 @@ namespace TeamTasker.Server.API.Controllers
 
         [HttpGet]
         [Route("GetIssueByPriority", Name = "GetIssueByPriority")]
-        public IActionResult GetIssueByPriority(string priority)
+        public IActionResult GetIssueByPriority(PriorityValue priority)
         {
             try
             {
