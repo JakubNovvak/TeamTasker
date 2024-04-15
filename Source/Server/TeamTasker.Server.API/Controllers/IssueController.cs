@@ -4,10 +4,10 @@ using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class IssueController : ControllerBase
     {
-
-
         private readonly IIssueService _issueService;
 
         public IssueController(IIssueService issueService)

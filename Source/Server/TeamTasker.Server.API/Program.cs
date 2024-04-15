@@ -112,6 +112,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<ILeaderService, LeaderService>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();

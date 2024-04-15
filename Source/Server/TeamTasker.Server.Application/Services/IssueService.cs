@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using System.Net.Http.Headers;
 using TeamTasker.Server.Application.Dtos.Issues;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -20,8 +20,8 @@ namespace TeamTasker.Server.Application.Services
             _projectRepository = projectRepository;
             _mapper = mapper;
         }
-
-        public void AddIssueToProject(AddIssueToProjectDto issueDto)
+        
+        public void AddIssueToProject(AddIssueToProjectDto issueDto) //Probably unnecessary 
         {
             if (issueDto == null)
                 throw new ArgumentNullException(nameof(issueDto));
@@ -36,16 +36,6 @@ namespace TeamTasker.Server.Application.Services
 
 
             var issue = _mapper.Map<Issue>(issueDto);
-            _issueRepository.CreateIssue(issue);
-        }
-
-        public void CreateIssue(CreateIssueDto issueDto)
-        {
-            if (issueDto == null)
-                throw new ArgumentNullException(nameof(issueDto));
-
-            var issue = _mapper.Map<Issue>(issueDto);
-
             _issueRepository.CreateIssue(issue);
         }
 
@@ -102,7 +92,7 @@ namespace TeamTasker.Server.Application.Services
                 Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
-                Deadline = i.Deadline,
+                Deadline = i.EndDate,
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
             });
@@ -119,7 +109,7 @@ namespace TeamTasker.Server.Application.Services
                 Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
-                Deadline = i.Deadline,
+                Deadline = i.EndDate,
                 Priority = i.Priority,
                 ProjectId = i.ProjectId,
                 EmployeeId = i.EmployeeId
