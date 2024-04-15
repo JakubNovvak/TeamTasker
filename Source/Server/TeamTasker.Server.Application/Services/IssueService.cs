@@ -117,5 +117,16 @@ namespace TeamTasker.Server.Application.Services
             var issueDtos = _mapper.Map<IEnumerable<GetIssueByPriorityDto>>(issue);
             return issueDtos;
         }
+
+        public IEnumerable<ReadIssueDto> GetAllIssuesFromProject(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var issues = project.Issues.ToList();
+            var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
+            return issueDtos;
+        }
     }
 }
