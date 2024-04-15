@@ -157,8 +157,8 @@ namespace TeamTasker.Server.API.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
-                return NotFound("There is no projects in the database.");
+                Console.WriteLine($">[TasksCtr] <GetAll> No issues were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no issues in the database.");
             }
             catch (ArgumentNullException ex)
             {
@@ -168,7 +168,33 @@ namespace TeamTasker.Server.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetUserIssuesFromProject", Name = "GetUserIssuesFromProject")]
+        public IActionResult GetUserIssuesFromProject(int employeeId, int projectId)
+        {
+            try
+            {
+                var issues = _issueService.GetUserIssuesFromProject(employeeId, projectId);
+                return Ok(issues);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No issues were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no issues in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
             }
         }
     }

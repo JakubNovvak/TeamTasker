@@ -128,5 +128,18 @@ namespace TeamTasker.Server.Application.Services
             var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
             return issueDtos;
         }
+        public IEnumerable<ReadIssueDto> GetUserIssuesFromProject(int employeeId, int projectId)
+        {
+            var employee =_employeeRepository.GetEmployee(employeeId);
+            if (employee == null)
+                throw new Exception("Employee not found!");
+            var employeeTeams = employee.EmployeeTeams.Select(t => t.Team).ToList();
+            var project = employeeTeams.Select(p=>p.Project).FirstOrDefault(p=>p.Id==projectId);
+            if (employee == null || project == null)
+                throw new Exception("Wrong employee or project id!");
+            var issues = project.Issues.Where(i => i.EmployeeId == employeeId);
+            var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
+            return issueDtos;
+        }
     }
 }
