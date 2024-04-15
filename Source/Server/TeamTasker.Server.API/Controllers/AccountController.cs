@@ -6,6 +6,7 @@ using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
 using TeamTasker.Server.Application.Services;
+using TeamTasker.Server.Application.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
 {
@@ -13,7 +14,6 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        //private readonly IEmployeeService _employeeService;
         private readonly IJwtAuthorizationService _jwtService;
 
         public AccountController(/*IEmployeeService employeeService,*/ IJwtAuthorizationService jwtService)
@@ -171,6 +171,32 @@ namespace TeamTasker.Server.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"An unexpected error has occured: {ex.Message}");
+            }
+        }
+        [HttpGet]
+        [Route("authorize/IsLeader", Name = "IsLeader")]
+        public IActionResult IsLeader(int projectId)
+        {
+            try
+            {
+                var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
+                var isLeader = _jwtService.IsLeader(email, projectId);
+                return Ok(isLeader);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
     }
