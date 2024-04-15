@@ -141,5 +141,14 @@ namespace TeamTasker.Server.Application.Services
             var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
             return issueDtos;
         }
+
+        public void GetIssueTime(ScheduleIssueDto scheduleIssueDto)
+        {
+            var issue = _issueRepository.GetIssue(scheduleIssueDto.Id);
+            if (issue == null)
+                throw new Exception("Issue not found!");
+
+            scheduleIssueDto.Duration = issue.EndDate - issue.StartDate;
+        }
     }
 }
