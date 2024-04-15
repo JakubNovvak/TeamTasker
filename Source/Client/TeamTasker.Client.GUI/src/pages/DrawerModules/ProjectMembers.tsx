@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import PreviewMembersTable from "../../components/Modules/ProjectMembers/PreviewMembersTable";
 
 
-export default function ProjectMembers()
+export default function ProjectMembers({projectId}: {projectId: string | undefined})
 {
     return(
         <>
@@ -13,7 +13,7 @@ export default function ProjectMembers()
                     </Typography>
                 </Box>
                 
-                <PreviewMembersTable/>
+                <PreviewMembersTable projectId={projectId}/>
             </Box>
         </>
     );
