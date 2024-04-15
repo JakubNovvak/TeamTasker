@@ -14,7 +14,7 @@ function onLogoutClick()
     location.href = "/login";
 }
 
-export default function UserAvatarMenu() 
+export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string}) 
 {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -38,7 +38,7 @@ export default function UserAvatarMenu()
         onClick={handleClick}
       >
         <ArrowDropDownIcon sx={{color: "#363b4d"}}/>
-        <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" />
+        <Avatar alt="?" src={avatarUrl} />
       </Button>
       <Menu
         id="basic-menu"

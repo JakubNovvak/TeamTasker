@@ -4,9 +4,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Input } from "@mui/joy";
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
-import React from "react";
+import TempGetNavbarAvatar from "../Connection/API/TempGetNavbarAvatar";
 import UserAvatarMenu from "./UserAvatarMenu";
 import { useParams } from "react-router-dom";
 
@@ -63,6 +63,11 @@ export default function UserElements()
 {
     let pathName = location.pathname;
     const { projectId } = useParams<{projectId: string}>();
+    const [avatarUrl, setAvatarUrl] = useState<string>("none");
+
+    useEffect(()=> {
+        TempGetNavbarAvatar(setAvatarUrl);
+    }, []);
 
     return(
             <Box display="flex" flexDirection="row" sx={{width: "100%", height: "100%"}}>
@@ -93,7 +98,7 @@ export default function UserElements()
                     <Badge badgeContent={4} color="primary" sx={{mr: "1.5rem"}}>
                         <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
                     </Badge>
-                    <UserAvatarMenu />
+                    <UserAvatarMenu avatarUrl={avatarUrl}/>
                 </Box>
             </Box>
     );
