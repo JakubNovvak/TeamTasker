@@ -10,17 +10,22 @@ using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
 using TeamTasker.Server.Application.Services;
+using TeamTasker.Server.Domain.Entities;
 
 namespace TeamTasker.Server.Application.Services.Authorization
 {
     public class JwtAuthorizationService : IJwtAuthorizationService
     {
         private readonly IEmployeeRepository _employeeRepo;
+        private readonly IProjectRepository _projectRepo;
+        private readonly ITeamRepository _teamRepo;
         private readonly IEmployeeService _employeeService;
 
-        public JwtAuthorizationService(IEmployeeRepository employeeRepo, IEmployeeService employeeService)
+        public JwtAuthorizationService(IEmployeeRepository employeeRepo, IProjectRepository projectRepo, ITeamRepository teamRepo, IEmployeeService employeeService)
         {
             _employeeRepo = employeeRepo;
+            _projectRepo = projectRepo;
+            _teamRepo = teamRepo;
             _employeeService = employeeService;
         }
 
@@ -123,6 +128,26 @@ namespace TeamTasker.Server.Application.Services.Authorization
                 throw new UnauthorizedAccessException();
 
             return verifiedToken.Issuer;
+        }
+        public bool IsLeader(string email, int projectId)
+        {
+            var user = _employeeRepo.GetUserByEmail(email);
+            if (user == null)
+                throw new Exception("Employee not found!");
+
+            var employee = (Employee)user;
+
+            var project = _projectRepo.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var team = _teamRepo.GetTeam(project.TeamId);
+            if (team == null)
+                throw new Exception("Your team is not in this project!");
+
+            if (employee.Id != team.LeaderId)
+                return false;
+            return true;
         }
     }
 }
