@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Domain.Entities
 {
-    public enum PriorityValue
+    public enum IssuePriority
     {
         High = 1,
         Medium = 2,

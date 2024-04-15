@@ -122,7 +122,7 @@ namespace TeamTasker.Server.API.Controllers
 
         [HttpGet]
         [Route("GetIssueByPriority", Name = "GetIssueByPriority")]
-        public IActionResult GetIssueByPriority(PriorityValue priority)
+        public IActionResult GetIssueByPriority(IssuePriority priority)
         {
             try
             {
