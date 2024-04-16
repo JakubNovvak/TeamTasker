@@ -88,7 +88,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 new User(){ FirstName = "Admin", Email="admin", Password="admin", Avatar = "https://t4.ftcdn.net/jpg/02/88/57/41/360_F_288574163_CnFR8zc2sPzwh24PnyODUmGdfA9jP9ZS.jpg"},
 
                 new Employee(){FirstName = "Regular", LastName="User", 
-                    Position="Software Developer", Email="user@test.pl", Password ="password", Avatar = "https://mui.com/static/images/avatar/1.jpg"},
+                    Position="Software Developer", Email="user@test.pl", Password ="password", Avatar = "https://mui.com/static/images/avatar/1.jpg" },
 
                 new Employee(){FirstName = "Leader", LastName="User", 
                     Position="Project Admin", Email="leader@test.pl", Password ="password", Avatar= "https://mui.com/static/images/avatar/2.jpg"},
