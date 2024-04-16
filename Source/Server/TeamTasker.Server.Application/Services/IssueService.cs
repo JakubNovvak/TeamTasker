@@ -144,14 +144,14 @@ namespace TeamTasker.Server.Application.Services
 
         public void UpdateIssueStatus(UpdateIssueStatusDto dto)
         {
-            if(dto==null)
+            if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
             var issue = _issueRepository.GetIssue(dto.Id);
             if (issue == null)
                 throw new Exception("Issue not found!");
             issue.Status = dto.Status;
             _issueRepository.UpdateIssue(issue);
-
+        }
         public IEnumerable<ReadIssueDto> GetNewIssues(int projectId)
         {
             var project = _projectRepository.GetProject(projectId);
