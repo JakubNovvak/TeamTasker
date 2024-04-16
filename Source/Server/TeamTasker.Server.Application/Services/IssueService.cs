@@ -205,5 +205,25 @@ namespace TeamTasker.Server.Application.Services
             var doneIssueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(doneIssues);
             return doneIssueDtos;
         }
+
+        public IEnumerable<GetScheduleDto> GetScheduleTime(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+            var issues = project.Issues.ToList();
+
+            var issueDtos = _mapper.Map<IEnumerable<GetScheduleDto>>(issues);
+            //var durations = issue.EndDate.Subtract(issue.StartDate);
+            foreach (var i in issueDtos)
+            {
+                var duration = i.EndDate.Subtract(i.StartDate);
+                i.Duration = duration.TotalDays;
+            }
+
+            // issueDto.Duration = duration.TotalDays;
+
+            return issueDtos;
+        }
     }
 }
