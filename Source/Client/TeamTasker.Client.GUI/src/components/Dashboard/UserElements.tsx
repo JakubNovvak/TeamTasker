@@ -9,7 +9,19 @@ import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
 import TempGetNavbarAvatar from "../Connection/API/TempGetNavbarAvatar";
 import UserAvatarMenu from "./UserAvatarMenu";
 import { useParams } from "react-router-dom";
+import IssuesListOptions from "./NavbarOptions/IssuesListOptions";
 
+function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.Element
+{
+    switch (pathName) 
+    {
+        case `/projectname/${projectId}/issueslist`:
+            return <IssuesListOptions />;
+    
+        default:
+            return <></>;
+    }
+}
 
 function renderSwitch(pathnName: string, projectId: string | undefined): string[]
 {
@@ -72,8 +84,12 @@ export default function UserElements()
     return(
             <Box display="flex" flexDirection="row" sx={{width: "100%", height: "100%"}}>
                 {/*Left Side of the Navbar*/}
+
                 <Box display="flex" flexDirection="row" sx={{marginRight: "auto", alignItems: "center"}}>
-                    <Typography variant="body1" color="#363b4d" fontWeight={550}>
+
+                    {renderSwitchJSX(pathName, projectId)}
+
+                    {/* <Typography variant="body1" color="#363b4d" fontWeight={550}>
                     {renderSwitch(pathName, projectId)[0] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName, projectId)[0]}
                     </Typography>
 
@@ -83,11 +99,9 @@ export default function UserElements()
 
                     <Typography variant="body1" color="#363b4d" fontWeight={550} sx={{ml: "2rem"}}>
                     {renderSwitch(pathName, projectId)[2] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName, projectId)[2]}
-                    </Typography>
-
-                    {/* <Button size="small" variant="contained" sx={{backgroundColor: "#363b4d", ml: "1.5rem"}}>Create</Button> */}
+                    </Typography> */}
                 </Box>
-                
+
                 {/*Right Side of the Navbar*/}
                 <Box display="flex" flexDirection="row" sx={{marginLeft: "auto", alignItems: "center"}}>
                     <Input 
