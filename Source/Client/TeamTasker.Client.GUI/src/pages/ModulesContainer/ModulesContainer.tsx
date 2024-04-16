@@ -47,7 +47,7 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
             return <UserSettings/>;
 
         case `/projectname/${projectId}/board`:
-            return <Board/>;
+            return <Board projectId={projectId}/>;
 
         case `/projectname/${projectId}/projectmembers`:
             return <ProjectMembers projectId={projectId}/>;

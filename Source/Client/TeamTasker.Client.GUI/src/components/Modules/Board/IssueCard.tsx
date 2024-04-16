@@ -1,31 +1,42 @@
 import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
+import { ReadIssueDto } from "../../Types/ReadIssuesDto";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import TempGetUserById from "../../Connection/API/TempGetUserById";
 
-export default function IssueCard({taskTitle, taskNumber, dateFinish}: {taskTitle: String, taskNumber: String, dateFinish: String})
+
+export default function IssueCard({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
 {
+    const [userAvatar, setUserAvatar] = useState<string>("");
+
+    var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
+
+    useEffect(() => {
+        TempGetUserById(ReadIssueDto.employeeId, setUserAvatar);
+    }, []);
+
     return(
         <>
             <Paper elevation={2} sx={{width: "100%", minHeight: "6rem", mt: "1rem"}}>
                 <Grid container>
                     <Grid item xs={2}>
                         <Typography fontSize={15} color="gray" sx={{mt: "0.2rem", ml: "0.2rem"}}>
-                            #{taskNumber}
+                            #{ReadIssueDto.id}
                         </Typography>
                     </Grid>
                     <Grid item xs={10}>
                     </Grid>
 
                     <Typography fontSize={15} sx={{mt: "0.2rem", ml: "0.5rem", textAlign: "left", pr: "0.3rem"}}>
-                            {taskTitle}
+                            {ReadIssueDto.name}
                     </Typography>
-
-                    <Box sx={{display: "flex", flexDirection: "row", ml: "0.5rem", mt: "1.0rem", mb: "0.3rem"}}>
-                            <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "1.2rem", height: "1.2rem"}} />
-                            <Typography color="lightgray" variant="body1" fontSize={13} fontWeight={540} sx={{marginRight: "auto", ml: "0.3rem"}}>
-                                {dateFinish}
-                            </Typography>
-                    </Box>
-
                 </Grid>
+                <Box sx={{display: "flex", flexDirection: "row", ml: "0.5rem", mt: "1.0rem", mb: "0.3rem"}}>
+                            <Avatar alt="?" src={userAvatar} sx={{width: "1.2rem", height: "1.2rem"}} />
+                            <Typography color="lightgray" variant="body1" fontSize={13} fontWeight={540} sx={{marginRight: "auto", ml: "0.3rem"}}>
+                                {trimmedDate}
+                            </Typography>
+                </Box>
             </Paper>
         </>
     );
