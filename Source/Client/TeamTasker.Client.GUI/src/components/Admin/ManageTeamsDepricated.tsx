@@ -47,7 +47,7 @@ export default function ManageTeams()
             <Toolbar>
             {/*Here is the top navbar*/}
             <Box display="flex" flexDirection="row" sx={{marginLeft: "auto", alignItems: "center"}}>
-                <UserAvatarMenu />
+                {/* <UserAvatarMenu /> */}
             </Box>
             </Toolbar>
         </AppBar>
