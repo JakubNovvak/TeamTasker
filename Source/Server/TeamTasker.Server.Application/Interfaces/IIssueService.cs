@@ -8,6 +8,7 @@ namespace TeamTasker.Server.Domain.Interfaces
     {
         IEnumerable<ReadIssueDto> GetAllIssues();
         ReadIssueDto GetIssue(int id);
+        IEnumerable<GetScheduleDto> GetScheduleTime(int projectId);
         void AddIssueToProject(AddIssueToProjectDto issueDto); //Probably unnecessary 
 
         //IEnumerable<GetCompletedIssueDto> GetCompletedIssue();
