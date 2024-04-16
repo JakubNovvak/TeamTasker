@@ -119,7 +119,7 @@ export default function CreateTeam()
         <>
             {sendSucess == 2 ? <DataPostSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             {sendSucess == 1 ? <DataPostSnackbar TextIndex={1} IsDangerSnackBar={false}/> : <></>}
-            <Formik initialValues={{name: "", deadline: "", status: "none", description: "", isComplete: false}}
+            <Formik initialValues={{name: "", deadline: "", status: "OnTheRightPath", description: "", isComplete: false}}
             onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess)}}
             >
                 <CreateTeamContent sendingState={sendingState}/>

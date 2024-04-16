@@ -6,38 +6,43 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import CheckLeaderPermission from '../../Connection/API/CheckLeaderPermission';
 import { useEffect } from 'react';
+import { FormikCreateIssueHandleChange } from '../../Types/CommonTypes';
 
-export default function StatusSelect({projectStatus}: {projectStatus: string}) {
-  const [age, setAge] = React.useState("OnTheRightPath");
+export default function PrioritySelect({formikValue, formikHandleChange}: 
+                                       {formikValue: number, formikHandleChange: FormikCreateIssueHandleChange})
+{
+  const [priority, setPriority] = React.useState("Medium");
 
   const [leaderPermission, setLeaderPermission] = React.useState<boolean>(false);
   CheckLeaderPermission(setLeaderPermission);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setPriority(event.target.value as string);
   };
 
-  useEffect(() => {
-    setAge(projectStatus);
-  }, []);
+  const priorityString: {[key: string]: string} = {
+    "High": "🔴 High",
+    "Medium": "🔵 Normal",
+    "Low": "🟢 Low"
+  }
 
   return (
-    <Box sx={{ maxWidth: 230, ml: "1.5rem", mt: "1rem" }}>
+    <Box sx={{ minWidth: 245, maxWidth: 245}}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label"></InputLabel>
         <Select
+          name="priority"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          defaultValue={2}
+          value={formikValue}
           label=""
-          onChange={handleChange}
-          disabled={leaderPermission ? false : true}
+          onChange={formikHandleChange}
           
         >
-          <MenuItem value={"OnTheRightPath"}>✅ On the right path</MenuItem>
-          <MenuItem value={"OnHold"}>⏺ On hold</MenuItem>
-          <MenuItem value={"Finished"}>🟪 Finished</MenuItem>
-          <MenuItem value={"CriticallyOffThePath"}>❌Critically off the path</MenuItem>
+          <MenuItem value={1}>{priorityString["High"]}</MenuItem>
+          <MenuItem value={2}>{priorityString["Medium"]}</MenuItem>
+          <MenuItem value={3}>{priorityString["Low"]}</MenuItem>
         </Select>
       </FormControl>
     </Box>
