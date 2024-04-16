@@ -113,5 +113,15 @@ namespace TeamTasker.Server.Application.Services
             var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
             return employeeDtos;
         }
+        public void UpdateProjectStatus(UpdateProjectStatusDto dto)
+        {
+            if(dto == null)
+                throw new ArgumentNullException(nameof(dto));
+            var project = _projectRepository.GetProject(dto.Id);
+            if (project == null)
+                throw new Exception("Project not found!");
+            project.Status = dto.Status;
+            _projectRepository.UpdateProject(project);
+        }
     }
 }

@@ -189,5 +189,31 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
             }
         }
+
+        [HttpPut]
+        [Route("UpdateProjectStatus", Name = "UpdateProjectStatus")]
+        public IActionResult UpdateProjectStatus(UpdateProjectStatusDto dto)
+        {
+            try
+            {
+                _projectService.UpdateProjectStatus(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was a problem with adding the new project: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
     }
 }
