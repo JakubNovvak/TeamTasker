@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +16,7 @@ namespace TeamTasker.Server.Application.Dtos.Issues
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; } 
         public IssuePriority Priority { get; set; }
       //  public StatusValue Status { get; set; } = StatusValue.NewIssue;
         public int EmployeeId { get; set; }

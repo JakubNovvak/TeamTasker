@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Application.Dtos.Issues
 {
-    public class ScheduleIssueDto
+    public class GetScheduleTimeDto
     {
-        public int Id { get; set; }
-        public TimeSpan Duration { get; set; }
+        public double Duration { get; set; }
     }
 }

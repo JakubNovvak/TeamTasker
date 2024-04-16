@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -15,7 +16,7 @@ namespace TeamTasker.Server.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public DateTime StartDate {get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IssuePriority Priority { get; set; }
         public IssueStatus Status { get; set; } = IssueStatus.NewIssue;

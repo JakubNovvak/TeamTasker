@@ -173,12 +173,12 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetIssueTime", Name = "GetIssueTime")]
-        public IActionResult GetIssueTime(int Id)
+        [Route("GetScheduleTime", Name = "GetScheduleTime")]
+        public IActionResult GetScheduleTime(int Id)
         {
             try
             {
-                var issue = _issueService.GetIssue(Id);
+                var issue = _issueService.GetScheduleTime(Id);
                 return Ok(issue);
             }
             catch (KeyNotFoundException ex)
