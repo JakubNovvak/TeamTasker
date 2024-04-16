@@ -11,20 +11,20 @@ export async function GetProjectIssues(projectId: string | undefined, setProject
     setSendingState(true);
     try{
         const response = await axios.get<ReadIssueDto[]>(`https://localhost:7014/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
-        console.log("ReadIssueDto: " + response.data[0]);
+        console.log("GetProjectIssues[]: " + response.data[0].name);
         console.log("Response: " + response);
         setProjectIssues(response.data);
         setSendingState(false);
-        setSendSucess(1);
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        setSendSucess(0);
+        //setSendSucess(1);
+        // await new Promise(resolve => setTimeout(resolve, 3000));
+        // setSendSucess(0);
     }
     catch(error)
     {
         console.error("There was an issie with \"GetProjectIssues\" GET request: ", {error});
-        setSendSucess(2);
+        //setSendSucess(2);
         setSendingState(false);
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        setSendSucess(0);
+        // await new Promise(resolve => setTimeout(resolve, 3000));
+        // setSendSucess(0);
     }
 }
