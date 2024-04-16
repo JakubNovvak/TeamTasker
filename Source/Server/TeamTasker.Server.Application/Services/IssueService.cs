@@ -225,5 +225,31 @@ namespace TeamTasker.Server.Application.Services
 
             return issueDtos;
         }
+
+        public void UpdateIssueEndDate(UpdateIssueEndDateDto issueDto)
+        {
+            if (issueDto == null)
+                throw new ArgumentNullException(nameof(issueDto));
+
+            var issue = _issueRepository.GetIssue(issueDto.Id);
+            if (issue == null)
+                throw new Exception("Issue not found!");
+
+            issue.EndDate = issueDto.EndDate;
+            _issueRepository.UpdateIssue(issue);
+        }
+
+        public void UpdateIssueStartDate(UpdateIssueStartDateDto issueDto)
+        {
+            if (issueDto == null)
+                throw new ArgumentNullException(nameof(issueDto));
+
+            var issue = _issueRepository.GetIssue(issueDto.Id);
+            if (issue == null)
+                throw new Exception("Issue not found!");
+
+            issue.StartDate = issueDto.StartDate;
+            _issueRepository.UpdateIssue(issue);
+        }
     }
 }
