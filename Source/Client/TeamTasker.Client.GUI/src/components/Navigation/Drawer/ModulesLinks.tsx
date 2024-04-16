@@ -14,6 +14,7 @@ export default function ModulesLinks({isOpen}: {isOpen: boolean}){
       <>  
         <List>
           <NavLink to="preview" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={5} buttonText="Project Preview"/></NavLink>
+          <NavLink to="projectschedule" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={10} buttonText="Gantt Chart"/></NavLink>
           <NavLink to="board" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={6} buttonText="Default Board"/></NavLink>
           <NavLink to="issueslist" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={4} buttonText="Issues List"/></NavLink>
           <NavLink to="notifications" style={{textDecoration: "none"}}><ModuleButton isOpen={isOpen} listKey={9} buttonText="Notifications"/></NavLink>

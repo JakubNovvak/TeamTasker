@@ -17,6 +17,7 @@ import { NavLink, useParams } from "react-router-dom";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
 import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
+import ProjectSchedule from "../DrawerModules/ProjectSchedule";
 
 function renderSwitch(pathnName: string, projectId: string | undefined)
 {
@@ -51,6 +52,9 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
 
         case `/projectname/${projectId}/projectmembers`:
             return <ProjectMembers projectId={projectId}/>;
+
+            case `/projectname/${projectId}/projectschedule`:
+                return <ProjectSchedule />;
             
         default:
             return <h1>404 - cannot find the module</h1>;

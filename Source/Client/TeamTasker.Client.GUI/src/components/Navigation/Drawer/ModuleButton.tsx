@@ -9,6 +9,7 @@ import BallotIcon from '@mui/icons-material/Ballot';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 
 function ChoosePredefinedIcon(listKey: number)
 {
@@ -43,6 +44,9 @@ function ChoosePredefinedIcon(listKey: number)
 
     if(listKey == 9)
         return <NotificationsIcon/>;
+
+    if(listKey == 10)
+        return <SpaceDashboardIcon/>;
 }
 
 export default function ModuleButton({isOpen, listKey, buttonText}: {isOpen: boolean, listKey: number, buttonText: string}){
