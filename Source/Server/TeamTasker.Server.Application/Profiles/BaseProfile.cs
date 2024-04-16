@@ -35,13 +35,9 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Issue, GetIssueAssignedToEmployeeDto>();
             CreateMap<GetIssueByPriorityDto, Issue>();
             CreateMap<Issue, GetIssueByPriorityDto>();
-            CreateMap<UpdateIssueStatusDto, Issue>();
-
-
 
             CreateMap<Project, AddTeamToProjectDto>(); //1
             CreateMap<AddTeamToProjectDto, Project>(); //1
-
 
             CreateMap<Project, GetProjectNameAndPictureDto>();
             CreateMap<GetProjectNameAndPictureDto, Project>();
