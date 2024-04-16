@@ -17,6 +17,7 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<ReadIssueDto> GetAllIssuesFromProject(int projectId);
         IEnumerable<ReadIssueDto> GetEmployeeIssuesFromProject(int empployeeId, int projectId);
         void UpdateIssueStatus(UpdateIssueStatusDto dto);
+        void UpdateIssuePriority(UpdateIssuePriorityDto dto);
         IEnumerable<ReadIssueDto> GetNewIssues(int projectId);
         IEnumerable<ReadIssueDto> GetInProgressIssues(int projectId);
         IEnumerable<ReadIssueDto> GetOnHoldIssues(int projectId);

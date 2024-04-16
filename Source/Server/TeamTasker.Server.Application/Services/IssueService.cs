@@ -152,6 +152,16 @@ namespace TeamTasker.Server.Application.Services
             issue.Status = dto.Status;
             _issueRepository.UpdateIssue(issue);
         }
+        public void UpdateIssuePriority(UpdateIssuePriorityDto dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+            var issue = _issueRepository.GetIssue(dto.Id);
+            if (issue == null)
+                throw new Exception("Issue not found!");
+            issue.Priority = dto.Priority;
+            _issueRepository.UpdateIssue(issue);
+        }
         public IEnumerable<ReadIssueDto> GetNewIssues(int projectId)
         {
             var project = _projectRepository.GetProject(projectId);
