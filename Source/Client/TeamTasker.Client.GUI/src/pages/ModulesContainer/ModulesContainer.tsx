@@ -32,7 +32,7 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
             return <ProjectPreview projectId={projectId}/>;
 
         case `/projectname/${projectId}/issueslist`:
-            return <IssuesList/>;
+            return <IssuesList projectId={projectId}/>;
 
         case `/projectname/${projectId}/notifications`:
             return <Notifications/>; 
@@ -72,9 +72,6 @@ export default function ModulesContainer()
 
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-    //const [project, setProject] = useState<ReadProjectDto>(temp);
-    const [sendingState, setSendingState] = useState<boolean>(false);
-    const [sendSucess, setSendSucess] = useState<number>(0);
 
     CheckLoggedInPermission(setloggedInUserPermission);
     CheckAdminPermission(setAdminUserPermission);
@@ -108,7 +105,7 @@ export default function ModulesContainer()
     return(
         <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
             
-            <MuiMiniDrawer/>
+            <MuiMiniDrawer />
             <Box component="main" sx={{ flexGrow: 1, p: 0}}>
                 
                 {renderSwitch(pathName, projectId)}
