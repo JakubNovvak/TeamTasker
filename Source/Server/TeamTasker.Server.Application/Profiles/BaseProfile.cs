@@ -23,8 +23,10 @@ namespace TeamTasker.Server.Application.Profiles
         {
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, ReadCommentDto>();
+
             CreateMap<CreateProjectDto, Project>();
             CreateMap<Project, CreateProjectDto>();
+
             CreateMap<CreateIssueDto, Issue>();
             CreateMap<Issue, ReadIssueDto>();
             CreateMap<AddIssueToProjectDto, Issue>();
@@ -33,6 +35,7 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Issue, GetIssueAssignedToEmployeeDto>();
             CreateMap<GetIssueByPriorityDto, Issue>();
             CreateMap<Issue, GetIssueByPriorityDto>();
+            CreateMap<UpdateIssueStatusDto, Issue>();
 
 
 
