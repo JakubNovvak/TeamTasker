@@ -142,17 +142,24 @@ namespace TeamTasker.Server.Application.Services
             return issueDtos;
         }
 
-        public GetScheduleTimeDto GetScheduleTime(int Id)
+        public IEnumerable<GetScheduleDto> GetScheduleTime(int projectId)
         {
-            var issue = _issueRepository.GetIssue(Id);
-            if (issue == null)
-                throw new Exception("Issue not found!");
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+            var issues = project.Issues.ToList(); 
 
-            var issueDto = _mapper.Map<GetScheduleTimeDto>(issue);
-            var duration = issue.EndDate.Subtract(issue.StartDate);
-            issueDto.Duration = duration.TotalDays;
+            var issueDtos = _mapper.Map<IEnumerable<GetScheduleDto>>(issues);
+            //var durations = issue.EndDate.Subtract(issue.StartDate);
+            foreach(var i in issueDtos)
+            {
+                var duration = i.EndDate.Subtract(i.StartDate);
+                i.Duration = duration.TotalDays;
+            }
 
-            return issueDto;
+           // issueDto.Duration = duration.TotalDays;
+
+            return issueDtos;
         }
     }
 }

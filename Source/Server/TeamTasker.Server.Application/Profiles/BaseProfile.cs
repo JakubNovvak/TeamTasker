@@ -33,8 +33,8 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Issue, GetIssueAssignedToEmployeeDto>();
             CreateMap<GetIssueByPriorityDto, Issue>();
             CreateMap<Issue, GetIssueByPriorityDto>();
-            CreateMap<Issue, GetScheduleTimeDto>();
-            CreateMap<GetScheduleTimeDto, Issue>();
+            CreateMap<Issue, GetScheduleDto>();
+            CreateMap<GetScheduleDto, Issue>();
 
 
 
