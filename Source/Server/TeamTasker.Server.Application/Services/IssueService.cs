@@ -141,6 +141,7 @@ namespace TeamTasker.Server.Application.Services
             var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
             return issueDtos;
         }
+
         public void UpdateIssueStatus(UpdateIssueStatusDto dto)
         {
             if(dto==null)
@@ -150,6 +151,49 @@ namespace TeamTasker.Server.Application.Services
                 throw new Exception("Issue not found!");
             issue.Status = dto.Status;
             _issueRepository.UpdateIssue(issue);
+
+        public IEnumerable<ReadIssueDto> GetNewIssues(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var newIssues = project.Issues.Where(issue => issue.Status == IssueStatus.NewIssue);
+            var newIssueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(newIssues);
+            return newIssueDtos;
+        }
+        
+        public IEnumerable<ReadIssueDto> GetInProgressIssues(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var inProgressIssues = project.Issues.Where(issue => issue.Status == IssueStatus.InProgress);
+            var inProgressIssueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(inProgressIssues);
+            return inProgressIssueDtos;
+        }
+
+        public IEnumerable<ReadIssueDto> GetOnHoldIssues(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var onHoldIssues = project.Issues.Where(issue => issue.Status == IssueStatus.OnHold);
+            var onHoldIssueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(onHoldIssues);
+            return onHoldIssueDtos;
+        }
+
+        public IEnumerable<ReadIssueDto> GetDoneIssues(int projectId)
+        {
+            var project = _projectRepository.GetProject(projectId);
+            if (project == null)
+                throw new Exception("Project not found!");
+
+            var doneIssues = project.Issues.Where(issue => issue.Status == IssueStatus.IssueDone);
+            var doneIssueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(doneIssues);
+            return doneIssueDtos;
         }
     }
 }
