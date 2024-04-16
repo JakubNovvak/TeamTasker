@@ -4,12 +4,57 @@ import SwapCallsIcon from '@mui/icons-material/SwapCalls';
 import EditNotificationsIcon from '@mui/icons-material/EditNotifications';
 import IssueCard from "../../components/Modules/Board/IssueCard";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
+import { ReadIssueDto } from "../../components/Types/ReadIssuesDto";
+import { GetProjectIssues } from "../../components/Modules/API/GetProjectIssues";
 
-export default function Board()
+export default function Board({projectId}: {projectId: string})
 {
     const [userPermission, setUserPermission] = useState<boolean>(false);
+    const [sendingState, setSendingState] = useState<boolean>(false);
+    const [sendSucess, setSendSucess] = useState<number>(0);
+
+    //TODO: Temp solution - implement proper and more optimal data storing
+    const [allIssues, setAllIssues] = useState<ReadIssueDto[]>([]);
+    var newIssues: ReadIssueDto[] = [];
+    var inProgress: ReadIssueDto[] = [];
+    var onHold: ReadIssueDto[] = [];
+    var issueDone: ReadIssueDto[] = [];
+
+    useEffect(() => {
+        //TODO: Temp solution - implement proper and more optimal data fetching
+        GetProjectIssues(projectId, setAllIssues, setSendingState, setSendSucess);
+
+        allIssues.map((issue) => {
+            console.log(issue.status);
+            switch (issue.status) 
+            {
+                case "NewIssue":
+                    newIssues.push(issue);
+                    break;
+
+                case "InProgress":
+                    inProgress.push(issue);
+                    break;
+
+                case "OnHold":
+                    onHold.push(issue);
+                    break;
+
+                case "IssueDone":
+                    issueDone.push(issue);
+                    break;
+            
+                default:
+                    break;
+            }
+        });
+
+        console.log("Size: " + newIssues.length);
+
+    }, []);
+    
     CheckLeaderPermission(setUserPermission);
 
     return(
@@ -48,13 +93,20 @@ export default function Board()
                                 <Typography fontWeight={550} sx={{marginRight: "auto"}}>
                                     New Issue
                                     {userPermission ? 
-                                        <NavLink to="/projectname/issueslist"><Button sx={{width:"5rem", height: "1.5rem", ml: "2rem"}} variant="outlined">+</Button></NavLink>
+                                        <NavLink to={`/projectname/${projectId}/issueslist`}><Button sx={{width:"5rem", height: "1.5rem", ml: "2rem"}} variant="outlined">+</Button></NavLink>
                                     :
                                         <></>
                                     }
                                 </Typography>
                             </Box>
                             <Divider sx={{mt: "1rem"}}/>
+                            {allIssues.length == 0 ? <></> 
+                            : 
+                            allIssues.map((issue) => (
+                                issue.status === "NewIssue" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                : <></> 
+                            ))
+                            }
                         </Paper>
                     </Grid>
 
@@ -71,7 +123,13 @@ export default function Board()
                                 </Typography>
                             </Box>
                             <Divider sx={{mt: "1rem"}}/>
-                            <IssueCard taskNumber={"9"} taskTitle={"Chair the presentation this wednesday"} dateFinish={"12 march, 18:30"}/>
+                            {allIssues.length == 0 ? <></> 
+                            : 
+                            allIssues.map((issue) => (
+                                issue.status === "InProgress" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                : <></> 
+                            ))
+                            }
                         </Paper>
                     </Grid>
 
@@ -88,6 +146,13 @@ export default function Board()
                                 </Typography>
                             </Box>
                             <Divider sx={{mt: "1rem"}}/>
+                            {allIssues.length == 0 ? <></> 
+                            : 
+                            allIssues.map((issue) => (
+                                issue.status === "OnHold" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                : <></> 
+                            ))
+                            }
                         </Paper>
                     </Grid>
 
@@ -104,15 +169,13 @@ export default function Board()
                                 </Typography>
                             </Box>
                             <Divider sx={{mt: "1rem"}}/>
-                            <IssueCard taskNumber={"1"} taskTitle={"Create database model"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"2"} taskTitle={"Add entities based on database model"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"3"} taskTitle={"Create the most importnant Dtos"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"4"} taskTitle={"Create class AppDbContext"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"5"} taskTitle={"Implement Repositories"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"6"} taskTitle={"Add repositories to the dependency injection container in Program.cs"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"7"} taskTitle={"Add AutoMapper profiles to allow using dtos in services"} dateFinish={"12 march, 18:30"}/>
-                            <IssueCard taskNumber={"8"} taskTitle={"Create additional initial views"} dateFinish={"12 march, 18:30"}/>
-
+                            {allIssues.length == 0 ? <></> 
+                            : 
+                            allIssues.map((issue) => (
+                                issue.status === "IssueDone" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                : <></> 
+                            ))
+                            }
                         </Paper>
                     </Grid>
 
