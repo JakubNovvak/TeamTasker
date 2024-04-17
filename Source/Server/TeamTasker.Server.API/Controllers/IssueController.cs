@@ -44,14 +44,88 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        //TODO: Change this methods to 4 methods returning 4 types of status.
-        /*[HttpGet]
-        [Route("GetCompletedIssue", Name = "GetCompletedIssue")]
-        public IActionResult GetCompletedIssue()
+        [HttpGet]
+        [Route("GetNewIssues", Name = "GetNewIssues")]
+        public IActionResult GetNewIssues(int projectId)
         {
             try
             {
-                var issue = _issueService.GetCompletedIssue();
+                var issue = _issueService.GetNewIssues(projectId);
+                return Ok(issue);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+        [HttpGet]
+        [Route("GetInProgressIssues", Name = "GetInProgressIssues")]
+        public IActionResult GetInProgressIssues(int projectId)
+        {
+            try
+            {
+                var issue = _issueService.GetInProgressIssues(projectId);
+                return Ok(issue);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+        [HttpGet]
+        [Route("GetOnHoldIssues", Name = "GetOnHoldIssues")]
+        public IActionResult GetOnHoldIssues(int projectId)
+        {
+            try
+            {
+                var issue = _issueService.GetOnHoldIssues(projectId);
+                return Ok(issue);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+        [HttpGet]
+        [Route("GetDoneIssues", Name = "GetDoneIssues")]
+        public IActionResult GetDoneIssues(int projectId)
+        {
+            try
+            {
+                var issue = _issueService.GetDoneIssues(projectId);
                 return Ok(issue);
             }
             catch (KeyNotFoundException ex)
@@ -71,31 +145,6 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetNotCompletedIssue", Name = "GetNotCompletedIssue")]
-        public IActionResult GetNotCompletedIssue()
-        {
-            try
-            {
-                var issue = _issueService.GetNotCompletedIssue();
-                return Ok(issue);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
-                return NotFound("There is no projects in the database.");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
-                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
-            }
-        }*/
 
         [HttpGet]
         [Route("GetIssueAssignedToEmployee", Name = "GetIssueAssignedToEmployee")]
