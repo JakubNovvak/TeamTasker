@@ -85,13 +85,31 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var users = new List<User>()
             {
-                new User(){ FirstName = "Admin", Email="admin", Password="admin"},
-                new Employee(){FirstName = "Regular", LastName="User", Position="Software Developer", Email="user@test.pl", Password ="password"},
-                new Employee(){FirstName = "Leader", LastName="User", Position="Project Admin", Email="leader@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee", LastName = "No. 1", Position="Testing", Email="employee1@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee", LastName = "No. 2", Position="Testing", Email="employee2@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee", LastName = "No. 3", Position="Testing", Email="employee3@test.pl", Password ="password"},
-                new Employee(){FirstName = "Employee", LastName = "No. 4", Position="Testing", Email="employee4@test.pl", Password ="password"},
+                new User(){ FirstName = "Admin", Email="admin", Password="admin", Avatar = "https://t4.ftcdn.net/jpg/02/88/57/41/360_F_288574163_CnFR8zc2sPzwh24PnyODUmGdfA9jP9ZS.jpg"},
+
+                new Employee(){FirstName = "Regular", LastName="User", 
+                    Position="Software Developer", Email="user@test.pl", Password ="password", Avatar = "https://mui.com/static/images/avatar/1.jpg" },
+
+                new Employee(){FirstName = "Leader", LastName="User", 
+                    Position="Project Admin", Email="leader@test.pl", Password ="password", Avatar= "https://mui.com/static/images/avatar/2.jpg"},
+
+                new Employee(){FirstName = "Employee", LastName = "No. 1", 
+                    Position="Testing", Email="employee1@test.pl", Password ="password", Avatar = ""},
+
+                new Employee(){FirstName = "Employee", LastName = "No. 2", 
+                    Position="Testing", Email="employee2@test.pl", Password ="password"},
+
+                new Employee(){FirstName = "Employee", LastName = "No. 3", 
+                    Position="Testing", Email="employee3@test.pl", Password ="password"},
+
+                new Employee(){FirstName = "Employee", LastName = "No. 4", 
+                    Position="Testing", Email="employee4@test.pl", Password ="password"},
+                
+                new Employee(){FirstName = "Employee", LastName = "No. 5",
+                    Position="Testing", Email="employee5@test.pl", Password ="password"},
+                
+                new Employee(){FirstName = "Employee", LastName = "No. 6",
+                    Position="Testing", Email="employee6@test.pl", Password ="password"}
             };
             return users;
         }

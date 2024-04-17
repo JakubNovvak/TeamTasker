@@ -15,6 +15,9 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Avatar, TableHead, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
+import { GetProjectEmployees } from '../API/GetProjectEmployees';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -90,9 +93,15 @@ const rows = [
   createData("Test Testowy", "testtestowy@test.pl", "Project Admin", "active")
 ];
 
-export default function PreviewMembersTable() {
-  const [page, setPage] = React.useState(0);
+export default function PreviewMembersTable({projectId}: {projectId: string | undefined}) 
+{
+  const [projectEmployees, setProjectEmployees] = useState<ReadEmployeeDto[]>([]);  
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(9);
+
+  useEffect(()=> {
+    GetProjectEmployees(projectId, setProjectEmployees);
+  }, []);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -118,34 +127,34 @@ export default function PreviewMembersTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
       <TableHead>
           <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Email</TableCell>
-            <TableCell align="left">Role</TableCell>
-            <TableCell align="left">Status</TableCell>
+            <TableCell align="left"><Typography fontWeight={550}>Name</Typography></TableCell>
+            <TableCell align="left"><Typography fontWeight={550}>E-mail</Typography></TableCell>
+            <TableCell align="left"><Typography fontWeight={550}>Position</Typography></TableCell>
+            <TableCell align="right"><Typography fontWeight={550}>Account Status</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
-            <TableRow key={row.name}>
+            ? projectEmployees.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : projectEmployees
+          ).map((employee) => (
+            <TableRow key={employee.id}>
               <TableCell component="th" scope="row" style={{ width: 160 }}>
                 <Box display={'flex'} flexDirection={'row'}>
-                    <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "2rem", height: "2rem"}}/> 
+                    <Avatar alt={employee.firstName + " " + employee.lastName} src={employee.avatar} sx={{width: "2rem", height: "2rem"}}/> 
                     <Typography sx={{alignSelf: "center", ml: "1rem"}}>
-                        {row.name}
+                        {employee.firstName + " " + employee.lastName}
                     </Typography>
                 </Box>
               </TableCell>
               <TableCell style={{ width: 160 }} align="left">
-                {row.email}
+                {employee.email}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                {row.Role}
+              <TableCell style={{ width: 0 }} align="left">
+                {employee.position}
               </TableCell>
-              <TableCell style={{ width: 50 }} align="left">
-                {row.status}
+              <TableCell style={{ width: 50 }} align="right">
+                {"🟩 active"}
               </TableCell>
             </TableRow>
           ))}

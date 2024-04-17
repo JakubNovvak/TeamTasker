@@ -1,6 +1,7 @@
 export type ReadProjectDto = {
     id: number,
     name: string,
+    status: string,
     description: string,
     deadline: string,
     isComplete: boolean,

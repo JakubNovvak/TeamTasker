@@ -4,51 +4,63 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Input } from "@mui/joy";
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
-import React from "react";
+import TempGetNavbarAvatar from "../Connection/API/TempGetNavbarAvatar";
 import UserAvatarMenu from "./UserAvatarMenu";
+import { useParams } from "react-router-dom";
+import IssuesListOptions from "./NavbarOptions/IssuesListOptions";
 
+function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.Element
+{
+    switch (pathName) 
+    {
+        case `/projectname/${projectId}/issueslist`:
+            return <IssuesListOptions />;
+    
+        default:
+            return <></>;
+    }
+}
 
-function renderSwitch(pathnName: string): string[]
+function renderSwitch(pathnName: string, projectId: string | undefined): string[]
 {
     const [userPermission, setUserPermission] = useState<boolean>(false);
     CheckLeaderPermission(setUserPermission);
     //TODO: Implement better solution ASAP - this is only a temporary solution
-
     switch(pathnName)
     {
         case "/projectname/test":
             return ["", "", ""];
 
-        case "/projectname/preview":
+        case `/projectname/${projectId}/preview`:
             if(userPermission)
                 return ["Components", "Add", "Remove"];
             else
                 return ["", "", ""];
 
-        case "/projectname/issueslist":
+        case `/projectname/${projectId}/issueslist`:
             return ["Your Issues", "", ""];
 
-        case "/projectname/notifications":
+        case `/projectname/${projectId}/notifications`:
             return ["Mentions", "Shared", ""];
 
-        case "/projectname/projectfeed":
+        case `/projectname/${projectId}/projectfeed`:
             if(userPermission)
                 return ["Publish", "", ""];
             else
                 return ["", "", ""];
 
-        case "/projectname/projectsettings":
+        case `/projectname/${projectId}/projectsettings`:
             return ["", "", ""];
 
-        case "/projectname/usersettings":
+        case `/projectname/usersettings`:
             return ["", "", ""];
 
-        case "/projectname/board":
+        case `/projectname/${projectId}/board`:
             return ["Switch Board", "", ""];
 
-        case "/projectname/projectmembers":
+        case `/projectname/${projectId}/projectmembers`:
             if(userPermission)
                 return ["Manage Users", "Manage Roles", ""];
             else
@@ -62,26 +74,34 @@ function renderSwitch(pathnName: string): string[]
 export default function UserElements()
 {
     let pathName = location.pathname;
+    const { projectId } = useParams<{projectId: string}>();
+    const [avatarUrl, setAvatarUrl] = useState<string>("none");
+
+    useEffect(()=> {
+        TempGetNavbarAvatar(setAvatarUrl);
+    }, []);
 
     return(
             <Box display="flex" flexDirection="row" sx={{width: "100%", height: "100%"}}>
                 {/*Left Side of the Navbar*/}
+
                 <Box display="flex" flexDirection="row" sx={{marginRight: "auto", alignItems: "center"}}>
-                    <Typography variant="body1" color="#363b4d" fontWeight={550}>
-                    {renderSwitch(pathName)[0] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName)[0]}
+
+                    {renderSwitchJSX(pathName, projectId)}
+
+                    {/* <Typography variant="body1" color="#363b4d" fontWeight={550}>
+                    {renderSwitch(pathName, projectId)[0] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName, projectId)[0]}
                     </Typography>
 
                     <Typography variant="body1" color="#363b4d" fontWeight={550} sx={{ml: "2rem"}}>
-                        {renderSwitch(pathName)[1] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName)[1]}
+                        {renderSwitch(pathName, projectId)[1] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName, projectId)[1]}
                     </Typography>
 
                     <Typography variant="body1" color="#363b4d" fontWeight={550} sx={{ml: "2rem"}}>
-                    {renderSwitch(pathName)[2] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName)[2]}
-                    </Typography>
-
-                    {/* <Button size="small" variant="contained" sx={{backgroundColor: "#363b4d", ml: "1.5rem"}}>Create</Button> */}
+                    {renderSwitch(pathName, projectId)[2] == "" ? <></> : <ArrowDropDownIcon sx={{color: "#363b4d", pt: "0.6rem"}}/>}{renderSwitch(pathName, projectId)[2]}
+                    </Typography> */}
                 </Box>
-                
+
                 {/*Right Side of the Navbar*/}
                 <Box display="flex" flexDirection="row" sx={{marginLeft: "auto", alignItems: "center"}}>
                     <Input 
@@ -92,7 +112,7 @@ export default function UserElements()
                     <Badge badgeContent={4} color="primary" sx={{mr: "1.5rem"}}>
                         <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
                     </Badge>
-                    <UserAvatarMenu />
+                    <UserAvatarMenu avatarUrl={avatarUrl}/>
                 </Box>
             </Box>
     );

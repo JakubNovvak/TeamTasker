@@ -3,18 +3,10 @@ import Button from '@mui/material/Button';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import DeleteTokenFromCookies from '../Connection/DeleteTokenFromCookies';
-import { Avatar } from '@mui/material';
-import CheckAdminPermission from '../Connection/API/CheckAdminPermission';
+import { Avatar, Typography } from '@mui/material';
 import { useState } from 'react';
 
-function onLogoutClick()
-{
-    DeleteTokenFromCookies();
-    location.href = "/login";
-}
-
-export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string}) 
+export default function IssuesListOptions() 
 {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -25,8 +17,11 @@ export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string})
     setAnchorEl(null);
   };
 
-  const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-  CheckAdminPermission(setAdminUserPermission);
+  const handleMenuItemClick = (option: string) => {
+    sessionStorage.setItem('issuesOption', option);
+    window.dispatchEvent(new Event('storage'));
+    setAnchorEl(null);
+  };
 
   return (
     <>
@@ -36,9 +31,11 @@ export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string})
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{textTransform: "none"}}
       >
-        <ArrowDropDownIcon sx={{color: "#363b4d"}}/>
-        <Avatar alt="?" src={avatarUrl} />
+        <Typography fontWeight={500} sx={{display: "flex", flexDirection: "row", alignItems: "center"}} color={{color: "#363b4d"}}>
+            <ArrowDropDownIcon sx={{color: "#363b4d"}}/> {"Select Issues"}
+        </Typography>
       </Button>
       <Menu
         id="basic-menu"
@@ -49,8 +46,8 @@ export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string})
           'aria-labelledby': 'basic-button',
         }}
       >
-        {!adminUserPermission ? <MenuItem onClick={() => {location.href = "/projectspage"}}>Projects Page</MenuItem> : <></>}
-        <MenuItem onClick={() => {onLogoutClick()}}>Logout</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick('user')}>Your Issues</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick('project')}>Project Issues</MenuItem>
       </Menu>
     </>
   );

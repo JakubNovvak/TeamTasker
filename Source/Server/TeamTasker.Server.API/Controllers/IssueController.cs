@@ -324,6 +324,61 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
             }
         }
+
+        
+
+        [HttpPut]
+        [Route("UpdateIssueStartDate", Name = "UpdateIssueStartDate")]
+        public IActionResult UpdateIssueStartDate(UpdateIssueStartDateDto dto)
+        {
+            try
+            {
+                _issueService.UpdateIssueStartDate(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was no issue provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was a problem with adding the new issue: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new issue: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        [Route("UpdateIssueEndtDate", Name = "UpdateIssueEndtDate")]
+        public IActionResult UpdateIssueEndtDate(UpdateIssueEndDateDto dto)
+        {
+            try
+            {
+                _issueService.UpdateIssueEndDate(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was no issue provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was a problem with adding the new issue: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new issue: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+        }
+
         [HttpPut]
         [Route("UpdateIssueStatus", Name = "UpdateIssueStatus")]
         public IActionResult UpdateIssueStatus(UpdateIssueStatusDto dto)

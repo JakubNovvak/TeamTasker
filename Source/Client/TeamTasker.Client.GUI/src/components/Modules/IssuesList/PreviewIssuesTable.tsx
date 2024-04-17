@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -14,7 +14,12 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Avatar, TableHead, Typography } from '@mui/material';
+import { Avatar, TableHead, Typography, CircularProgress } from '@mui/material';
+import { GetProjectIssues } from '../API/GetProjectIssues';
+import { ReadIssueDto } from '../../Types/ReadIssuesDto';
+import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
+import { GetProjectEmployees } from '../API/GetProjectEmployees';
+import TempGetCurrentUser from '../../Connection/API/TempGetCurretnUser';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -98,13 +103,67 @@ const rows = [
   createData(9, 'Chair the presentation this wednesday', "🟦 In progress", "", "🔴 Urgent")
 ];
 
-export default function PreviewIssuesTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(9);
+const statusString: {[key: string]: string} = {
+  "NewIssue": "⬜ New Issue",
+  "InProgress": "🟦 In Progress",
+  "OnHold": "🟪 On Hold",
+  "IssueDone": "🟩 Issue Done",
+  default: "⬛ Can't load status"
+}
+
+const priorityString: {[key: string]: string} = {
+  "High": "🔴 High",
+  "Medium": "🔵 Normal",
+  "Low": "🟢 Low",
+  default: "⚫ Error"
+}
+
+export default function PreviewIssuesTable({projectId, reloadCondition}: {projectId: string, reloadCondition: boolean}) 
+{
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(9);
+
+  const [sendingState, setSendingState] = useState<boolean>(false);
+  const [sendSucess, setSendSucess] = useState<number>(0);
+  const [projectIssues, setProjectIssues] = useState<ReadIssueDto[]>([]);
+  const [projectEmployees, setProjectEmployees] = useState<ReadEmployeeDto[]>([]);
+
+  const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>(() => {
+    const storedOption = sessionStorage.getItem('issuesOption');
+    return storedOption ? storedOption : 'project';
+  });
+
+
+  useEffect(() => {
+      GetProjectIssues(projectId, setProjectIssues, setSendingState, setSendSucess);
+      GetProjectEmployees(projectId, setProjectEmployees);
+      TempGetCurrentUser(setCurrentUserEmail);
+
+      const handleStorageChange = () => {
+        const storedOption = sessionStorage.getItem('issuesOption');
+        if (storedOption && storedOption !== selectedOption) {
+          setSelectedOption(storedOption);
+        }
+      };
+      console.log("Changed on Session storage change: " + selectedOption);
+      window.addEventListener('storage', handleStorageChange);
+
+      return () => {
+          window.removeEventListener('storage', handleStorageChange);
+      };
+      
+  }, [reloadCondition, selectedOption]);
+
+  if(sendingState)
+    return(<CircularProgress size="5rem" sx={{mt: "13rem"}}/>);
+
+  if(projectEmployees.length == 0)
+    return(<></>);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectIssues.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -135,31 +194,47 @@ export default function PreviewIssuesTable() {
         </TableHead>
         <TableBody>
           {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
-            <TableRow key={row.topic}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {row.topic}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                {row.status}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                <Box display={'flex'} flexDirection={'row'}>
-                    <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/1.jpg" sx={{width: "2rem", height: "2rem"}}/> 
-                    <Typography sx={{alignSelf: "center", ml: "1rem"}}>
-                        Test&nbsp;Testowy
-                    </Typography>
-                </Box>
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.priority}
-              </TableCell>
-            </TableRow>
+            ? projectIssues.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : projectIssues
+          ).map((issue) => (
+            // TODO: Implement proper validation, of issues to display
+            (selectedOption === "project" 
+            ? true 
+            : (issue.employeeId == projectEmployees.find(employee => employee.email == currentUserEmail)?.id ? true : false))
+
+            ?
+
+            <TableRow key={issue.id}>
+            <TableCell component="th" scope="row">
+              {issue.id}
+            </TableCell>
+            <TableCell component="th" scope="row">
+              {issue.name}
+            </TableCell>
+            <TableCell style={{ width: 160 }} align="left">
+              {statusString[issue.status]}
+            </TableCell>
+            <TableCell style={{ width: 160 }} align="right">
+              <Box display={'flex'} flexDirection={'row'}>
+                  <Avatar alt="?" src={projectEmployees.find(employee => employee.id == issue.employeeId)?.avatar} sx={{width: "2rem", height: "2rem"}}/> 
+                  <Typography sx={{alignSelf: "center", ml: "1rem"}}>
+                      {
+                      projectEmployees.find(employee => employee.id == issue.employeeId)?.firstName
+                      + " " +
+                      projectEmployees.find(employee => employee.id == issue.employeeId)?.lastName
+                      }
+                  </Typography>
+              </Box>
+            </TableCell>
+            <TableCell style={{ width: 160 }} align="right">
+              {priorityString[issue.priority]}
+            </TableCell>
+          </TableRow>
+
+          :
+
+          <></>
+            
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
