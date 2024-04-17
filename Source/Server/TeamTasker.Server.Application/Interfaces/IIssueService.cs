@@ -26,6 +26,8 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<ReadIssueDto> GetInProgressIssues(int projectId);
         IEnumerable<ReadIssueDto> GetOnHoldIssues(int projectId);
         IEnumerable<ReadIssueDto> GetDoneIssues(int projectId);
+        int GetNumberOfDoneIssues(int projectId);
+        int GetNumberOfAllIssues(int projectId);
 
     }
 }

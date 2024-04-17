@@ -246,6 +246,16 @@ namespace TeamTasker.Server.Application.Services
 
             return issueDtos;
         }
+        public int GetNumberOfDoneIssues(int projectId)
+        {
+            var issues = GetDoneIssues(projectId).ToList();
+            return issues.Count;
+        }
+        public int GetNumberOfAllIssues(int projectId)
+        {
+            var issues = GetAllIssuesFromProject(projectId).ToList(); ;
+            return issues.Count;
+        }
 
         public void UpdateIssueEndDate(UpdateIssueEndDateDto issueDto)
         {
@@ -271,6 +281,7 @@ namespace TeamTasker.Server.Application.Services
 
             issue.StartDate = issueDto.StartDate;
             _issueRepository.UpdateIssue(issue);
+
         }
     }
 }
