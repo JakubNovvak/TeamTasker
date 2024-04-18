@@ -72,9 +72,10 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         
+
         [HttpGet]
         [Route("GetIssueComments", Name = "GetIssueComments")]
-        public IActionResult GetIssueComments(int IssueId)
+        public ActionResult<IEnumerable<ReadCommentDto>> GetIssueComments(int IssueId)
         {
             try
             {

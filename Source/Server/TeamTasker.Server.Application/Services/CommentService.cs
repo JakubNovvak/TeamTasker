@@ -101,17 +101,16 @@ namespace TeamTasker.Server.Application.Services
             _commentRepository.CreateComment(comment);
         }
 
-        public IEnumerable<GetIssueCommentsDto> GetIssueComments(int IssueId)
+        public IEnumerable<ReadCommentDto> GetIssueComments(int IssueId)
         {
             var issue = _issueRepository.GetIssue(IssueId);
             if (issue == null)
                 throw new Exception("Issue not found");
 
             var allComments = _commentRepository.GetAllComments();
-            var issueComments = allComments.Where(c => c.IssueId == IssueId).ToList();
-            //var commentDtos = _mapper.Map<IEnumerable<GetIssueCommentsDto>>(issueComments); // Tak powinno dzialac
-            var commentDtos = _mapper.Map<IEnumerable<GetIssueCommentsDto>>(new List<IEnumerable<Comment>> { issueComments }); // Tak dziala ale niewiadomo dlaczego
-
+            var issueComments = allComments.Where(c => c.IssueId == IssueId);
+            var commentDtos = _mapper.Map<IEnumerable<ReadCommentDto>>(issueComments); 
+            
             return commentDtos;
         }
     }
