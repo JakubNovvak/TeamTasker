@@ -10,7 +10,7 @@ namespace TeamTasker.Server.Domain.Entities
     {
         public virtual User User { get; set; }
         public int UserId { get; set; }
-        public Notification Notification { get; set; }
+        public virtual Notification Notification { get; set; }
         public int NotificationId { get; set; }
     }
 }

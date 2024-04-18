@@ -9,15 +9,17 @@ namespace TeamTasker.Server.Application.Services
     public class IssueService : IIssueService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IIssueRepository _issueRepository;
         private readonly IMapper _mapper;
 
-        public IssueService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository, IMapper mapper)
+        public IssueService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository,ITeamRepository teamRepository, IMapper mapper)
         {
             _issueRepository = issueRepository;
             _employeeRepository = employeeRepository;
             _projectRepository = projectRepository;
+            _teamRepository = teamRepository;
             _mapper = mapper;
         }
         
@@ -160,6 +162,25 @@ namespace TeamTasker.Server.Application.Services
             if (issue == null)
                 throw new Exception("Issue not found!");
             issue.Priority = dto.Priority;
+            _issueRepository.UpdateIssue(issue);
+        }
+        public void UpdateIssueEmployee(UpdateIssueEmployeeDto dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+            var issue = _issueRepository.GetIssue(dto.Id);
+            if (issue == null)
+                throw new Exception("Issue not found!");
+            var project = _projectRepository.GetProject(issue.ProjectId);
+            if (project == null)
+                throw new Exception("Issue have not project assigned!");
+            var team = _teamRepository.GetTeam(project.TeamId);
+            if (team == null)
+                throw new Exception("No team assigned in issue's project!");
+            var employees = team.EmployeeTeams.Select(e => e.Employee).ToList();
+            if (!employees.Any(e => e.Id == dto.EmployeeId))
+                throw new Exception("Employee is not in this project");
+            issue.EmployeeId = dto.EmployeeId;
             _issueRepository.UpdateIssue(issue);
         }
         public IEnumerable<ReadIssueDto> GetNewIssues(int projectId)

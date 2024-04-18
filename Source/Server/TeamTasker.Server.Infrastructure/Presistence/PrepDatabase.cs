@@ -62,15 +62,6 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }*/
-            if (_appDbContext.Database.CanConnect())
-            {
-                if (!_appDbContext.Comments.Any())
-                {
-                    var notifications = GetNotifications();
-                    _appDbContext.Comments.AddRange(notifications);
-                    _appDbContext.SaveChanges();
-                }
-            }
         }
         private IEnumerable<Role> GetRoles()
         {
@@ -164,16 +155,5 @@ namespace TeamTasker.Server.Infrastructure.Presistence
              };
              return issues;
          }*/
-
-        private IEnumerable<Comment> GetNotifications()
-        {
-            var notificationUsers = _appDbContext.Users.Where(u => u.FirstName == "Employee5" || u.FirstName == "Employee4" || u.FirstName == "Employee1").ToList();
-
-            var comments = new List<Comment>()
-            {
-                new Comment(){Content="AAAA", Users = notificationUsers}
-            };
-            return comments;
-        }
     }
 }
