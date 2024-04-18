@@ -18,6 +18,33 @@ namespace TeamTasker.Server.API.Controllers
             _commentService = commentService;
         }
 
+
+        [HttpPost]
+        [Route("AddCommnetToIssue", Name = "AddCommnetToIssue")]
+        public IActionResult AddCommnetToIssue(AddCommnetToIssueDto dto)
+        {
+            try
+            {
+                _commentService.AddCommnetToIssue(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new project: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
         [HttpPost]
         [Route("AddMessageToProject", Name = "AddMessageToProject")]
         public IActionResult AddMessageToProject(AddMessageToProjectDto dto)
@@ -40,6 +67,33 @@ namespace TeamTasker.Server.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
+        
+        [HttpGet]
+        [Route("GetIssueComments", Name = "GetIssueComments")]
+        public IActionResult GetIssueComments(int IssueId)
+        {
+            try
+            {
+                var comment = _commentService.GetIssueComments(IssueId);
+                return Ok(comment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no projects in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }

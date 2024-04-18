@@ -36,6 +36,15 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<GetIssueByPriorityDto, Issue>();
             CreateMap<Issue, GetIssueByPriorityDto>();
             CreateMap<Issue, GetScheduleDto>();
+            /* CreateMap<Issue, GetIssueCommentsDto>()         //1
+                 .ForMember(dest => dest.Comments, x => x.MapFrom(src => src.Comments));*/
+
+            //CreateMap<Comment, GetIssueCommentsDto>(); // Tak powinno działac
+
+            CreateMap<IEnumerable<Comment>, GetIssueCommentsDto>()                  // Tak dziala ale niewiadomo dlaczego
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src)); 
+           
+
 
             CreateMap<Project, AddTeamToProjectDto>(); //1
             CreateMap<AddTeamToProjectDto, Project>(); //1
@@ -45,6 +54,8 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<AddMessageToProjectDto, Comment>();
             CreateMap<Comment, AddMessageToProjectDto>();
+            CreateMap<Comment, AddCommnetToIssueDto>();
+            CreateMap<AddCommnetToIssueDto, Comment>();
 
             CreateMap<Project, ReadProjectDto>()
                 .ForMember(desc => desc.Comments, x => x.MapFrom(src => src.Comments));

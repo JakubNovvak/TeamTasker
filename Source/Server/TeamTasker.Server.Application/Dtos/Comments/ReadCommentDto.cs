@@ -15,11 +15,9 @@ namespace TeamTasker.Server.Application.Dtos.Comments
         public int Id { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public string Content { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
-        public string IssueName { get; set; } = string.Empty;
         public int? IssueId { get; set; }
-        public string ProjectName {  get; set; } = string.Empty;
-        public int? ProjectId { get; set; }
+        
+        //public int? ProjectId { get; set; }   Maybe usable to forum functionality
 
         //public virtual ICollection<ReadUserDto> Users { get; set; } = default!;
     }
