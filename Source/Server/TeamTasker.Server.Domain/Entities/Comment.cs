@@ -21,9 +21,5 @@ namespace TeamTasker.Server.Domain.Entities
         public virtual Project Project { get; set; } = default!;
          [ForeignKey("Project")]
         public int? ProjectId { get; set; }
-        public virtual Team Team { get; set; } = default!;
-        [ForeignKey("Team")]
-        public int? TeamId { get; set; }
-
     }
 }
