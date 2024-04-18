@@ -37,14 +37,16 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Issue, GetIssueByPriorityDto>();
             CreateMap<Issue, GetScheduleDto>();
 
-            CreateMap<Project, AddTeamToProjectDto>(); //1
-            CreateMap<AddTeamToProjectDto, Project>(); //1
+            CreateMap<Project, AddTeamToProjectDto>(); 
+            CreateMap<AddTeamToProjectDto, Project>(); 
 
             CreateMap<Project, GetProjectNameAndPictureDto>();
             CreateMap<GetProjectNameAndPictureDto, Project>();
 
             CreateMap<AddMessageToProjectDto, Comment>();
             CreateMap<Comment, AddMessageToProjectDto>();
+            CreateMap<Comment, AddCommnetToIssueDto>();
+            CreateMap<AddCommnetToIssueDto, Comment>();
 
             CreateMap<Project, ReadProjectDto>()
                 .ForMember(desc => desc.Comments, x => x.MapFrom(src => src.Comments));

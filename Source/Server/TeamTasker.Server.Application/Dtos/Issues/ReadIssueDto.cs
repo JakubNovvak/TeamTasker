@@ -21,5 +21,6 @@ namespace TeamTasker.Server.Application.Dtos.Issues
         public DateTime? CompleteTime { get; set; }
         public int EmployeeId { get; set; }
         public int ProjectId { get; set; }
+        public virtual ICollection<ReadCommentDto> Comments { get; set; }
     }
 }
