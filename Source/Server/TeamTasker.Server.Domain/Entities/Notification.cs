@@ -15,5 +15,8 @@ namespace TeamTasker.Server.Domain.Entities
         public DateTime Created { get; set; } = DateTime.Now;
         public string Content { get; set; } = string.Empty;
         public virtual ICollection<UserNotification> UserNotifications { get; set; } = default!;
+        public virtual Team Team { get; set; } = default!;
+        [ForeignKey("Team")]
+        public int? TeamId { get; set; }
     }
 }
