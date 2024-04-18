@@ -14,6 +14,7 @@ using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using TeamTasker.Server.Application.Dtos.Noitifcations;
 
 namespace TeamTasker.Server.Application.Profiles
 {
@@ -29,8 +30,6 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<CreateIssueDto, Issue>();
             CreateMap<Issue, ReadIssueDto>();
-            CreateMap<AddIssueToProjectDto, Issue>();
-            CreateMap<Issue, AddIssueToProjectDto>();
             CreateMap<GetIssueAssignedToEmployeeDto, Issue>();
             CreateMap<Issue, GetIssueAssignedToEmployeeDto>();
             CreateMap<GetIssueByPriorityDto, Issue>();
@@ -53,7 +52,6 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<CreateTeamDto, Team>();
             CreateMap<Team, ReadTeamDto>();
-           // CreateMap<AddTeamToProjectDto, Team>();
 
             CreateMap<Team, ReadTeamDto>()
                 .ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.EmployeeTeams.Select(et => et.Employee)));
@@ -73,6 +71,9 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<EmployeeTeam, CreateEmployeeTeamDto>();
             CreateMap<CreateEmployeeTeamDto, EmployeeTeam>();
+
+            CreateMap<Notification, ReadNotificationDto>();
+            CreateMap<CreateNotificationDto, Notification>();
         }
     }
 }
