@@ -11,6 +11,5 @@ namespace TeamTasker.Server.Domain.Entities
         public virtual ICollection<EmployeeTeam> EmployeeTeams { get; set; } = default!;
         public virtual ICollection<Team> LeaderTeams { get; set; } = default!;
         public virtual ICollection<Issue> Issues { get; set; } = default!;
-        public bool isTeamLeader => LeaderTeams.Any(t=> t.LeaderId == Id);
     }
 }

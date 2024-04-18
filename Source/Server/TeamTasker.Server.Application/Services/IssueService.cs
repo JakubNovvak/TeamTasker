@@ -22,24 +22,6 @@ namespace TeamTasker.Server.Application.Services
             _teamRepository = teamRepository;
             _mapper = mapper;
         }
-        
-        public void AddIssueToProject(AddIssueToProjectDto issueDto) //Probably unnecessary 
-        {
-            if (issueDto == null)
-                throw new ArgumentNullException(nameof(issueDto));
-
-            var project = _projectRepository.GetProject(issueDto.ProjectId);
-            if (project == null)
-                throw new Exception("Project not found");
-
-            var employee = _employeeRepository.GetEmployee(issueDto.EmployeeId);
-            if (employee == null)
-                throw new Exception("Employee not found or employee is admin");
-
-
-            var issue = _mapper.Map<Issue>(issueDto);
-            _issueRepository.CreateIssue(issue);
-        }
 
         public IEnumerable<ReadIssueDto> GetAllIssues()
         {
@@ -60,44 +42,10 @@ namespace TeamTasker.Server.Application.Services
             return issueDto;
         }
 
-        //1
-        //TODO: Change this methods to 4 methods returning 4 types of status. It's good to change the name of dto to match the methods.
-        /* public IEnumerable<GetCompletedIssueDto> GetCompletedIssue()
-         {
-             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "completed");
-             var issueDto = issue.Select(i => new GetCompletedIssueDto
-             {
-                 Id = i.Id,
-                 Name = i.Name,
-                 Status = i.Status
-             });
-             return issueDto;
-         }
-
-         public IEnumerable<GetCompletedIssueDto> GetNotCompletedIssue()
-         {
-             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Status == "uncompleted");
-             var issueDto = issue.Select(i => new GetCompletedIssueDto
-             {
-                 Id = i.Id,
-                 Name = i.Name,
-                 Status = i.Status
-             });
-             return issueDto;
-         }*/
-
         public IEnumerable<GetIssueAssignedToEmployeeDto> GetIssueAssignedToEmployee(int employeeId)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.EmployeeId == employeeId);
-            /*var issueDto = issue.Select(i => new GetIssueAssignedToEmployeeDto //mapper better?
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Description = i.Description,
-                Deadline = i.EndDate,
-                Priority = i.Priority,
-                ProjectId = i.ProjectId,
-            });*/
+
             var issueDtos = _mapper.Map<IEnumerable<GetIssueAssignedToEmployeeDto>>(issue);
             return issueDtos;
 
@@ -106,16 +54,7 @@ namespace TeamTasker.Server.Application.Services
         public IEnumerable<GetIssueByPriorityDto> GetIssueByPriority(IssuePriority prioroty)
         {
             var issue = _issueRepository.GetAllIssues().Where(issue => issue.Priority == prioroty);
-            /*var issueDto = issue.Select(i => new GetIssueByPriorityDto //mapper better?
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Description = i.Description,
-                Deadline = i.EndDate,
-                Priority = i.Priority,
-                ProjectId = i.ProjectId,
-                EmployeeId = i.EmployeeId
-            });*/
+
             var issueDtos = _mapper.Map<IEnumerable<GetIssueByPriorityDto>>(issue);
             return issueDtos;
         }

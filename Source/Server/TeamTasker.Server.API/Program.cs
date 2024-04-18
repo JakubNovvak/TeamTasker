@@ -103,6 +103,7 @@ builder.Services.AddScoped<IIssueRepository, IssueRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IEmployeeTeamRepository, EmployeeTeamRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
@@ -113,6 +114,7 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeaderService, LeaderService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();

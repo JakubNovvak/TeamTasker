@@ -115,8 +115,7 @@ namespace TeamTasker.Server.Application.Services
               
             var employees = team.EmployeeTeams.Select(e => e.Employee).ToList();
 
-            var employeeDtos = employees.Select(e => _mapper.Map<ReadEmployeeDto>(e)).ToList();
-
+            var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
             return employeeDtos;
         }
     }
