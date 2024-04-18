@@ -24,6 +24,7 @@ namespace TeamTasker.Server.Domain.Entities
         public int RoleId { get; set; }
         public string Avatar { get; set; } = string.Empty;
         public virtual ICollection<Comment> Notifications { get; set; } = default!;
+        public virtual ICollection<UserNotification> UserNotifications { get; set; } = default!;
 
     }
 }
