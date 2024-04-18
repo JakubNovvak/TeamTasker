@@ -68,13 +68,13 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 .HasMany(t => t.Employees)
                 .WithMany(e => e.Teams);*/
 
-            modelBuilder.Entity<Comment>()
+/*            modelBuilder.Entity<Comment>()
                 .HasMany(c => c.Users)
                 .WithMany(u => u.Notifications)
-                .UsingEntity(j => j.ToTable("UserNotification"));
+                .UsingEntity(j => j.ToTable("UserNotification"));*/
 
 
-            /*modelBuilder.Entity<UserNotification>()
+            modelBuilder.Entity<UserNotification>()
                 .HasKey(un => new { un.NotificationId, un.UserId });
 
             modelBuilder.Entity<UserNotification>()
@@ -86,7 +86,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 .HasOne(u => u.User)
                 .WithMany(un => un.UserNotifications)
                 .HasForeignKey(u => u.UserId)
-                .OnDelete(DeleteBehavior.Restrict);*/
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<EmployeeTeam>()
                 .HasKey(et => new { et.TeamId, et.EmployeeId });
