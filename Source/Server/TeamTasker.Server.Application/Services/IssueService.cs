@@ -182,7 +182,22 @@ namespace TeamTasker.Server.Application.Services
 
             return issueDtos;
         }
-        
+        public int GetNumberOfNewIssues(int projectId)
+        {
+            var issues = GetNewIssues(projectId).ToList();
+            return issues.Count;
+        }
+        public int GetNumberOfInProgressIssues(int projectId)
+        {
+            var issues = GetInProgressIssues(projectId).ToList();
+            return issues.Count;
+        }
+        public int GetNumberOfOnHoldIssues(int projectId)
+        {
+            var issues = GetOnHoldIssues(projectId).ToList();
+            return issues.Count;
+        }
+
         public int GetNumberOfDoneIssues(int projectId)
         {
             var issues = GetDoneIssues(projectId).ToList();
