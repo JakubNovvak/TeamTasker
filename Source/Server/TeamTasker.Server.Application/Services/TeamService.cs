@@ -10,13 +10,15 @@ namespace TeamTasker.Server.Application.Services
     public class TeamService : ITeamService
     {
         private readonly ITeamRepository _teamRepository;
+        private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IEmployeeTeamRepository _employeeTeamRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
-        public TeamService(ITeamRepository teamRepository,IEmployeeTeamRepository employeeTeamRepository, IEmployeeRepository employeeRepository, IMapper mapper)
+        public TeamService(ITeamRepository teamRepository,IUserNotificationRepository userNotificationRepository,IEmployeeTeamRepository employeeTeamRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _teamRepository = teamRepository;
+            _userNotificationRepository = userNotificationRepository;
             _employeeTeamRepository = employeeTeamRepository;
             _employeeRepository = employeeRepository;
             _mapper = mapper;
@@ -36,6 +38,9 @@ namespace TeamTasker.Server.Application.Services
             var employeeTeamDto = new CreateEmployeeTeamDto { EmployeeId = team.LeaderId, TeamId = team.Id };
             var employeeTeam = _mapper.Map<EmployeeTeam>(employeeTeamDto);
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
+
+            var userNotifiaction = new UserNotification { UserId = employeeTeam.EmployeeId, NotificationId = 2 };
+            _userNotificationRepository.AddUserNotification(userNotifiaction);
         }
 
         public IEnumerable<ReadTeamDto> GetAllTeams()

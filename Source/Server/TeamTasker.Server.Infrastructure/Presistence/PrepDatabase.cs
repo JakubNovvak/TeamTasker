@@ -53,6 +53,15 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
+            if (_appDbContext.Database.CanConnect())
+            {
+                if (!_appDbContext.Notifications.Any())
+                {
+                    var notifications = GetNotifications();
+                    _appDbContext.Notifications.AddRange(notifications);
+                    _appDbContext.SaveChanges();
+                }
+            }
             /*if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Issues.Any())
@@ -124,6 +133,15 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 new Project(){ Name="Project 2"}
             };
             return projects;
+        }
+        private IEnumerable<Notification> GetNotifications()
+        {
+            var notifications = new List<Notification>()
+            {
+                new Notification() {Content="You have been assigned a new issue"},
+                new Notification() {Content="You have been assigned to a new team"}
+            };
+            return notifications;
         }
         /* private IEnumerable<Issue> GetIssues()
          {
