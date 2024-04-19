@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamTasker.Server.Application.Dtos.Noitifcations;
+using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
@@ -50,6 +51,17 @@ namespace TeamTasker.Server.Application.Services
             var employeeNotification = _mapper.Map<UserNotification>(dto);
 
             _userNotificationRepo.AddUserNotification(employeeNotification);
+        }
+        public IEnumerable<ReadNotificationDto> GetUserNotifications(int userId)
+        {
+            var user = _employeeRepo.GetUser(userId);
+            if (user == null)
+                throw new Exception("User not found");
+
+            var notifications = user.UserNotifications.Select(e => e.Notification).ToList();
+
+            var notificationDtos = _mapper.Map<IEnumerable<ReadNotificationDto>>(notifications);
+            return notificationDtos;
         }
     }
 }
