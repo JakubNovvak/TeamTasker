@@ -39,8 +39,10 @@ namespace TeamTasker.Server.Application.Services
             var employeeTeam = _mapper.Map<EmployeeTeam>(employeeTeamDto);
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
 
+            //You can comment this if no needed
             var userNotifiaction = new UserNotification { UserId = employeeTeam.EmployeeId, NotificationId = 2 };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
+            //
         }
 
         public IEnumerable<ReadTeamDto> GetAllTeams()
