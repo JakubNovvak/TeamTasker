@@ -18,6 +18,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }  
         public virtual DbSet<EmployeeTeam> EmployeeTeams { get; set; }
+        public virtual DbSet<UserNotification> UserNotifications { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
 

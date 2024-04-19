@@ -45,5 +45,30 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AddNotificationToUser", Name = "AddNotificationToUser")]
+        public IActionResult AddNotificationToUser(AddNotificationToUserDto dto)
+        {
+            try
+            {
+                _notificationService.AddNotificationToUser(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no notification provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting notifications : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new notification: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new notification: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting notifications : {ex.Message}");
+            }
+        }
     }
 }
