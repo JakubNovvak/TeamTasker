@@ -8,9 +8,9 @@ namespace TeamTasker.Server.Domain.Entities
 {
     public class UserNotification
     {
-        public virtual User User { get; set; }
+        public virtual User User { get; set; } = default!;
         public int UserId { get; set; }
-        public virtual Notification Notification { get; set; }
+        public virtual Notification Notification { get; set; } = default!;
         public int NotificationId { get; set; }
     }
 }

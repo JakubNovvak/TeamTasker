@@ -104,6 +104,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IEmployeeTeamRepository, EmployeeTeamRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<IUserNotificationRepository, UserNotificationRepository>();
 
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();

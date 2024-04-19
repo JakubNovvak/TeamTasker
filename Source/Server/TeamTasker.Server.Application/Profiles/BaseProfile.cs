@@ -74,6 +74,8 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<Notification, ReadNotificationDto>();
             CreateMap<CreateNotificationDto, Notification>();
+
+            CreateMap<AddNotificationToUserDto, UserNotification>();
         }
     }
 }
