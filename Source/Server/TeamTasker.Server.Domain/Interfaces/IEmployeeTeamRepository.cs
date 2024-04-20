@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<EmployeeTeam> GetAllEmployeeTeams(int employeeId);
         void AddEmployeeTeam(EmployeeTeam employeeTeam);
         void UpdateEmployeeTeam(EmployeeTeam employeeTeam);
+        void DeleteEmployeeTeam(int? employeeId, int? teamId);
     }
 }

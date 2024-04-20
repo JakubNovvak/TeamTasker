@@ -16,5 +16,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         Employee? GetEmployee(int? id);
         User? GetUserByEmail(string? email);
         User? GetUser(int? id);
+        void DeleteEmployee(int? id);
     }
 }

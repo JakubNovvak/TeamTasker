@@ -43,5 +43,19 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             _appDbContext.UserNotifications.Update(userNotification);
             _appDbContext.SaveChanges();
         }
+
+        public void DeleteUserNotification(int? userId, int? notificationId)
+        {
+            if (userId == null || notificationId == null)
+                throw new ArgumentNullException();
+
+            var userNotificationToDelete = _appDbContext.UserNotifications.FirstOrDefault(un => un.UserId == userId && un.NotificationId == notificationId);
+            if (userNotificationToDelete != null)
+            {
+                _appDbContext.UserNotifications.Remove(userNotificationToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
+
     }
 }

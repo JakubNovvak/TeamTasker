@@ -47,5 +47,18 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.Issues.FirstOrDefault(issue => issue.Id == id);
         }
+
+        public void DeleteIssue(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            var issueToDelete = _appDbContext.Issues.FirstOrDefault(issue => issue.Id == id);
+            if (issueToDelete != null)
+            {
+                _appDbContext.Issues.Remove(issueToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
     }
 }
