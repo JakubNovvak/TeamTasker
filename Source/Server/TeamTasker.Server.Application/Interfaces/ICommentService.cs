@@ -11,5 +11,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         void AddCommnetToIssue(AddCommnetToIssueDto commentDto);
         void AddMessageToProject(AddMessageToProjectDto commentDto);
         void UpdateMessageToProject(UpdateMessageToProjectDto messageDto);
+        void DeleteComment(int id);
     }
 }

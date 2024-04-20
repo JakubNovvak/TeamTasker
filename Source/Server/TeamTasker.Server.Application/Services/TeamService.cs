@@ -125,5 +125,15 @@ namespace TeamTasker.Server.Application.Services
             var employeeDtos = _mapper.Map<IEnumerable<ReadEmployeeDto>>(employees);
             return employeeDtos;
         }
+
+        public void DeleteTeam(int id)
+        {
+            var team = _teamRepository.GetTeam(id);
+
+            if (team == null)
+                throw new Exception("Team not found.");
+
+            _teamRepository.DeleteTeam(id);
+        }
     }
 }

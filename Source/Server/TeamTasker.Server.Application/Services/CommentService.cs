@@ -113,5 +113,15 @@ namespace TeamTasker.Server.Application.Services
             
             return commentDtos;
         }
+
+        public void DeleteComment(int id)
+        {
+            var comment = _commentRepository.GetComment(id);
+
+            if (comment == null)
+                throw new Exception("Comment not found.");
+
+            _commentRepository.DeleteComment(id);
+        }
     }
 }

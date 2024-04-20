@@ -121,5 +121,15 @@ namespace TeamTasker.Server.Application.Services
             var projectDtos = _mapper.Map<IEnumerable<ReadProjectDto>>(userProjects);
             return projectDtos;
         }
+
+        public void DeleteEmployee(int id)
+        {
+            var employee = _employeeRepository.GetEmployee(id);
+
+            if (employee == null)
+                throw new Exception("Employee not found.");
+
+            _employeeRepository.DeleteEmployee(id);
+        }
     }
 }

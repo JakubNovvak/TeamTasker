@@ -30,6 +30,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         int GetNumberOfOnHoldIssues(int projectId);
         int GetNumberOfDoneIssues(int projectId);
         int GetNumberOfAllIssues(int projectId);
-
+        void DeleteIssue(int id);
     }
 }

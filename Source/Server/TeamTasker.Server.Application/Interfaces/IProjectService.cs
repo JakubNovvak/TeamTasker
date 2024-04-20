@@ -15,5 +15,6 @@ namespace TeamTasker.Server.Application.Interfaces
         void AddPictureToProject(AddPictureToProjectDto addPictureToProjectDto);
         IEnumerable<ReadEmployeeDto> GetEmployeesFromProject(int projectId);
         void UpdateProjectStatus(UpdateProjectStatusDto dto);
+        void DeleteProject(int id);
     }
 }

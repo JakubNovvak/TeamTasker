@@ -236,6 +236,14 @@ namespace TeamTasker.Server.Application.Services
 
         }
 
-        //
+        public void DeleteIssue(int id)
+        {
+            var issue = _issueRepository.GetIssue(id);
+
+            if (issue == null)
+                throw new Exception("Issue not found.");
+
+            _issueRepository.DeleteIssue(id);
+        }
     }
 }

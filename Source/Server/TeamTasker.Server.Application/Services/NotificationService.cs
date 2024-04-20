@@ -63,5 +63,15 @@ namespace TeamTasker.Server.Application.Services
             var notificationDtos = _mapper.Map<IEnumerable<ReadNotificationDto>>(notifications);
             return notificationDtos;
         }
+
+        public void DeleteNotification(int id)
+        {
+            var notification = _notificationRepo.GetNotification(id);
+
+            if (notification == null)
+                throw new Exception("Notification not found.");
+
+            _notificationRepo.DeleteNotification(id);
+        }
     }
 }

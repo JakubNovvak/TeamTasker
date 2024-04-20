@@ -16,5 +16,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         ReadUserNameAndEmailDto GetUserNameAndEmail(int id);
         void AddAvatarToUser(AddAvatarToUserDto dto);
         IEnumerable<ReadProjectDto> GetUserProjects(int id);
+        void DeleteEmployee(int id);
     }
 }
