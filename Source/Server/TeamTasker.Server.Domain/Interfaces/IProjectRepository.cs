@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         void UpdateProject(Project project);
         IEnumerable<Project> GetAllProjects();
         Project? GetProject(int? id);
+        public void DeleteProject(int? id);
     }
 }

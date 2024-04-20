@@ -43,5 +43,18 @@ namespace TeamTasker.Server.Infrastructure.Repositories
             _appDbContext.EmployeeTeams.Update(employeeTeam);
             _appDbContext.SaveChanges();
         }
+        public void DeleteEmployeeTeam(int? employeeId, int? teamId)
+        {
+            if (employeeId == null || teamId == null)
+                throw new ArgumentNullException();
+
+            var employeeTeamToDelete = _appDbContext.EmployeeTeams.FirstOrDefault(et => et.EmployeeId == employeeId && et.TeamId == teamId);
+            if (employeeTeamToDelete != null)
+            {
+                _appDbContext.EmployeeTeams.Remove(employeeTeamToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
+
     }
 }

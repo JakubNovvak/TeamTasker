@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<UserNotification> GetAllUserNotifications(int userId);
         void AddUserNotification(UserNotification userNotification);
         void UpdateUserNotification(UserNotification userNotification);
+        void DeleteUserNotification(int? userId, int? notificationId);
     }
 }

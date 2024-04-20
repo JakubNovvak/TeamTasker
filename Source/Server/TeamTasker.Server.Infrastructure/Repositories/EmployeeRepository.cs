@@ -64,5 +64,19 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.Users.FirstOrDefault(employee => employee.Id == id);
         }
+
+        public void DeleteEmployee(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            var employeeToDelete = _appDbContext.Users.OfType<Employee>().FirstOrDefault(employee => employee.Id == id);
+            if (employeeToDelete != null)
+            {
+                _appDbContext.Users.Remove(employeeToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
+
     }
 }

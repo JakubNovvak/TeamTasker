@@ -47,5 +47,18 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.Comments.FirstOrDefault(comment => comment.Id == id);
         }
+
+        public void DeleteComment(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            var commentToDelete = _appDbContext.Comments.FirstOrDefault(comment => comment.Id == id);
+            if (commentToDelete != null)
+            {
+                _appDbContext.Comments.Remove(commentToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
     }
 }

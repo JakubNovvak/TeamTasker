@@ -47,5 +47,19 @@ namespace TeamTasker.Server.Infrastructure.Repositories
         {
             return _appDbContext.Notifications.FirstOrDefault(notification => notification.Id == id);
         }
+
+        public void DeleteNotification(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            var notificationToDelete = _appDbContext.Notifications.FirstOrDefault(notification => notification.Id == id);
+            if (notificationToDelete != null)
+            {
+                _appDbContext.Notifications.Remove(notificationToDelete);
+                _appDbContext.SaveChanges();
+            }
+        }
+
     }
 }

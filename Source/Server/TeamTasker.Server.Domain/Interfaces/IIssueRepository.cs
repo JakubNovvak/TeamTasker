@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         void UpdateIssue(Issue issue);
         IEnumerable<Issue> GetAllIssues();
         Issue? GetIssue(int? id);
+        void DeleteIssue(int? id);
     }
 }

@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         void UpdateComment(Comment comment);
         IEnumerable<Comment> GetAllComments();
         Comment? GetComment(int? id);
+        void DeleteComment(int? id);
     }
 }
