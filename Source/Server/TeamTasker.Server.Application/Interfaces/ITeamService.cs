@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Domain.Interfaces
         void AddEmployeeToTeam(CreateEmployeeTeamDto dto);
         void ChangeTeamLeader(ChangeTeamLeaderDto dto);
         IEnumerable<ReadEmployeeDto> GetAllTeamEmployees(int id);
+        void DeleteTeam(int id);
     }
 }

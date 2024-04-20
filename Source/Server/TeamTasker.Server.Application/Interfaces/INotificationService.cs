@@ -13,5 +13,6 @@ namespace TeamTasker.Server.Application.Interfaces
         void CreateNotification(CreateNotificationDto dto);
         void AddNotificationToUser(AddNotificationToUserDto dto);
         IEnumerable<ReadNotificationDto> GetUserNotifications(int userId);
+        void DeleteNotification(int id);
     }
 }

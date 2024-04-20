@@ -123,5 +123,15 @@ namespace TeamTasker.Server.Application.Services
             project.Status = dto.Status;
             _projectRepository.UpdateProject(project);
         }
+
+        public void DeleteProject(int id)
+        {
+            var project = _projectRepository.GetProject(id);
+
+            if (project == null)
+                throw new Exception("Project not found.");
+
+            _projectRepository.DeleteProject(id);
+        }
     }
 }
