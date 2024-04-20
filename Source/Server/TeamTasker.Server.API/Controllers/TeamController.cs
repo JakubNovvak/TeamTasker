@@ -103,5 +103,31 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting employees : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteTeam", Name = "DeleteTeam")]
+        public IActionResult DeleteTeam(int id)
+        {
+            try
+            {
+                _teamService.DeleteTeam(id);
+                return Ok();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Negative team id \"{id}\" - {ex.Message}");
+                return BadRequest($"Team id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There is no team with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no team with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the team : {ex.Message}");
+            }
+        }
     }
 }

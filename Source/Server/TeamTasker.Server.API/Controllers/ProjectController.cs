@@ -185,5 +185,52 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteIssue", Name = "DeleteIssue")]
+        public IActionResult DeleteIssue(int issueId)
+        {
+            try
+            {
+                _issueService.DeleteIssue(issueId);
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Issue not found: {ex.Message}");
+                return NotFound("The issue was not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception: {ex.Message}");
+                return BadRequest($"An unexpected error occurred while deleting the issue: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteProject", Name = "DeleteProject")]
+        public IActionResult DeleteProject(int id)
+        {
+            try
+            {
+                _projectService.DeleteProject(id);
+                return Ok();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Negative project id \"{id}\" - {ex.Message}");
+                return BadRequest($"Project id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There is no project with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no project with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the project : {ex.Message}");
+            }
+        }
     }
 }

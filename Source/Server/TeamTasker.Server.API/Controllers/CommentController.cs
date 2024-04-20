@@ -151,5 +151,27 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteComment", Name = "DeleteComment")]
+        public IActionResult DeleteComment(int commentId)
+        {
+            try
+            {
+                _commentService.DeleteComment(commentId);
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Comment not found: {ex.Message}");
+                return NotFound("The comment was not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception: {ex.Message}");
+                return BadRequest($"An unexpected error occurred while deleting the comment: {ex.Message}");
+            }
+        }
+
     }
 }

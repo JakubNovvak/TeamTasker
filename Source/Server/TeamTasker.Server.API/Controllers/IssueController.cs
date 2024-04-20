@@ -533,5 +533,26 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteIssue", Name = "DeleteIssue")]
+        public IActionResult DeleteIssue(int issueId)
+        {
+            try
+            {
+                _issueService.DeleteIssue(issueId);
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Issue not found: {ex.Message}");
+                return NotFound("The issue was not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception: {ex.Message}");
+                return BadRequest($"An unexpected error occurred while deleting the issue: {ex.Message}");
+            }
+        }
     }
 }
