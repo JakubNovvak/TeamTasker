@@ -265,5 +265,31 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteEmployee", Name = "DeleteEmployee")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            try
+            {
+                _employeeService.DeleteEmployee(id);
+                return Ok();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Negative employee id \"{id}\" - {ex.Message}");
+                return BadRequest($"Employee id \"{id}\" is not a valid id.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There is no employee with this id: \"{id}\" - {ex.Message}");
+                return BadRequest($"There is no employee with this id: \"{id}\"");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the employee : {ex.Message}");
+            }
+        }
     }
 }

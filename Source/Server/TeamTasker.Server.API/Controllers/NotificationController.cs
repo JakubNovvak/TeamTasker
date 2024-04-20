@@ -98,5 +98,27 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting user : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteNotification/{notificationId}", Name = "DeleteNotification")]
+        public IActionResult DeleteNotification(int notificationId)
+        {
+            try
+            {
+                _notificationService.DeleteNotification(notificationId);
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> No notification found with id: {notificationId} - {ex.Message}");
+                return NotFound($"No notification found with id: {notificationId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception: {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the notification: {ex.Message}");
+            }
+        }
+
     }
 }

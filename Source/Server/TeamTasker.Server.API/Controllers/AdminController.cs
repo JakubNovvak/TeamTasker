@@ -182,5 +182,85 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteProject/{projectId}", Name = "DeleteProject")]
+        public IActionResult DeleteProject(int projectId)
+        {
+            try
+            {
+                _projectService.DeleteProject(projectId);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was no project provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the project : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was a problem with deleting the project: {ex.Message}");
+                return BadRequest($"There was a problem with deleting the project: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the project : {ex.Message}");
+            }
+
+        }
+
+        [HttpDelete]
+        [Route("DeleteEmployee/{employeeId}", Name = "DeleteEmployee")]
+        public IActionResult DeleteEmployee(int employeeId)
+        {
+            try
+            {
+                _employeeService.DeleteEmployee(employeeId);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was no employee provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the employee : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was a problem with deleting the employee: {ex.Message}");
+                return BadRequest($"There was a problem with deleting the employee: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the employee : {ex.Message}");
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("DeleteTeam/{teamId}", Name = "DeleteTeam")]
+        public IActionResult DeleteTeam(int teamId)
+        {
+            try
+            {
+                _teamService.DeleteTeam(teamId);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was no team provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the team : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> There was a problem with deleting the team: {ex.Message}");
+                return BadRequest($"There was a problem with deleting the team: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while deleting the team : {ex.Message}");
+            }
+        }
     }
 }
