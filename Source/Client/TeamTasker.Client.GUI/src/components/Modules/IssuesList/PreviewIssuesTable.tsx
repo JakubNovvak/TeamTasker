@@ -14,12 +14,14 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Avatar, TableHead, Typography, CircularProgress } from '@mui/material';
+import { Avatar, TableHead, Typography, CircularProgress, Select, MenuItem } from '@mui/material';
 import { GetProjectIssues } from '../API/GetProjectIssues';
 import { ReadIssueDto } from '../../Types/ReadIssuesDto';
 import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
 import { GetProjectEmployees } from '../API/GetProjectEmployees';
 import TempGetCurrentUser from '../../Connection/API/TempGetCurretnUser';
+import { ChangeTaskStatus } from '../../Connection/API/ChangeTaskStatus';
+import DataPostSnackbar from '../../Connection/Notifies/DataPostSnackbar';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -111,6 +113,13 @@ const statusString: {[key: string]: string} = {
   default: "⬛ Can't load status"
 }
 
+const statusNumber: {[key: string]: number} = {
+  "NewIssue": 1,
+  "InProgress": 2,
+  "OnHold": 3,
+  "IssueDone": 4
+}
+
 const priorityString: {[key: string]: string} = {
   "High": "🔴 High",
   "Medium": "🔵 Normal",
@@ -153,7 +162,7 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
           window.removeEventListener('storage', handleStorageChange);
       };
       
-  }, [reloadCondition, selectedOption]);
+  }, [reloadCondition, selectedOption, sendSucess]);
 
   if(sendingState)
     return(<CircularProgress size="5rem" sx={{mt: "13rem"}}/>);
@@ -182,6 +191,10 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
 
   return (
     <TableContainer elevation={0} component={Paper}>
+
+      {sendingState == false && sendSucess == 1 ? <DataPostSnackbar TextIndex={1} IsDangerSnackBar={false}/> : <></>}
+      {sendingState == false && sendSucess == 2 ? <DataPostSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
+
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
       <TableHead>
           <TableRow>
@@ -212,7 +225,16 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
               {issue.name}
             </TableCell>
             <TableCell style={{ width: 160 }} align="left">
-              {statusString[issue.status]}
+              <Select 
+              sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+              defaultValue={statusNumber[issue.status]}
+              onChange={(event) => {ChangeTaskStatus(issue.id, event.target.value, setSendingState, setSendSucess)}}
+              >
+                <MenuItem key={1} value={1}>{statusString["NewIssue"]}</MenuItem>
+                <MenuItem key={2} value={2}>{statusString["InProgress"]}</MenuItem>
+                <MenuItem key={3} value={3}>{statusString["OnHold"]}</MenuItem>
+                <MenuItem key={4} value={4}>{statusString["IssueDone"]}</MenuItem>
+              </Select>
             </TableCell>
             <TableCell style={{ width: 160 }} align="right">
               <Box display={'flex'} flexDirection={'row'}>

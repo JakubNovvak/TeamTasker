@@ -76,7 +76,7 @@ export default function AdminDashboard()
                 <Toolbar>
                 {/*Here is the top navbar*/}
                 <Box display="flex" flexDirection="row" sx={{marginLeft: "auto", alignItems: "center"}}>
-                    <UserAvatarMenu />
+                    <UserAvatarMenu avatarUrl={"https://t3.ftcdn.net/jpg/00/65/75/68/360_F_65756860_GUZwzOKNMUU3HldFoIA44qss7ZIrCG8I.jpg"} />
                 </Box>
                 </Toolbar>
             </AppBar>
