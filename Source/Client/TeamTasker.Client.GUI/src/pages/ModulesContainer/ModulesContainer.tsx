@@ -54,7 +54,7 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
             return <ProjectMembers projectId={projectId}/>;
 
             case `/projectname/${projectId}/projectschedule`:
-                return <ProjectSchedule />;
+                return <ProjectSchedule projectId={projectId}/>;
             
         default:
             return <h1>404 - cannot find the module</h1>;
