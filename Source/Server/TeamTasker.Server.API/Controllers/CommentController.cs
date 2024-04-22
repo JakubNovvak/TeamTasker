@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
@@ -20,6 +22,7 @@ namespace TeamTasker.Server.API.Controllers
 
 
         [HttpPost]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("AddCommnetToIssue", Name = "AddCommnetToIssue")]
         public IActionResult AddCommnetToIssue(AddCommnetToIssueDto dto)
         {
@@ -71,9 +74,8 @@ namespace TeamTasker.Server.API.Controllers
             }
         }
 
-        
-
         [HttpGet]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("GetIssueComments", Name = "GetIssueComments")]
         public ActionResult<IEnumerable<ReadCommentDto>> GetIssueComments(int IssueId)
         {
@@ -84,8 +86,8 @@ namespace TeamTasker.Server.API.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                Console.WriteLine($">[TasksCtr] <GetAll> No projects were found - the table is empty!: {ex.Message}");
-                return NotFound("There is no projects in the database.");
+                Console.WriteLine($">[TasksCtr] <GetAll> No issues were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no issues in the database.");
             }
             catch (ArgumentNullException ex)
             {
@@ -95,7 +97,7 @@ namespace TeamTasker.Server.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
-                return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
             }
         }
 
