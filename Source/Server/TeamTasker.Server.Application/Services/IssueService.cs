@@ -182,31 +182,15 @@ namespace TeamTasker.Server.Application.Services
 
             return issueDtos;
         }
-        public int GetNumberOfNewIssues(int projectId)
+        public GetCountOfAllAndDoneIssuesDto GetCountOfAllAndDoneIssues(int projectId)
         {
-            var issues = GetNewIssues(projectId).ToList();
-            return issues.Count;
-        }
-        public int GetNumberOfInProgressIssues(int projectId)
-        {
-            var issues = GetInProgressIssues(projectId).ToList();
-            return issues.Count;
-        }
-        public int GetNumberOfOnHoldIssues(int projectId)
-        {
-            var issues = GetOnHoldIssues(projectId).ToList();
-            return issues.Count;
-        }
-
-        public int GetNumberOfDoneIssues(int projectId)
-        {
-            var issues = GetDoneIssues(projectId).ToList();
-            return issues.Count;
-        }
-        public int GetNumberOfAllIssues(int projectId)
-        {
-            var issues = GetAllIssuesFromProject(projectId).ToList(); ;
-            return issues.Count;
+            var allIssues = GetAllIssuesFromProject(projectId).ToList();
+            var allIssuesCount = allIssues.Count();
+            var doneIssues = GetDoneIssues(projectId).ToList();
+            var doneIssuesCount = doneIssues.Count();
+            
+            var dto = new GetCountOfAllAndDoneIssuesDto{ AllIssues = allIssuesCount, DoneIssues = doneIssuesCount };
+            return dto;
         }
 
         public void UpdateIssueEndDate(UpdateIssueEndDateDto issueDto)
