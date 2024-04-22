@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TeamTasker.Server.Application.Dtos.Issues
 {
-    public class GetCompletedIssueDto
+    public class GetCountOfAllAndDoneIssuesDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Status { get; set; }
+        public int DoneIssues { get; set; }
+        public int AllIssues { get; set; }
     }
 }

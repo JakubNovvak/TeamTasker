@@ -25,11 +25,7 @@ namespace TeamTasker.Server.Domain.Interfaces
         IEnumerable<ReadIssueDto> GetInProgressIssues(int projectId);
         IEnumerable<ReadIssueDto> GetOnHoldIssues(int projectId);
         IEnumerable<ReadIssueDto> GetDoneIssues(int projectId);
-        int GetNumberOfNewIssues(int projectId);
-        int GetNumberOfInProgressIssues(int projectId);
-        int GetNumberOfOnHoldIssues(int projectId);
-        int GetNumberOfDoneIssues(int projectId);
-        int GetNumberOfAllIssues(int projectId);
+        GetCountOfAllAndDoneIssuesDto GetCountOfAllAndDoneIssues(int projectId);
         void DeleteIssue(int id);
     }
 }
