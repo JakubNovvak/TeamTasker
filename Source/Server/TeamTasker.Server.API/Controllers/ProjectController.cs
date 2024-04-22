@@ -187,27 +187,6 @@ namespace TeamTasker.Server.API.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteIssue", Name = "DeleteIssue")]
-        public IActionResult DeleteIssue(int issueId)
-        {
-            try
-            {
-                _issueService.DeleteIssue(issueId);
-                return Ok();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Delete> Issue not found: {ex.Message}");
-                return NotFound("The issue was not found.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($">[TasksCtr] <Delete> Unhandled exception: {ex.Message}");
-                return BadRequest($"An unexpected error occurred while deleting the issue: {ex.Message}");
-            }
-        }
-
-        [HttpDelete]
         [Route("DeleteProject", Name = "DeleteProject")]
         public IActionResult DeleteProject(int id)
         {
