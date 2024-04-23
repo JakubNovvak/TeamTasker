@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TeamTasker.Server.Domain.Entities;
@@ -59,6 +60,24 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 {
                     var notifications = GetNotifications();
                     _appDbContext.Notifications.AddRange(notifications);
+                    _appDbContext.SaveChanges();
+                }
+            }
+            if (_appDbContext.Database.CanConnect())
+            {
+                if (!_appDbContext.EmployeeTeams.Any())
+                {
+                    var employeeTeams = GetEmployeeTeams();
+                    _appDbContext.EmployeeTeams.AddRange(employeeTeams);
+                    _appDbContext.SaveChanges();
+                }
+            }
+            if (_appDbContext.Database.CanConnect())
+            {
+                if (!_appDbContext.Issues.Any())
+                {
+                    var issues = GetIssues();
+                    _appDbContext.Issues.AddRange(issues);
                     _appDbContext.SaveChanges();
                 }
             }
@@ -121,7 +140,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             {
                 //new Team(){ Name = "team1", LeaderId=2, Employees = selectedUsers},
                 //new Team(){ Name = "team2", LeaderId=2, Employees = selectedUsers}
-                new Team(){ Name = "Team 1"}
+                new Team(){ Name = "Team 1", LeaderId = 3}
             };
             return teams;
         }
@@ -143,35 +162,42 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             };
             return notifications;
         }
-        /* private IEnumerable<Issue> GetIssues()
-         {
-             var team = _appDbContext.Teams.FirstOrDefault(t => t.Id == 1);
-             //var employeesInTeam = _appDbContext.Users.Where(user => team.Employees.Any(employee => employee.Id == user.Id)).ToList();
-             var employeeIdsInTeam = team.Employees.Select(employee => employee.Id).ToList();
-             var employeesInTeam = _appDbContext.Users.Where(user => employeeIdsInTeam.Contains(user.Id)).ToList();
+        private IEnumerable<EmployeeTeam> GetEmployeeTeams() 
+        {
+            var employeeTeams = new List<EmployeeTeam>()
+            {
+                new EmployeeTeam() { EmployeeId = 3, TeamId = 1},
+                new EmployeeTeam() { EmployeeId = 2, TeamId = 1}
+            };
 
-
-            var employee = employeesInTeam[0];
-            var employee1 = employeesInTeam[1];
-            var employee2 = employeesInTeam[2];
+            return employeeTeams;
+        }
+        private IEnumerable<Issue> GetIssues() 
+        {
             var issues = new List<Issue>()
             {
-                new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id,IsComplete = true},
-                new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id,IsComplete = true},
-                new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
+                new Issue() { 
+                    Name = "Single Test Issue Title, Week 7", 
+                    Description = "Single Test Issue Description, Week 7",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(7),
+                    Priority = IssuePriority.Medium,
+                    Status = IssueStatus.InProgress,
+                    EmployeeId = 3,
+                    ProjectId = 1
+                }
             };
+
             return issues;
         }
-             var employee = employeesInTeam[0];
-             var employee1 = employeesInTeam[1];
-             var employee2 = employeesInTeam[2];
-             var issues = new List<Issue>()
-             {
-                 new Issue(){ Name="issue1", ProjectId=1, EmployeeId=employee.Id},
-                 new Issue(){ Name="issue2", ProjectId=1, EmployeeId=employee1.Id},
-                 new Issue(){ Name="issue3", ProjectId=1, EmployeeId=employee2.Id}
-             };
-             return issues;
-         }*/
+        private IEnumerable<Comment> GetComments()
+        {
+            var issues = new List<Comment>()
+            {
+
+            };
+
+            return issues;
+        }
     }
 }
