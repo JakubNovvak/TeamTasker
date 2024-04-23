@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Application.Services;
@@ -355,7 +357,58 @@ namespace TeamTasker.Server.API.Controllers
                 return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
             }
         }
-
+        [HttpPut]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("UpdateIssueName", Name = "UpdateIssueName")]
+        public IActionResult UpdateIssueName(UpdateIssueNameDto dto)
+        {
+            try
+            {
+                _issueService.UpdateIssueName(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was no issue provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was a problem with adding the new issue: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new issue: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+        }
+        [HttpPut]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("UpdateIssueDescription", Name = "UpdateIssueDescription")]
+        public IActionResult UpdateIssueDescription(UpdateIssueDescriptionDto dto)
+        {
+            try
+            {
+                _issueService.UpdateIssueDescription(dto);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was no issue provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> There was a problem with adding the new issue: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new issue: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting issues : {ex.Message}");
+            }
+        }
         [HttpPut]
         [Route("UpdateIssueStatus", Name = "UpdateIssueStatus")]
         public IActionResult UpdateIssueStatus(UpdateIssueStatusDto dto)
