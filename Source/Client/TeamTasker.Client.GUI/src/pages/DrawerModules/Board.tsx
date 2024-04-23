@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 import { ReadIssueDto } from "../../components/Types/ReadIssuesDto";
 import { GetProjectIssues } from "../../components/Modules/API/GetProjectIssues";
+import React from "react";
 
 export default function Board({projectId}: {projectId: string})
 {
