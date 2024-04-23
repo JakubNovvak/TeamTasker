@@ -15,6 +15,9 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Avatar, Typography } from '@mui/material';
+import { TempNotificationDto } from '../../Types/TempNotificationDto';
+import TempGetNotifications from '../../Connection/API/TempGetNotifications';
+import dayjs from 'dayjs';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -99,6 +102,12 @@ export default function PreviewNotificationsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(9);
 
+  const [notifications, setNotifications] = React.useState<TempNotificationDto[]>([]);
+
+  React.useEffect(() => {
+    TempGetNotifications(setNotifications);
+  }, []);
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -123,21 +132,21 @@ export default function PreviewNotificationsTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
-            <TableRow key={row.topic}>
+            ? notifications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : notifications
+          ).map((notification) => (
+            <TableRow key={notification.id}>
               <TableCell component="th" scope="row">
                 <Typography fontSize={16} fontWeight={500}>
-                    {row.topic}
+                    {notification.content}
                 </Typography>
               </TableCell>
               <TableCell style={{ width: 160 }} align="left">
-                {row.status}
+                {""}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 <Box display={'flex'} flexDirection={'row'}>
-                    {row.fromWho == "1" ? 
+                    {true ? 
                     <>
                         <Avatar alt="Cindy Baker" src="" sx={{width: "2rem", height: "2rem"}}/> 
                         <Typography sx={{alignSelf: "center", ml: "1rem"}}>
@@ -155,7 +164,7 @@ export default function PreviewNotificationsTable() {
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 <Typography fontSize={15} sx={{fontStyle: "italic"}}>
-                    {row.receiveDate}
+                    {dayjs(notification.created).format('DD MMMM HH:mm')}
                 </Typography>
               </TableCell>
             </TableRow>
