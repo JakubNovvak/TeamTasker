@@ -10,7 +10,7 @@ export default function IssueCard({ReadIssueDto, projectId}: {ReadIssueDto: Read
 {
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
-    const [openDialog, setOpenDialog] = useState<boolean>(true);
+    const [openDialog, setOpenDialog] = useState<boolean>(false);
 
     var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
 
