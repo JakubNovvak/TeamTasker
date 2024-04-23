@@ -1,21 +1,25 @@
 import { Box, Button, Textarea } from "@mui/joy";
 import { Avatar, Dialog, DialogContent, Divider, Grid, IconButton, Input, InputAdornment, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { cloneElement, useEffect, useState } from "react";
-import EditIssueStatusSelect from "./IssueEditStatus";
-import IssueEditPriority from "./IssueEditPriority";
-import IssueEditDate from "./IssueEditDate";
+import EditIssueStatusSelect from "./Forms/IssueEditStatus";
+import IssueEditPriority from "./Forms/IssueEditPriority";
+import IssueEditDate from "./Forms/IssueEditDate";
 import dayjs from "dayjs";
 import TempGetUserById from "../../../Connection/API/TempGetUserById";
 import { ReadIssueDto } from "../../../Types/ReadIssuesDto";
 import SendIcon from '@mui/icons-material/Send';
-import IssueEditTitle from "./IssueEditTitle";
-import IssueEditDescription from "./IssueEditDescription";
+import IssueEditTitle from "./Forms/IssueEditTitle";
+import IssueEditDescription from "./Forms/IssueEditDescription";
+import CommentsSection from "./Comments/CommentsSection";
 
 export default function IssueDescDialog({projectId, openDialog, setOpenDialog, userId, ReadIssueDto}: 
     {projectId: string, openDialog: boolean, setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, userId: number, ReadIssueDto: ReadIssueDto})
 {
+    //TODO: Change these states implementation
+    //*//
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
+    //*//
     const [titleFocus, setTitleFocus] = useState<boolean>(false);
     const [currentIssueInfo, setCurrentIssueInfo] = useState<ReadIssueDto>(ReadIssueDto);
     var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
@@ -73,31 +77,8 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, u
                     <IssueEditDate ReadIssueDto={ReadIssueDto}/>
                 </Grid>
                 
-                <Typography variant="h5" sx={{mt: "2rem"}}>
-                    Comments
-                </Typography>
-                <Divider/>
+                <CommentsSection issueId={ReadIssueDto.id} projectId={projectId}/>
 
-                <Grid container display={"flex"} flexDirection={"row"} sx={{mt: "1.5rem"}}>
-                    <Grid item xs={1}></Grid>
-                    <Grid item xs={1}>
-                        <Avatar alt="?" src={userAvatar} sx={{width: "2.5rem", height: "2.5rem"}} />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Input fullWidth 
-                        placeholder="Type here to add a new comment..."
-                        endAdornment={<IconButton><SendIcon/></IconButton>}
-                        />
-                    </Grid>
-                    <Grid item xs={2}></Grid>
-
-                    <Box sx={{mt: "4rem", mb: "3rem", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                        <Typography variant="h6" color={"gray"}>
-                            No comments were added to this issue.
-                        </Typography>
-                    </Box>
-
-                </Grid>
             </DialogContent>
         </Dialog>
     );
