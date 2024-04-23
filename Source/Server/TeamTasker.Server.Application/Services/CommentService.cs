@@ -8,19 +8,20 @@ namespace TeamTasker.Server.Application.Services
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly IIssueRepository _issueRepository;
         private readonly IMapper _mapper;
 
-        public CommentService(ICommentRepository commentRepository,IProjectRepository projectRepository,IIssueRepository issueRepository, IMapper mapper)
+        public CommentService(ICommentRepository commentRepository,IEmployeeRepository employeeRepository,IProjectRepository projectRepository,IIssueRepository issueRepository, IMapper mapper)
         {
             _commentRepository = commentRepository;
+            _employeeRepository = employeeRepository;
             _projectRepository = projectRepository;
             _issueRepository = issueRepository;
             _mapper = mapper;
         }
-
-        public void CreateComment(CreateCommentDto commentDto)
+        /*public void CreateComment(CreateCommentDto commentDto)
         {
             if (commentDto == null)
                 throw new ArgumentNullException(nameof(commentDto));
@@ -28,7 +29,7 @@ namespace TeamTasker.Server.Application.Services
             var comment = _mapper.Map<Comment>(commentDto);
 
             _commentRepository.CreateComment(comment);
-        }
+        }*/
 
         public IEnumerable<ReadCommentDto> GetAllComments()
         {
@@ -86,17 +87,18 @@ namespace TeamTasker.Server.Application.Services
             comment.Content = commentDto.Content;
             _commentRepository.UpdateComment(comment);
         }
-
-        public void AddCommnetToIssue(AddCommnetToIssueDto commentDto)
+        public void AddCommentToIssue(AddCommentToIssueDto commentDto, string email)
         {
+            var user = _employeeRepository.GetUserByEmail(email);
+            if (user == null)
+                throw new Exception("User not found!");
             if (commentDto == null)
                 throw new ArgumentNullException(nameof(commentDto));
 
             var issue = _issueRepository.GetIssue(commentDto.IssueId);
-
             if (issue == null)
-                throw new Exception("Issue not found");
-
+                throw new Exception("You are trying to add a comment to an issue that does not exist!");
+            commentDto.UserId = user.Id;
             var comment = _mapper.Map<Comment>(commentDto);
             _commentRepository.CreateComment(comment);
         }

@@ -15,7 +15,8 @@ namespace TeamTasker.Server.Application.Dtos.Comments
         public int Id { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public string Content { get; set; } = string.Empty;
-        public int? IssueId { get; set; }
+        public int IssueId { get; set; }
+        public int UserId { get; set;}
         
         //public int? ProjectId { get; set; }   Maybe usable to forum functionality
 

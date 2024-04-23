@@ -22,7 +22,6 @@ namespace TeamTasker.Server.Application.Profiles
     {
         public BaseProfile()
         {
-            CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, ReadCommentDto>();
 
             CreateMap<CreateProjectDto, Project>();
@@ -44,8 +43,8 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<AddMessageToProjectDto, Comment>();
             CreateMap<Comment, AddMessageToProjectDto>();
-            CreateMap<Comment, AddCommnetToIssueDto>();
-            CreateMap<AddCommnetToIssueDto, Comment>();
+            CreateMap<Comment, AddCommentToIssueDto>();
+            CreateMap<AddCommentToIssueDto, Comment>();
 
             CreateMap<Project, ReadProjectDto>()
                 .ForMember(desc => desc.Comments, x => x.MapFrom(src => src.Comments));

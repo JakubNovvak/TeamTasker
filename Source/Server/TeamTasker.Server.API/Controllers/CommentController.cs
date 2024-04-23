@@ -5,6 +5,7 @@ using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Comments;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.API.Controllers
@@ -14,21 +15,24 @@ namespace TeamTasker.Server.API.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IJwtAuthorizationService _jwtService;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, IJwtAuthorizationService jwtService)
         {
             _commentService = commentService;
+            _jwtService = jwtService;
         }
 
 
         [HttpPost]
         //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
-        [Route("AddCommnetToIssue", Name = "AddCommnetToIssue")]
-        public IActionResult AddCommnetToIssue(AddCommnetToIssueDto dto)
+        [Route("AddCommentToIssue", Name = "AddCommentToIssue")]
+        public IActionResult AddCommentToIssue(AddCommentToIssueDto dto)
         {
             try
             {
-                _commentService.AddCommnetToIssue(dto);
+                var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
+                _commentService.AddCommentToIssue(dto, email);
                 return Ok();
             }
             catch (ArgumentNullException ex)

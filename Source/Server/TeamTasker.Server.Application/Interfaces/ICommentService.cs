@@ -4,11 +4,11 @@ namespace TeamTasker.Server.Domain.Interfaces
 {
     public interface ICommentService
     {
-        void CreateComment(CreateCommentDto commentDto);
+        //void CreateComment(CreateCommentDto commentDto);
         IEnumerable<ReadCommentDto> GetAllComments();
         IEnumerable<ReadCommentDto> GetIssueComments(int IssueId);
         ReadCommentDto GetComment(int id);
-        void AddCommnetToIssue(AddCommnetToIssueDto commentDto);
+        void AddCommentToIssue(AddCommentToIssueDto commentDto, string email);
         void AddMessageToProject(AddMessageToProjectDto commentDto);
         void UpdateMessageToProject(UpdateMessageToProjectDto messageDto);
         void DeleteComment(int id);
