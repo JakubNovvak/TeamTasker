@@ -162,15 +162,15 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             };
             return projects;
         }
-        /*private IEnumerable<Notification> GetNotifications()
+        private IEnumerable<Notification> GetNotifications()
         {
             var notifications = new List<Notification>()
             {
-                new Notification() {Content="You have been assigned a new issue"},
-                new Notification() {Content="You have been assigned to a new team"}
+                //new Notification() {Content="Mocked notification, that is already in the database."},
+                //new Notification() {Content="Another notification."}
             };
             return notifications;
-        }*/
+        }
         private IEnumerable<EmployeeTeam> GetEmployeeTeams() 
         {
             var employeeTeams = new List<EmployeeTeam>()
