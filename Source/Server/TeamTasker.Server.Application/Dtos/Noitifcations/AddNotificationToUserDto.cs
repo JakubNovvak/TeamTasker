@@ -8,7 +8,7 @@ namespace TeamTasker.Server.Application.Dtos.Noitifcations
 {
     public class AddNotificationToUserDto
     {
-        public int NotificationId { get; set; }
+        public string Content { get; set; } = string.Empty;
         public int UserId { get; set; }
     }
 }

@@ -13,6 +13,5 @@ namespace TeamTasker.Server.Application.Dtos.Noitifcations
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public string Content { get; set; } = string.Empty;
-        public int? TeamId { get; set; }
     }
 }

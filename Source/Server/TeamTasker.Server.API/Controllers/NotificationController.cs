@@ -21,7 +21,7 @@ namespace TeamTasker.Server.API.Controllers
         {
             _notificationService = notificationService;
         }
-        [HttpPost]
+        /*[HttpPost]
         [Route("CreateNotification", Name = "CreateNotification")]
         public IActionResult CreateNotification(CreateNotificationDto dto)
         {
@@ -45,7 +45,7 @@ namespace TeamTasker.Server.API.Controllers
                 Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting notifications : {ex.Message}");
             }
-        }
+        }*/
 
         [HttpPost]
         [Route("AddNotificationToUser", Name = "AddNotificationToUser")]
