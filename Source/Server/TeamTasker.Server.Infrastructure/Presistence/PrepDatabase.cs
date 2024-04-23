@@ -81,6 +81,15 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
+            if (_appDbContext.Database.CanConnect())
+            {
+                if (!_appDbContext.Comments.Any())
+                {
+                    var comments = GetComments();
+                    _appDbContext.Comments.AddRange(comments);
+                    _appDbContext.SaveChanges();
+                }
+            }
             /*if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Issues.Any())
@@ -113,7 +122,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     Position="Project Admin", Email="leader@test.pl", Password ="password", Avatar= "https://mui.com/static/images/avatar/2.jpg"},
 
                 new Employee(){FirstName = "Employee", LastName = "No. 1", 
-                    Position="Testing", Email="employee1@test.pl", Password ="password", Avatar = ""},
+                    Position="Testing", Email="employee1@test.pl", Password ="password", Avatar = "https://mui.com/static/images/avatar/5.jpg"},
 
                 new Employee(){FirstName = "Employee", LastName = "No. 2", 
                     Position="Testing", Email="employee2@test.pl", Password ="password"},
@@ -167,7 +176,8 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             var employeeTeams = new List<EmployeeTeam>()
             {
                 new EmployeeTeam() { EmployeeId = 3, TeamId = 1},
-                new EmployeeTeam() { EmployeeId = 2, TeamId = 1}
+                new EmployeeTeam() { EmployeeId = 2, TeamId = 1},
+                new EmployeeTeam() { EmployeeId = 4, TeamId = 1}
             };
 
             return employeeTeams;
@@ -194,7 +204,14 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var issues = new List<Comment>()
             {
-
+                new Comment() { 
+                    Created = DateTime.Now, 
+                    Content = "This is a test comment, to show comment's display.",
+                    Type = "",
+                    IssueId = 1,
+                    ProjectId = 1,
+                    UserId = 4
+                }
             };
 
             return issues;

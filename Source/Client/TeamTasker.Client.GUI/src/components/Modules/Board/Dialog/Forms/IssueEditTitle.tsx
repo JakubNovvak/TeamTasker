@@ -1,9 +1,10 @@
 import { Box, InputLabel } from "@mui/material";
-import { ReadIssueDto } from "../../../Types/ReadIssuesDto";
+import { ReadIssueDto } from "../../../../Types/ReadIssuesDto";
 import { Button, Textarea } from "@mui/joy";
 import React, { useEffect, useRef, useState } from "react";
-import DataPostSnackbar from "../../../Connection/Notifies/DataPostSnackbar";
-import { UpdateTitleRequest } from "../../API/Board/EditIssueRequests";
+import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
+import { UpdateTitleRequest } from "../../../API/Board/EditIssueRequests";
+import { handleIssueChange } from "../BoardReloadOnChange";
 
 export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
 {
@@ -26,8 +27,9 @@ export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueD
     };
 
     const handleSaveButtonClick = () => {
-        UpdateTitleRequest(ReadIssueDto.id, ReadIssueDto.name, setSendingState, setSendSucess, setIssueTitle, initialValue);
+        UpdateTitleRequest(ReadIssueDto.id, issueTitle, setSendingState, setSendSucess, setIssueTitle, initialValue);
         setTitleFocus(false);
+        handleIssueChange(issueTitle);
     }
 
     useEffect(() => {
