@@ -54,7 +54,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.SaveChanges();
                 }
             }
-            if (_appDbContext.Database.CanConnect())
+            /*if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.Notifications.Any())
                 {
@@ -62,7 +62,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     _appDbContext.Notifications.AddRange(notifications);
                     _appDbContext.SaveChanges();
                 }
-            }
+            }*/
             if (_appDbContext.Database.CanConnect())
             {
                 if (!_appDbContext.EmployeeTeams.Any())
@@ -153,7 +153,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             };
             return projects;
         }
-        private IEnumerable<Notification> GetNotifications()
+        /*private IEnumerable<Notification> GetNotifications()
         {
             var notifications = new List<Notification>()
             {
@@ -161,7 +161,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                 new Notification() {Content="You have been assigned to a new team"}
             };
             return notifications;
-        }
+        }*/
         private IEnumerable<EmployeeTeam> GetEmployeeTeams() 
         {
             var employeeTeams = new List<EmployeeTeam>()

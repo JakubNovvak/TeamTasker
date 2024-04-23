@@ -26,30 +26,19 @@ namespace TeamTasker.Server.Application.Services
             _userNotificationRepo = userNotificationRepo;
             _mapper = mapper;
         }
-        public void CreateNotification(CreateNotificationDto dto)
-        {
-            if (dto == null)
-                throw new ArgumentNullException(nameof(dto));
-            var notification = _mapper.Map<Notification>(dto);
-            _notificationRepo.CreateNotification(notification);
-        }
         public void AddNotificationToUser(AddNotificationToUserDto dto)
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
-
-            var notification = _notificationRepo.GetNotification(dto.NotificationId);
-
-            if (notification == null)
-                throw new Exception("Notification not found");
-
+            
             var user = _employeeRepo.GetUser(dto.UserId);
-
             if (user == null)
                 throw new Exception("User not found");
 
-            var employeeNotification = _mapper.Map<UserNotification>(dto);
+            var notification = _mapper.Map<Notification>(dto);
+            _notificationRepo.CreateNotification(notification);
 
+            var employeeNotification = new UserNotification { NotificationId = notification.Id, UserId=user.Id };
             _userNotificationRepo.AddUserNotification(employeeNotification);
         }
         public IEnumerable<ReadNotificationDto> GetUserNotifications(int userId)

@@ -15,13 +15,17 @@ namespace TeamTasker.Server.Application.Services
     {
         private readonly IIssueRepository _issueRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
 
-        public LeaderService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository, IProjectRepository projectRepository, ITeamRepository teamRepository, IMapper mapper) {
+        public LeaderService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository,INotificationRepository notificationRepository, IUserNotificationRepository userNotificationRepository, IProjectRepository projectRepository, ITeamRepository teamRepository, IMapper mapper) {
             _issueRepository = issueRepository;
             _employeeRepository = employeeRepository;
+            _notificationRepository = notificationRepository;
+            _userNotificationRepository = userNotificationRepository;
             _projectRepository = projectRepository;
             _teamRepository = teamRepository;
             _mapper = mapper;
@@ -48,7 +52,10 @@ namespace TeamTasker.Server.Application.Services
             if (!teamEmployees.Any(e => e.Id == issue.EmployeeId))
                 throw new Exception("You can't assign issue to employee that is not assigned to this project!");
 
-            _issueRepository.CreateIssue(issue);
+            var notification = new Notification { Content = "You have been assigned new issue!" };
+            _notificationRepository.CreateNotification(notification);
+            var userNotifiaction = new UserNotification { UserId = issue.EmployeeId, NotificationId = notification.Id };
+            _userNotificationRepository.AddUserNotification(userNotifiaction);
         }
     }
 }
