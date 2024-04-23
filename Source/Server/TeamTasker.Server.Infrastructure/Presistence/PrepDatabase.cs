@@ -194,7 +194,13 @@ namespace TeamTasker.Server.Infrastructure.Presistence
         {
             var issues = new List<Comment>()
             {
-
+                new Comment() { 
+                    Created = DateTime.Now, 
+                    Content = "This is a test comment, to show comment's display.",
+                    Type = "",
+                    IssueId = 1,
+                    ProjectId = 1
+                }
             };
 
             return issues;
