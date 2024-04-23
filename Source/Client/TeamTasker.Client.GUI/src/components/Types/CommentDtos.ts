@@ -2,13 +2,12 @@ export type ReadCommentDto = {
     id: number,
     created: string,
     content: string,
-    issueId: number
+    issueId: number,
+    userId: number
   }
 
 export type CreateCommentDto = {
-    name: string,
-    deadline: string,
-    status: string,
-    description: string,
-    isComplete: boolean
-  }
+    issueId: number,
+    userId: number,
+    content: string
+}
