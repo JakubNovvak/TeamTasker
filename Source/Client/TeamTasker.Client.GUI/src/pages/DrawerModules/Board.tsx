@@ -57,6 +57,7 @@ export default function Board({projectId}: {projectId: string})
     
     CheckLeaderPermission(setUserPermission);
 
+    //TODO: Change implementation of these lists, single generic component with issues list of a specific type
     return(
         <>
              <Box sx={{width: "100%", height: "95%", mt: "5rem"}}>
@@ -103,7 +104,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "NewIssue" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                issue.status === "NewIssue" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
                                 : <></> 
                             ))
                             }
@@ -126,7 +127,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "InProgress" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                issue.status === "InProgress" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
                                 : <></> 
                             ))
                             }
@@ -149,7 +150,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "OnHold" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                issue.status === "OnHold" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
                                 : <></> 
                             ))
                             }
@@ -172,7 +173,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "IssueDone" ? <IssueCard key={issue.id} ReadIssueDto={issue}/>
+                                issue.status === "IssueDone" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
                                 : <></> 
                             ))
                             }
