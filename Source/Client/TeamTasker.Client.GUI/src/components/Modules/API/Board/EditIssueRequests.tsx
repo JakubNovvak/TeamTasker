@@ -153,7 +153,7 @@ export async function UpdateEndDateRequest(endDate: Dayjs | null, issueId: numbe
 
     setSendingState(true);
     try{
-        await axios.put(`https://localhost:70142/api/Issue/UpdateIssueEndtDate`, endDateToSend, AxiosOptions);
+        await axios.put(`https://localhost:7014/api/Issue/UpdateIssueEndtDate`, endDateToSend, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setEndDate(endDate);
