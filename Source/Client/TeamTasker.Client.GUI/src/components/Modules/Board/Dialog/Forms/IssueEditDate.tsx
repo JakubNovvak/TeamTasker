@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { ReadIssueDto } from "../../../../Types/ReadIssuesDto";
 import {UpdateEndDateRequest, UpdateStartDateRequest} from "../../../API/Board/EditIssueRequests";
 import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
+import { handleIssueChange } from "../BoardReloadOnChange";
 
 export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
 {
@@ -37,6 +38,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                         value={startDate}
                         onChange={(value) => {
                             UpdateStartDateRequest(value, ReadIssueDto.id, setSendingState, setSendSucess, setStartDate);
+                            handleIssueChange(startDate!.toISOString());
                         }}
                         />
                         :
@@ -55,6 +57,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                 defaultValue={endDate}
                 onChange={(value) => {
                     UpdateEndDateRequest(value, ReadIssueDto.id, setSendingState, setSendSucess, setEndDate);
+                    handleIssueChange(endDate!.toISOString());
                 }}
                 />
                 : 

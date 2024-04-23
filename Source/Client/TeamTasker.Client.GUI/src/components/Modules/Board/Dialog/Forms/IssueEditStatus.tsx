@@ -2,6 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import { UpdateStatusRequest } from "../../../API/Board/EditIssueRequests";
 import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
+import { handleIssueChange } from "../BoardReloadOnChange";
 
 export default function EditIssueStatusSelect({issueStatus, issueId}: {issueStatus: string, issueId: number})
 {
@@ -44,6 +45,7 @@ export default function EditIssueStatusSelect({issueStatus, issueId}: {issueStat
                 onChange={(event) => {
                     //setSelectStatus(event.target.value);
                     UpdateStatusRequest(issueId, event.target.value, setSendingState, setSendSucess, setSelectStatus);
+                    handleIssueChange(event.target.value.toString());
                 }}
                 >
                 <MenuItem key={1} value={1}>{statusString["NewIssue"]}</MenuItem>

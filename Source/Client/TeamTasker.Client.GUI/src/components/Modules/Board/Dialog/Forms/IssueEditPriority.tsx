@@ -7,6 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
 import { UpdatePriorityRequest } from '../../../API/Board/EditIssueRequests';
 import DataPostSnackbar from '../../../../Connection/Notifies/DataPostSnackbar';
+import { handleIssueChange } from '../BoardReloadOnChange';
 
 export default function IssueEditPriority({issuePriority, issueId}: {issuePriority: string, issueId: number})
 {
@@ -38,6 +39,7 @@ export default function IssueEditPriority({issuePriority, issueId}: {issuePriori
           value={selectPriority}
           onChange={(event) => {
             UpdatePriorityRequest(issueId, event.target.value, setSendingState, setSendSucess, setSelectPriority);
+            handleIssueChange(event.target.value.toString());
           }}
         >
           <MenuItem value={1}>{priorityString["High"]}</MenuItem>
