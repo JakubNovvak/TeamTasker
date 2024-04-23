@@ -18,6 +18,7 @@ import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromC
 import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
 import ProjectSchedule from "../DrawerModules/ProjectSchedule";
+import React from "react";
 
 function renderSwitch(pathnName: string, projectId: string | undefined)
 {
