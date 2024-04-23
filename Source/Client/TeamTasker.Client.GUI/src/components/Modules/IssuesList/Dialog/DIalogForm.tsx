@@ -10,6 +10,7 @@ import { CreateIssueDto } from "../../../Types/CreateIssueDto";
 import { useEffect, useState } from "react";
 import { PostNewIssue } from "../../API/PostNewIssue";
 import DataPostSnackbar from "../../../Connection/Notifies/DataPostSnackbar";
+import React from "react";
 
 function onSubmit(projectId: string, formikValues: FormikValues, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
