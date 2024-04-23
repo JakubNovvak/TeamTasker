@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -10,6 +10,8 @@ import TempGetNavbarAvatar from "../Connection/API/TempGetNavbarAvatar";
 import UserAvatarMenu from "./UserAvatarMenu";
 import { useParams } from "react-router-dom";
 import IssuesListOptions from "./NavbarOptions/IssuesListOptions";
+import React from "react";
+import TempSendNotification from "../Connection/API/TempSendNotification";
 
 function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.Element
 {
@@ -109,9 +111,11 @@ export default function UserElements()
                     placeholder="Search for..."
                     sx={{mr: "1.5rem"}}
                     />
-                    <Badge badgeContent={4} color="primary" sx={{mr: "1.5rem"}}>
-                        <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
-                    </Badge>
+                    <IconButton onClick={() => {TempSendNotification();}}>
+                        <Badge badgeContent={0} color="primary" sx={{mr: "0rem"}}>
+                            <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
+                        </Badge>
+                    </IconButton>
                     <UserAvatarMenu avatarUrl={avatarUrl}/>
                 </Box>
             </Box>
