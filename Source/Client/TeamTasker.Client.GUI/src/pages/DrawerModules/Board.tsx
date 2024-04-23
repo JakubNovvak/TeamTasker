@@ -18,43 +18,33 @@ export default function Board({projectId}: {projectId: string})
 
     //TODO: Temp solution - implement proper and more optimal data storing
     const [allIssues, setAllIssues] = useState<ReadIssueDto[]>([]);
-    var newIssues: ReadIssueDto[] = [];
-    var inProgress: ReadIssueDto[] = [];
-    var onHold: ReadIssueDto[] = [];
-    var issueDone: ReadIssueDto[] = [];
+
+    const [selectedOption, setSelectedOption] = useState<string>(() => {
+        const storedOption = sessionStorage.getItem('issuesChange');
+        return storedOption ? storedOption : "null";
+      });
+
 
     useEffect(() => {
         //TODO: Temp solution - implement proper and more optimal data fetching
         GetProjectIssues(projectId, setAllIssues, setSendingState, setSendSucess);
 
-        allIssues.map((issue) => {
-            console.log(issue.status);
-            switch (issue.status) 
-            {
-                case "NewIssue":
-                    newIssues.push(issue);
-                    break;
-
-                case "InProgress":
-                    inProgress.push(issue);
-                    break;
-
-                case "OnHold":
-                    onHold.push(issue);
-                    break;
-
-                case "IssueDone":
-                    issueDone.push(issue);
-                    break;
-            
-                default:
-                    break;
+        const handleStorageChange = () => {
+            const storedOption = sessionStorage.getItem('issuesChange');
+            if (storedOption && storedOption !== selectedOption) {
+              setSelectedOption(storedOption);
             }
-        });
+          };
+          console.log("Changed on Session storage change: " + selectedOption);
+          window.addEventListener('issuesChange', handleStorageChange);
+    
+          return () => {
+              window.removeEventListener('issuesChange', handleStorageChange);
+              //sessionStorage.removeItem('issuesChange');
+          };
 
-        console.log("Size: " + newIssues.length);
 
-    }, []);
+    }, [selectedOption]);
     
     CheckLeaderPermission(setUserPermission);
 
