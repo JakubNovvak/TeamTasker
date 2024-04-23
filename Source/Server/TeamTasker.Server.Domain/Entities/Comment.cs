@@ -17,9 +17,12 @@ namespace TeamTasker.Server.Domain.Entities
         public string Type { get; set; } = string.Empty;
         public virtual Issue Issue { get; set; } = default!;
         [ForeignKey("Issue")]
-        public int? IssueId { get; set; }
+        public int IssueId { get; set; }
         public virtual Project Project { get; set; } = default!;
-         [ForeignKey("Project")]
+        [ForeignKey("Project")]
         public int? ProjectId { get; set; }
+        public virtual User User { get; set; } = default!;
+        [ForeignKey("User")]
+        public int UserId { get; set; }
     }
 }
