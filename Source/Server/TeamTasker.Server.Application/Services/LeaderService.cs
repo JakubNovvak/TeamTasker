@@ -56,6 +56,8 @@ namespace TeamTasker.Server.Application.Services
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = issue.EmployeeId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
+
+            _issueRepository.CreateIssue(issue);
         }
     }
 }
