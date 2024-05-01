@@ -4,10 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {motion} from "framer-motion";
+import {Variants, motion} from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { TempIssuesDto } from '../Connection/API/ProjectProgress/TempIssuesDto';
+import TempGetCountOfAllIssues from '../Connection/API/ProjectProgress/TempGetCountOfAllIssues';
 
 export default function ProjectCard({id, name, description}: {id: number, name: string, description: string}) 
 {
+  const [tempIssues, setTempIssues] = useState<TempIssuesDto>({doneIssues: 0, allIssues: 0});
+
+  useEffect(() => {
+    TempGetCountOfAllIssues(id, setTempIssues);
+  }, []);
+
   const iamges = 
   [
     "https://t4.ftcdn.net/jpg/02/56/10/07/360_F_256100731_qNLp6MQ3FjYtA3Freu9epjhsAj2cwU9c.jpg", 
@@ -38,6 +47,7 @@ export default function ProjectCard({id, name, description}: {id: number, name: 
 
   return (
     <motion.div
+    className='overaly'
     whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 1)"}}>
     <Card sx={{ maxWidth: 345, minWidth: 345 }}>
       <CardMedia
@@ -53,11 +63,11 @@ export default function ProjectCard({id, name, description}: {id: number, name: 
           {description === "" ? "<Empty Description>" : description}
         </Typography>
       </CardContent>
-      <CardActions>
-        {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
-      </CardActions>
-    </Card>
+        <CardContent>
+          <Typography sx={{ mb: "0.5rem" }}>🟩 Done Issues: {tempIssues.doneIssues} 🟩</Typography>
+          <Typography>⬜ All Issues: {tempIssues.allIssues} ⬜</Typography>
+        </CardContent>
+      </Card>
     </motion.div>
   );
 }
