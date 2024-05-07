@@ -52,7 +52,7 @@ namespace TeamTasker.Server.Application.Services
             if (!teamEmployees.Any(e => e.Id == issue.EmployeeId))
                 throw new Exception("You can't assign issue to employee that is not assigned to this project!");
 
-            var notification = new Notification { Content = "You have been assigned new issue!" };
+            var notification = new Notification { Content = $"You have been assigned new issue in project '{project.Name}'." };
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = issue.EmployeeId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);

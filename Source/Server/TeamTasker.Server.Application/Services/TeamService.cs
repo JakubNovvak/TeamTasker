@@ -42,7 +42,7 @@ namespace TeamTasker.Server.Application.Services
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
 
             
-            var notification = new Notification { Content = "You have been assigned to a new team!" };
+            var notification = new Notification { Content = $"You became the leader of a team '{team.Name}'. Team ID: {team.Id}" };
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = employeeTeam.EmployeeId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
@@ -85,6 +85,10 @@ namespace TeamTasker.Server.Application.Services
             var employeeTeam = _mapper.Map<EmployeeTeam>(dto);
 
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
+            var notification = new Notification { Content = $"You have been added to a new team '{team.Name}'. Team ID: {team.Id}" };
+            _notificationRepository.CreateNotification(notification);
+            var userNotifiaction = new UserNotification { UserId = employee.Id, NotificationId = notification.Id };
+            _userNotificationRepository.AddUserNotification(userNotifiaction);
         }
 
         public void ChangeTeamLeader(ChangeTeamLeaderDto dto)
@@ -116,6 +120,11 @@ namespace TeamTasker.Server.Application.Services
             team.LeaderId = dto.LeaderId;
 
             _teamRepository.UpdateTeam(team);
+
+            var notification = new Notification { Content = $"You became the leader of a team '{team.Name}'. Team ID: {team.Id}" };
+            _notificationRepository.CreateNotification(notification);
+            var userNotifiaction = new UserNotification { UserId = team.LeaderId, NotificationId = notification.Id };
+            _userNotificationRepository.AddUserNotification(userNotifiaction);
         }
         public IEnumerable<ReadEmployeeDto> GetAllTeamEmployees(int id)
         {

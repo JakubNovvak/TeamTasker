@@ -13,12 +13,16 @@ namespace TeamTasker.Server.Application.Services
 
         private readonly IProjectRepository _projectRepository;
         private readonly ITeamRepository _teamRepository;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository projectRepository,ITeamRepository teamRepository,IMapper mapper)
+        public ProjectService(IProjectRepository projectRepository,ITeamRepository teamRepository,INotificationRepository notificationRepository,IUserNotificationRepository userNotificationRepository,IMapper mapper)
         {
             _projectRepository = projectRepository;
             _teamRepository = teamRepository;
+            _notificationRepository = notificationRepository;
+            _userNotificationRepository = userNotificationRepository;
             _mapper = mapper;
         }
         //1
@@ -55,6 +59,15 @@ namespace TeamTasker.Server.Application.Services
 
             project.TeamId = team.Id;
             _projectRepository.UpdateProject(project);
+
+            var teamEmployees = team.EmployeeTeams.Select(e => e.Employee).ToList();
+            var notification = new Notification { Content = $"Your team '{team.Name}' have been assigned to a project '{project.Name}'. Project ID: {project.Id}" };
+            _notificationRepository.CreateNotification(notification);
+            foreach(var employee in teamEmployees)
+            {
+                var userNotification = new UserNotification { UserId = employee.Id, NotificationId = notification.Id };
+                _userNotificationRepository.AddUserNotification(userNotification);
+            }
         }
        
         public GetProjectNameAndPictureDto GetProjectNameAndImagines(int id)
