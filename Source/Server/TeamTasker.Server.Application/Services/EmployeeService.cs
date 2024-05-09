@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using TeamTasker.Server.Application.Dtos.Emails;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
+using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -9,12 +11,14 @@ namespace TeamTasker.Server.Application.Services
 {
     public class EmployeeService : IEmployeeService
     {
+        private readonly ITasksService _tasksService;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IEmployeeTeamRepository _employeeTeamRepository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeTeamRepository employeeTeamRepository, IMapper mapper)
+        public EmployeeService(ITasksService tasksService,IEmployeeRepository employeeRepository, IEmployeeTeamRepository employeeTeamRepository, IMapper mapper)
         {
+            _tasksService = tasksService;
             _employeeRepository = employeeRepository;
             _employeeTeamRepository = employeeTeamRepository;
             _mapper = mapper;
@@ -28,6 +32,8 @@ namespace TeamTasker.Server.Application.Services
             var employee = _mapper.Map<Employee>(employeeDto);
 
             _employeeRepository.CreateEmployee(employee);
+            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]Welcome", MessageContent = $"Welcome to TeamTasker!" };
+            _tasksService.CreateEmailEntry(emailNotification);
         }
 
         public IEnumerable<ReadEmployeeDto> GetAllEmployees()
