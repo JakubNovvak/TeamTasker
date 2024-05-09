@@ -1,7 +1,9 @@
 using AutoMapper;
+using TeamTasker.Server.Application.Dtos.Emails;
 using TeamTasker.Server.Application.Dtos.EmployeeTeam;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
+using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -9,6 +11,7 @@ namespace TeamTasker.Server.Application.Services
 {
     public class TeamService : ITeamService
     {
+        private readonly ITasksService _tasksService;
         private readonly ITeamRepository _teamRepository;
         private readonly INotificationRepository _notificationRepository;
         private readonly IUserNotificationRepository _userNotificationRepository;
@@ -16,8 +19,9 @@ namespace TeamTasker.Server.Application.Services
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
-        public TeamService(ITeamRepository teamRepository,INotificationRepository notificationRepository,IUserNotificationRepository userNotificationRepository,IEmployeeTeamRepository employeeTeamRepository, IEmployeeRepository employeeRepository, IMapper mapper)
+        public TeamService(ITasksService tasksService,ITeamRepository teamRepository,INotificationRepository notificationRepository,IUserNotificationRepository userNotificationRepository,IEmployeeTeamRepository employeeTeamRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
+            _tasksService = tasksService;
             _teamRepository = teamRepository;
             _notificationRepository = notificationRepository;
             _userNotificationRepository = userNotificationRepository;
@@ -41,11 +45,12 @@ namespace TeamTasker.Server.Application.Services
             var employeeTeam = _mapper.Map<EmployeeTeam>(employeeTeamDto);
             _employeeTeamRepository.AddEmployeeTeam(employeeTeam);
 
-            
             var notification = new Notification { Content = $"You became the leader of a team '{team.Name}'." };
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = employeeTeam.EmployeeId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
+            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]New Position", MessageContent = $"You became the leader of a team '{team.Name}'." };
+            _tasksService.CreateEmailEntry(emailNotification);
         }
 
         public IEnumerable<ReadTeamDto> GetAllTeams()
@@ -89,6 +94,8 @@ namespace TeamTasker.Server.Application.Services
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = employee.Id, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
+            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]New Team", MessageContent = $"You have been added to a new team '{team.Name}'." };
+            _tasksService.CreateEmailEntry(emailNotification);
         }
 
         public void ChangeTeamLeader(ChangeTeamLeaderDto dto)
@@ -125,6 +132,8 @@ namespace TeamTasker.Server.Application.Services
             _notificationRepository.CreateNotification(notification);
             var userNotifiaction = new UserNotification { UserId = team.LeaderId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
+            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]New Position", MessageContent = $"You became the leader of a team '{team.Name}'." };
+            _tasksService.CreateEmailEntry(emailNotification);
         }
         public IEnumerable<ReadEmployeeDto> GetAllTeamEmployees(int id)
         {

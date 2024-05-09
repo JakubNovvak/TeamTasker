@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeamTasker.Server.Application.Dtos.Emails;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Interfaces;
 using TeamTasker.Server.Domain.Entities;
@@ -13,6 +14,7 @@ namespace TeamTasker.Server.Application.Services
 {
     public class LeaderService : ILeaderService
     {
+        private readonly ITasksService _tasksService;
         private readonly IIssueRepository _issueRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly INotificationRepository _notificationRepository;
@@ -21,7 +23,8 @@ namespace TeamTasker.Server.Application.Services
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
 
-        public LeaderService(IIssueRepository issueRepository, IEmployeeRepository employeeRepository,INotificationRepository notificationRepository, IUserNotificationRepository userNotificationRepository, IProjectRepository projectRepository, ITeamRepository teamRepository, IMapper mapper) {
+        public LeaderService(ITasksService tasksService,IIssueRepository issueRepository, IEmployeeRepository employeeRepository,INotificationRepository notificationRepository, IUserNotificationRepository userNotificationRepository, IProjectRepository projectRepository, ITeamRepository teamRepository, IMapper mapper) {
+            _tasksService = tasksService;
             _issueRepository = issueRepository;
             _employeeRepository = employeeRepository;
             _notificationRepository = notificationRepository;
@@ -60,6 +63,13 @@ namespace TeamTasker.Server.Application.Services
             var userNotifiaction = new UserNotification { UserId = issue.EmployeeId, NotificationId = notification.Id };
             _userNotificationRepository.AddUserNotification(userNotifiaction);
 
+            var destEmployee = _employeeRepository.GetEmployee(issue.EmployeeId);
+            if (destEmployee == null)
+            {
+                throw new Exception("No employee found!");
+            }
+            var emailNotification = new CreateEmailDto { TargetEmail = destEmployee.Email, MessageSubject = "[TeamTasker]New Issue", MessageContent = $"{project.Name}: You have been assigned new issue ({issue.Name})." };
+            _tasksService.CreateEmailEntry(emailNotification);
             _issueRepository.CreateIssue(issue);
         }
     }

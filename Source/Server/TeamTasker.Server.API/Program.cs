@@ -18,6 +18,7 @@ using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Dtos.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
+using TeamTasker.Server.Infrastructure.ApiService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -136,6 +137,7 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IEmployeeTeamRepository, EmployeeTeamRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<IUserNotificationRepository, UserNotificationRepository>();
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 
 //Example Service initialization
 //builder.Services.AddScoped<IExampleService, ExampleService>();
@@ -147,6 +149,8 @@ builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeaderService, LeaderService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddTransient<IGmailServiceClient, GmailServiceClient>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();

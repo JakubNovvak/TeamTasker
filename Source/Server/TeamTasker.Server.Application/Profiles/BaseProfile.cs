@@ -15,6 +15,7 @@ using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using TeamTasker.Server.Application.Dtos.Noitifcations;
+using TeamTasker.Server.Application.Dtos.Emails;
 
 namespace TeamTasker.Server.Application.Profiles
 {
@@ -73,6 +74,9 @@ namespace TeamTasker.Server.Application.Profiles
 
             CreateMap<Notification, ReadNotificationDto>();
             CreateMap<AddNotificationToUserDto, Notification>();
+
+            CreateMap<CreateEmailDto, Email>();
+            CreateMap<Email, ReadEmailDto>();
         }
     }
 }

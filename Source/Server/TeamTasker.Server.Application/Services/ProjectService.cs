@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Data;
+using TeamTasker.Server.Application.Dtos.Emails;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
@@ -10,15 +11,16 @@ namespace TeamTasker.Server.Application.Services
 {
     public class ProjectService : IProjectService
     {
-
+        private readonly ITasksService _tasksService;
         private readonly IProjectRepository _projectRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly INotificationRepository _notificationRepository;
         private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository projectRepository,ITeamRepository teamRepository,INotificationRepository notificationRepository,IUserNotificationRepository userNotificationRepository,IMapper mapper)
+        public ProjectService(ITasksService tasksService,IProjectRepository projectRepository,ITeamRepository teamRepository,INotificationRepository notificationRepository,IUserNotificationRepository userNotificationRepository,IMapper mapper)
         {
+            _tasksService = tasksService;
             _projectRepository = projectRepository;
             _teamRepository = teamRepository;
             _notificationRepository = notificationRepository;
@@ -61,12 +63,14 @@ namespace TeamTasker.Server.Application.Services
             _projectRepository.UpdateProject(project);
 
             var teamEmployees = team.EmployeeTeams.Select(e => e.Employee).ToList();
-            var notification = new Notification { Content = $"Your team '{team.Name}' have been assigned to a project '{project.Name}'. Project ID: {project.Id}" };
+            var notification = new Notification { Content = $"Your team '{team.Name}' have been assigned to a project '{project.Name}'." };
             _notificationRepository.CreateNotification(notification);
             foreach(var employee in teamEmployees)
             {
                 var userNotification = new UserNotification { UserId = employee.Id, NotificationId = notification.Id };
                 _userNotificationRepository.AddUserNotification(userNotification);
+                var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]New Project", MessageContent = $"Your team '{team.Name}' have been assigned to a project '{project.Name}'." };
+                _tasksService.CreateEmailEntry(emailNotification);
             }
         }
        
