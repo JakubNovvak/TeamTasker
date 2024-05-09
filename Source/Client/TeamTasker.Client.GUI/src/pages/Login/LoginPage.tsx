@@ -1,15 +1,15 @@
 import { AccountCircle, Key } from "@mui/icons-material";
 import { Input } from "@mui/joy";
-import { Paper, Typography, styled, CircularProgress } from "@mui/material";
+import { Paper, Typography, styled, CircularProgress, Box } from "@mui/material";
 import Button from '@mui/material-next/Button';
 import { Form, Formik, useFormikContext } from "formik";
-import { NavLink, redirect } from "react-router-dom";
 import { LoginDto } from "../../components/Types/LoginDto";
 import FetchData from "../../components/Login/API/FetchData";
 import { useState } from "react";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import PostErorrSnackbar from "../../components/Connection/Notifies/PostSnackbar";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ContentSeparator = styled("hr")({
     border: "0",
@@ -24,12 +24,6 @@ const ContentSeparator = styled("hr")({
 function onSubmit(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>, sendSucess: number)
 {    
     FetchData(LoginDto, setSendingState, setSendSucess);
-
-    // if(sendSucess == 1)
-    // {
-    //     console.log("Success!");
-    //     location.reload();// = "/projectspage";
-    // }
 }
 
 function LoginPageContent({sendingState}: {sendingState: boolean})
@@ -81,15 +75,20 @@ export default function LoginPage()
 {
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(false);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(false);
 
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
+
+    
 
     if(loggedInUserPermission && !adminUserPermission)
     {
+        console.log("We are in");
         location.href = "/projectspage";
         return(<></>);
     }
@@ -101,13 +100,27 @@ export default function LoginPage()
     }
 
     return(
-        <>
-            {sendingState == false && sendSucess == 2 ? <PostErorrSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
-            <Formik initialValues={{email: "", password: ""}}
-            onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess, sendSucess)}}
-            >
-                <LoginPageContent sendingState={sendingState}/>
-            </Formik>
-        </>
+        <Box 
+            sx={{display: "flex", 
+            width: "100vw", 
+            height: "100vh", 
+            background: "radial-gradient(circle, rgba(0,70,121,1) 0%, rgba(60,132,199,1) 73%, rgba(99,188,252,1) 100%)",
+            justifyContent: "center",
+            alignItems: "center"
+        }}>
+            <AnimatePresence>
+                <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                >
+                    {sendingState == false && sendSucess == 2 ? <PostErorrSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
+                    <Formik initialValues={{email: "", password: ""}}
+                    onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess, sendSucess)}}
+                    >
+                        <LoginPageContent sendingState={sendingState}/>
+                    </Formik>
+                </motion.div>
+            </AnimatePresence>
+        </Box>
     );    
 }

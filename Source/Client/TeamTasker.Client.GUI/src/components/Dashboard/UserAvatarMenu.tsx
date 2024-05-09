@@ -16,6 +16,8 @@ function onLogoutClick()
 
 export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string}) 
 {
+  const [loadingAdminState, setLoadingAdminState] = useState<boolean>(false);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +28,7 @@ export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string})
   };
 
   const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-  CheckAdminPermission(setAdminUserPermission);
+  CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
 
   return (
     <>

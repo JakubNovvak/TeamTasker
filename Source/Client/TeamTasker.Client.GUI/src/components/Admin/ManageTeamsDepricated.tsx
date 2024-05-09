@@ -19,9 +19,11 @@ export default function ManageTeams()
 {
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(false);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(false);
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
 
     if(!adminUserPermission && !loggedInUserPermission)
         return(

@@ -1,7 +1,6 @@
 import { Box, Button } from "@mui/material";
 import MuiMiniDrawer from "../../components/Dashboard/MuiMiniDrawer";
 import PreviewDrawerContent from "../../components/Dashboard/PreviewDrawerContent";
-
 import Board from "../DrawerModules/Board";
 import IssuesList from "../DrawerModules/IssuesList";
 import Notifications from "../DrawerModules/Notifications";
@@ -15,10 +14,8 @@ import CheckLoggedInPermission from "../../components/Connection/API/CheckLogged
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import { NavLink, useParams } from "react-router-dom";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
-import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
-import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
 import ProjectSchedule from "../DrawerModules/ProjectSchedule";
-import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 function renderSwitch(pathnName: string, projectId: string | undefined)
 {
@@ -64,31 +61,26 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
 
 export default function ModulesContainer()
 {
-    // const temp: ReadProjectDto = {
-    //     id: 0,
-    //     name: "",
-    //     description: "",
-    //     deadline: "",
-    //     isComplete: false,
-    //     teamId: 0,
-    //     picture: "",
-    //     comments: []
-    // }
-
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(true);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
     let pathName = location.pathname;
 
     const { projectId } = useParams<{projectId: string}>();
 
     useEffect(() => {
-        //GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
     }, [projectId, loggedInUserPermission]);
 
-    //console.log("Zmienna z url: " + projectId);
+    if(loadingAdminState || loadingLoggedInState)
+        return(
+        <>
+            <MuiMiniDrawer />
+        </>
+    );
 
     if(!adminUserPermission && !loggedInUserPermission)
         return(
@@ -113,8 +105,14 @@ export default function ModulesContainer()
             <MuiMiniDrawer />
             <Box component="main" sx={{ flexGrow: 1, p: 0}}>
                 
-                {renderSwitch(pathName, projectId)}
-
+                <AnimatePresence>
+                    <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    >
+                        {renderSwitch(pathName, projectId)}
+                    </motion.div>
+                </AnimatePresence>
             </Box>
         </Box>
     );
