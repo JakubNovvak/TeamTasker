@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import { Select, Option } from '@mui/joy';
 import { FormikCreateProjectSetValue } from '../../../Types/CommonTypes';
 
-export default function TempStatusSelect({FormikValue, formikSetValue, idName}: {FormikValue: string, formikSetValue: FormikCreateProjectSetValue, idName: string}) 
+export default function TempStatusSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikCreateProjectSetValue, idName: string}) 
 {
 
   return (
@@ -18,10 +18,10 @@ export default function TempStatusSelect({FormikValue, formikSetValue, idName}: 
           placeholder="Choose the initial status"
           
         >
-          <Option key={1} value={"✅ On the right path"}>✅ On the right path</Option>
-          <Option key={2} value={"⏺ On hold"}>⏺ On hold</Option>
-          <Option key={3} value={"🟪 Finished"}>🟪 Finished</Option>
-          <Option key={4} value={"❌Critically off the path"}>❌Critically off the path</Option>
+          <Option key={1} value={1}>✅ On the right path</Option>
+          <Option key={2} value={2}>⏺ On hold</Option>
+          <Option key={3} value={3}>🟪 Finished</Option>
+          <Option key={4} value={4}>❌Critically off the path</Option>
         </Select>
       </FormControl>
     </Box>

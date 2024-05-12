@@ -16,8 +16,7 @@ function onSubmit(formikValues: CreateProjectDto, setSendingState: React.Dispatc
          name: formikValues.name,
          deadline: "2025-06-01T12:00:00.000Z",
          status: formikValues.status,
-         description: formikValues.description,
-         isComplete: false
+         description: formikValues.description
      }
 
         CreateProjectRequest(projectToCreate, setSendingState, sendSucess);
@@ -119,7 +118,7 @@ export default function CreateTeam()
         <>
             {sendSucess == 2 ? <DataPostSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             {sendSucess == 1 ? <DataPostSnackbar TextIndex={1} IsDangerSnackBar={false}/> : <></>}
-            <Formik initialValues={{name: "", deadline: "", status: "OnTheRightPath", description: "", isComplete: false}}
+            <Formik initialValues={{name: "", deadline: "", status: 1, description: ""}}
             onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess)}}
             >
                 <CreateTeamContent sendingState={sendingState}/>

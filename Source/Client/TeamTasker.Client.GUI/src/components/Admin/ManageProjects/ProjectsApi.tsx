@@ -8,8 +8,8 @@ export async function CreateProjectRequest(projectToCreate: CreateProjectDto, se
 {
     setSendingState(true);
     try{
-        const response = await axios.post('https://localhost:7014/api/Admin/CreateProject', projectToCreate, AxiosOptions);
-        console.log("POST: Respone from API" + response.data);
+        const response = await axios.post<CreateProjectDto>('https://localhost:7014/api/Admin/CreateProject', projectToCreate, AxiosOptions);
+        console.log("POST: Respone from API" + response.statusText);
         setSendingState(false);
         setSendSucess(1);
         await new Promise(resolve => setTimeout(resolve, 3000));
