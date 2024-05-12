@@ -30,7 +30,7 @@ function CreateTeamContent({sendingState}: {sendingState: boolean})
     return(
         <>
             <Form>
-                <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+                <Box sx={{width: "93vw", height: "82vh", backgroundColor: "none", marginLeft: "6rem"}}>
                     <Grid container spacing={12}>
 
                         <Grid item xs={12} sx={{display: "flex"}}>

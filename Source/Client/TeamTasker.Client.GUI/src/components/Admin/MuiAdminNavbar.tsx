@@ -13,10 +13,10 @@ import { NavLink } from 'react-router-dom';
 export default function MuiAdminNavbar() {
 
   return (
-    <>      
-      <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
-        <Grid container spacing={12}>
-          <Grid item xs={12} sx={{display: "flex"}}>
+    <Box sx={{width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "none", mb: "20vh", minHeight:"20rem", maxWidth: "120rem", minWidth: "100rem"}}>
+        <Grid container spacing={12} sx={{backgroundColor: "none", width: "92%"}}>
+          <Grid item xs={12}>
             <Typography variant="h4">
               Administration
             </Typography>
@@ -25,7 +25,7 @@ export default function MuiAdminNavbar() {
           <Grid item xs={3}>
             <NavLink to="/admindashboard/manageusers" style={{textDecoration: "none"}}>
               <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-              <Paper elevation={5} sx={{padding: "2rem"}}>
+              <Paper elevation={5} sx={{padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
                 <GroupAddIcon sx={{fontSize: "3rem"}}/>
                 <Typography>
                   Manage Users
@@ -38,7 +38,7 @@ export default function MuiAdminNavbar() {
           <Grid item xs={3}>
             <NavLink to="/admindashboard/manageprojects" style={{textDecoration: "none"}}>
               <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-              <Paper elevation={5} sx={{padding: "2rem"}}>
+              <Paper elevation={5} sx={{padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
                 <VideoLabelIcon sx={{fontSize: "3rem"}}/>
                 <Typography>
                   Manage Projects
@@ -51,7 +51,7 @@ export default function MuiAdminNavbar() {
           <Grid item xs={3}>
             <NavLink to="/admindashboard/manageteams" style={{textDecoration: "none"}}>
               <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-              <Paper elevation={5} sx={{padding: "2rem"}}>
+              <Paper elevation={5} sx={{padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
                 <GroupsIcon sx={{fontSize: "3rem"}}/>
                 <Typography>
                   Manage Teams
@@ -62,7 +62,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+            <Paper elevation={5} sx={{backgroundColor: "#e3e3e3", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
               <SettingsIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Manage System
@@ -73,7 +73,7 @@ export default function MuiAdminNavbar() {
           {/*Fillers*/}
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+          <Paper elevation={5} sx={{backgroundColor: "#e3e3e3", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
               <NotificationsActiveIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Notifications
@@ -82,7 +82,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+          <Paper elevation={5} sx={{backgroundColor: "#e3e3e3", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
               <InfoIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Informations
@@ -91,7 +91,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+          <Paper elevation={5} sx={{backgroundColor: "#e3e3e3", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
               Placeholder 3
@@ -100,7 +100,7 @@ export default function MuiAdminNavbar() {
           </Grid>
 
           <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+          <Paper elevation={5} sx={{backgroundColor: "#e3e3e3", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
               <BatteryUnknownIcon sx={{fontSize: "3rem"}}/>
               <Typography>
               Placeholder 4
@@ -111,6 +111,6 @@ export default function MuiAdminNavbar() {
         </Grid>
       </Box>
 
-    </>
+    </Box>
   );
 }

@@ -5,8 +5,8 @@ import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 export default function CreateUser()
 {
     return(
-        <>
-            <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+        <Box sx={{width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "none", mb: "43vh", minHeight:"100vh", maxWidth: "120rem", minWidth: "110rem"}}>
                 <Grid container spacing={12}>
 
                     <Grid item xs={12} sx={{display: "flex"}}>
@@ -28,6 +28,6 @@ export default function CreateUser()
                     </Grid>
                 </Grid>
             </Box>
-        </>
+        </Box>
     );
 }

@@ -10,9 +10,9 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 export default function ManageProjectsHome()
 {
     return(
-        <>
-        <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
-            <Grid container spacing={12}>
+        <Box sx={{width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "none", mb: "43vh", minHeight:"100vh", maxWidth: "120rem", minWidth: "110rem"}}>
+            <Grid container spacing={12} sx={{backgroundColor: "none", width: "100%"}}>
 
                 <Grid item xs={12} sx={{display: "flex"}}>
                     <Button onClick={() => {location.href = "/admindashboard";}}>
@@ -26,7 +26,7 @@ export default function ManageProjectsHome()
             <Grid item xs={3}>
                 <NavLink to="/admindashboard/manageprojects/createproject" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-                <Paper elevation={5} sx={{padding: "2rem"}}>
+                <Paper elevation={5} sx={{padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
                     <AddBoxIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Create New Project
@@ -39,7 +39,7 @@ export default function ManageProjectsHome()
             <Grid item xs={3}>
                 <NavLink to="/admindashboard/manageprojects/assignteam" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-                <Paper elevation={5} sx={{padding: "2rem"}}>
+                <Paper elevation={5} sx={{padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "22rem"}}>
                     <FolderSharedIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Assign Team to the Project
@@ -50,7 +50,7 @@ export default function ManageProjectsHome()
             </Grid>
 
             <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",}}>
               <CallToActionIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Edit Project
@@ -59,7 +59,7 @@ export default function ManageProjectsHome()
             </Grid>
 
             <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",}}>
               <ViewListIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Projects List
@@ -69,6 +69,6 @@ export default function ManageProjectsHome()
 
             </Grid>
         </Box>
-        </>
+        </Box>
     );
 }
