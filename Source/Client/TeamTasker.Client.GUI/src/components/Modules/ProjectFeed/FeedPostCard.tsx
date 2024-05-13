@@ -31,7 +31,7 @@ export default function FeedPostCard({commnetsNumber}: {commnetsNumber: number})
             
             {/*Comments Section*/}
             <Grid item xs={5}>
-                {/*<FeedPostCommentSection commnetsNumber={commnetsNumber} />*/}
+                <FeedPostCommentSection commnetsNumber={commnetsNumber} />
             </Grid>
 
             <Grid item xs={7}></Grid>
