@@ -10,11 +10,11 @@ using TeamTasker.Server.Domain.Interfaces;
 
 namespace TeamTasker.Server.Application.Dtos.Validators
 {
-    public class CreateProjectDtoValidation : AbstractValidator<CreateProjectDto>
+    public class CreateProjectDtoValidator : AbstractValidator<CreateProjectDto>
     {
         private readonly IProjectRepository _projectRepository;
 
-        public CreateProjectDtoValidation(IProjectRepository projectRepository)
+        public CreateProjectDtoValidator(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
 
