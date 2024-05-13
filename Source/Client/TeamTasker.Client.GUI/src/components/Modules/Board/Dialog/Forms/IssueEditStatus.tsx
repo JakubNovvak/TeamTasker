@@ -45,7 +45,7 @@ export default function EditIssueStatusSelect({issueStatus, issueId}: {issueStat
                 onChange={(event) => {
                     //setSelectStatus(event.target.value);
                     UpdateStatusRequest(issueId, event.target.value, setSendingState, setSendSucess, setSelectStatus);
-                    handleIssueChange(event.target.value.toString());
+                    handleIssueChange(event.target.value.toString() + String(Math.random()));
                 }}
                 >
                 <MenuItem key={1} value={1}>{statusString["NewIssue"]}</MenuItem>

@@ -15,7 +15,7 @@ export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueD
     const [titleFocus, setTitleFocus] = useState<boolean>(false);
     const initialValue = ReadIssueDto.name;
     
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: any) => {
         setIssueTitle(event.target.value);
     };
     
@@ -29,7 +29,7 @@ export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueD
     const handleSaveButtonClick = () => {
         UpdateTitleRequest(ReadIssueDto.id, issueTitle, setSendingState, setSendSucess, setIssueTitle, initialValue);
         setTitleFocus(false);
-        handleIssueChange(issueTitle);
+        handleIssueChange(issueTitle + String(Math.random()));
     }
 
     useEffect(() => {

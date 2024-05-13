@@ -23,6 +23,10 @@ import TempGetCurrentUser from '../../Connection/API/TempGetCurretnUser';
 import { ChangeTaskStatus } from '../../Connection/API/ChangeTaskStatus';
 import DataPostSnackbar from '../../Connection/Notifies/DataPostSnackbar';
 import React from 'react';
+import FilterIssuesByUser from './EventListeners/FilterIssuesByUser';
+import IssuesListFilter from './IssuesListFilter';
+import FilterIssuesByStatus from './EventListeners/FilterIssuesByStatus';
+import FilterIssuesByPriority from './EventListeners/FilterIssuesByPriority';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -90,22 +94,6 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(id: number, topic: string, status: string, assignedTo: string, priority: string) {
-  return { id, topic, status, assignedTo, priority };
-}
-
-const rows = [
-  createData(1, 'Create database model', "🟩 Done", "", "🔵 Normal"),
-  createData(2, 'Add entities based on database model', "🟩 Done", "", "🔵 Normal"),
-  createData(3, 'Create the most importnant Dtos', "🟩 Done", "", "🔵 Normal"),
-  createData(4, 'Create class AppDbContext', "🟩 Done", "", "🔵 Normal"),
-  createData(5, 'Implement Repositories', "🟩 Done", "", "🔵 Normal"),
-  createData(6, 'Add repositories to the dependency injection container in Program.cs', "🟩 Done", "", "🔵 Normal"),
-  createData(7, 'Add AutoMapper profiles to allow using dtos in services', "🟩 Done", "", "🔵 Normal"),
-  createData(8, 'Create additional initial views', "🟩 Done", "", "🔵 Normal"),
-  createData(9, 'Chair the presentation this wednesday', "🟦 In progress", "", "🔴 Urgent")
-];
-
 const statusString: {[key: string]: string} = {
   "NewIssue": "⬜ New Issue",
   "InProgress": "🟦 In Progress",
@@ -139,31 +127,39 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
   const [projectEmployees, setProjectEmployees] = useState<ReadEmployeeDto[]>([]);
 
   const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
-  const [selectedOption, setSelectedOption] = useState<string>(() => {
-    const storedOption = sessionStorage.getItem('issuesOption');
-    return storedOption ? storedOption : 'project';
-  });
 
+  //Filtering States
+  const [selectedIssuesGroup, setSelectedIssuesGroup] = useState<string>(() => {
+    const storedGroup = sessionStorage.getItem('issuesOptions');
+    return storedGroup ? storedGroup : 'project';
+  });
+  const [selectedStatus, setSelectedStatus] = useState<string>(() => {
+    const storedStatus = sessionStorage.getItem('statusOptions');
+    return storedStatus ? storedStatus : 'default';
+  });
+  const [selectedPriority, setSelectedPriority] = useState<string>(() => {
+    const storedPriority = sessionStorage.getItem('priorityOptions');
+    return storedPriority ? storedPriority : 'default';
+  });
 
   useEffect(() => {
       GetProjectIssues(projectId, setProjectIssues, setSendingState, setSendSucess);
       GetProjectEmployees(projectId, setProjectEmployees);
       TempGetCurrentUser(setCurrentUserEmail);
 
-      const handleStorageChange = () => {
-        const storedOption = sessionStorage.getItem('issuesOption');
-        if (storedOption && storedOption !== selectedOption) {
-          setSelectedOption(storedOption);
-        }
-      };
-      console.log("Changed on Session storage change: " + selectedOption);
-      window.addEventListener('storage', handleStorageChange);
+      //TODO: Merge these functions, into a single, generic one
+      const byUserEventListener = FilterIssuesByUser(selectedIssuesGroup, setSelectedIssuesGroup);
+      const byStatusEventListener = FilterIssuesByStatus(selectedStatus, setSelectedStatus);
+      const byPriorityEventListener = FilterIssuesByPriority(selectedPriority, setSelectedPriority);
+      console.log("selectedIssuesGroup: " + selectedIssuesGroup + " | selectedStatus: " + selectedStatus + " | selectedPriority: " + selectedPriority);
 
       return () => {
-          window.removeEventListener('storage', handleStorageChange);
+          window.removeEventListener('storage', byUserEventListener);
+          window.removeEventListener('storage', byStatusEventListener);
+          window.removeEventListener('storage', byPriorityEventListener);
       };
       
-  }, [reloadCondition, selectedOption, sendSucess]);
+  }, [reloadCondition, selectedIssuesGroup, selectedPriority, selectedStatus, sendSucess]);
 
   if(sendingState)
     return(<CircularProgress size="5rem" sx={{mt: "13rem"}}/>);
@@ -171,10 +167,11 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
   if(projectEmployees.length == 0)
     return(<></>);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
+  // Avoids a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectIssues.length) : 0;
 
+  //////Default unchanged MUI table configuration
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
@@ -189,6 +186,7 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  //Default unchanged MUI table configuration//////
 
   return (
     <TableContainer elevation={0} component={Paper}>
@@ -211,13 +209,10 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
             ? projectIssues.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : projectIssues
           ).map((issue) => (
-            // TODO: Implement proper validation, of issues to display
-            (selectedOption === "project" 
-            ? true 
-            : (issue.employeeId == projectEmployees.find(employee => employee.email == currentUserEmail)?.id ? true : false))
+            
+            IssuesListFilter(issue, currentUserEmail, projectEmployees)
 
             ?
-
             <TableRow key={issue.id}>
             <TableCell component="th" scope="row">
               {issue.id}
@@ -256,8 +251,8 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
 
           :
 
-          <></>
-            
+          <></>      
+
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
@@ -270,7 +265,7 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={5}
-              count={rows.length}
+              count={projectIssues.length}
               rowsPerPage={rowsPerPage}
               page={page}
               slotProps={{

@@ -24,11 +24,11 @@ export default function IssueEditDescription({ReadIssueDto}: {ReadIssueDto: Read
 
     const handleSaveButtonClick = () => {
         UpdateDescriptionRequest(ReadIssueDto.id, issueDesc, setSendingState, setSendSucess, setIssueDesc, initialValue);
-        handleIssueChange(issueDesc);
+        handleIssueChange(issueDesc + String(Math.random()));
         setTitleFocus(false);
     }
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: any) => {
         setIssueDesc(event.target.value);
     };
 
