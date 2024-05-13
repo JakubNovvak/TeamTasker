@@ -39,7 +39,7 @@ export default function IssueEditPriority({issuePriority, issueId}: {issuePriori
           value={selectPriority}
           onChange={(event) => {
             UpdatePriorityRequest(issueId, event.target.value, setSendingState, setSendSucess, setSelectPriority);
-            handleIssueChange(event.target.value.toString());
+            handleIssueChange(event.target.value.toString() + String(Math.random()));
           }}
         >
           <MenuItem value={1}>{priorityString["High"]}</MenuItem>

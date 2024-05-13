@@ -78,7 +78,7 @@ export default function CommentsSection({issueId, projectId}: {issueId: number, 
                         placeholder="Type here to add a new comment..."
                         endAdornment={<IconButton onClick={() => {
                             AddCommentToIssue([issueId, currentEmployee.id, newComment], setSendingState, setSendSucess, setNewComment);
-                            handleIssueChange(newComment);
+                            handleIssueChange(newComment + String(Math.random()));
                         }}>
                             <SendIcon/></IconButton>}
                         />

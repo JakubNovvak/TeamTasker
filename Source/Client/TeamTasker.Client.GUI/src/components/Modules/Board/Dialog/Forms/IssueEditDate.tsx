@@ -38,7 +38,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                         value={startDate}
                         onChange={(value) => {
                             UpdateStartDateRequest(value, ReadIssueDto.id, setSendingState, setSendSucess, setStartDate);
-                            handleIssueChange(startDate!.toISOString());
+                            handleIssueChange(startDate!.toISOString() + String(Math.random()));
                         }}
                         />
                         :
@@ -57,7 +57,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                 defaultValue={endDate}
                 onChange={(value) => {
                     UpdateEndDateRequest(value, ReadIssueDto.id, setSendingState, setSendSucess, setEndDate);
-                    handleIssueChange(endDate!.toISOString());
+                    handleIssueChange(endDate!.toISOString() + String(Math.random()));
                 }}
                 />
                 : 
