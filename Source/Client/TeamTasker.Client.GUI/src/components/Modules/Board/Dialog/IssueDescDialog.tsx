@@ -20,8 +20,10 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, u
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
     //*//
-    const [titleFocus, setTitleFocus] = useState<boolean>(false);
-    const [currentIssueInfo, setCurrentIssueInfo] = useState<ReadIssueDto>(ReadIssueDto);
+
+    // Cancel and submit related states - on hold, because of the bug
+    //const [titleFocus, setTitleFocus] = useState<boolean>(false);
+    //const [currentIssueInfo, setCurrentIssueInfo] = useState<ReadIssueDto>(ReadIssueDto);
     var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
 
     useEffect(() => {
