@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import IssuesListOptions from "./NavbarOptions/IssuesListOptions";
 import React from "react";
 import TempSendNotification from "../Connection/API/TempSendNotification";
+import ProjectFeedOptions from "./NavbarOptions/ProjectFeedOptions";
 
 function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.Element
 {
@@ -19,6 +20,10 @@ function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.E
     {
         case `/projectname/${projectId}/issueslist`:
             return <IssuesListOptions />;
+
+        //TODO: Need to check leader permission
+        case `/projectname/${projectId}/projectfeed`:
+            return <ProjectFeedOptions />
     
         default:
             return <></>;
