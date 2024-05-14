@@ -45,6 +45,7 @@ namespace TeamTasker.Server.Application.Services
 
             post.EmployeeId = user.Id;
             post.isFeedPost = true;
+            post.StartDate = DateTime.Now;
             _issueRepository.CreateIssue(post);
         }
 
