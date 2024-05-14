@@ -45,7 +45,7 @@ namespace TeamTasker.Server.Application.Services
             if (project == null)
                 throw new Exception("You are trying to add an issue to a project that does not exist!");
 
-            var issueCount = project.Issues.Count();
+            var issueCount = project.Issues.Where(i=>i.isFeedPost==false).Count();
             issue.ProjectIssueId = issueCount + 1;
 
             var team = _teamRepository.GetTeam(project.TeamId);

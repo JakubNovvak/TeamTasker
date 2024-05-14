@@ -51,42 +51,6 @@ namespace TeamTasker.Server.Application.Services
             return commentDto;
         }
 
-        public void AddMessageToProject(AddMessageToProjectDto commentDto)
-        {
-            if (commentDto == null)
-                throw new ArgumentNullException(nameof(commentDto));
-
-            var project = _projectRepository.GetProject(commentDto.ProjectId);
-
-            if (project == null)
-                throw new Exception("Project not found");
-
-            var message = _mapper.Map<Comment>(commentDto);
-            _commentRepository.CreateComment(message);
-        }
-
-        public void UpdateMessageToProject(UpdateMessageToProjectDto commentDto)
-        {
-            if (commentDto == null)
-                throw new ArgumentNullException(nameof(commentDto));
-
-            var project = _projectRepository.GetProject(commentDto.ProjectId);
-            var comment = _commentRepository.GetComment(commentDto.Id);
-
-
-            if (comment == null)
-            {
-                throw new Exception("Comment not found.");
-            }
-
-            if (project == null || comment.ProjectId != commentDto.ProjectId)
-            {
-                throw new Exception("Project not found or this command have another projectId");
-            }
-
-            comment.Content = commentDto.Content;
-            _commentRepository.UpdateComment(comment);
-        }
         public void AddCommentToIssue(AddCommentToIssueDto commentDto, string email)
         {
             var user = _employeeRepository.GetUserByEmail(email);

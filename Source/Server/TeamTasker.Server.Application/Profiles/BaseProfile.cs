@@ -16,6 +16,7 @@ using TeamTasker.Server.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using TeamTasker.Server.Application.Dtos.Noitifcations;
 using TeamTasker.Server.Application.Dtos.Emails;
+using TeamTasker.Server.Application.Dtos.FeedPosts;
 
 namespace TeamTasker.Server.Application.Profiles
 {
@@ -35,6 +36,8 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<GetIssueByPriorityDto, Issue>();
             CreateMap<Issue, GetIssueByPriorityDto>();
             CreateMap<Issue, GetScheduleDto>();
+            CreateMap<CreateFeedPostDto, Issue>();
+            CreateMap<Issue, ReadFeedPostDto>();
 
             CreateMap<Project, AddTeamToProjectDto>(); 
             CreateMap<AddTeamToProjectDto, Project>(); 
@@ -42,8 +45,6 @@ namespace TeamTasker.Server.Application.Profiles
             CreateMap<Project, GetProjectNameAndPictureDto>();
             CreateMap<GetProjectNameAndPictureDto, Project>();
 
-            CreateMap<AddMessageToProjectDto, Comment>();
-            CreateMap<Comment, AddMessageToProjectDto>();
             CreateMap<Comment, AddCommentToIssueDto>();
             CreateMap<AddCommentToIssueDto, Comment>();
 

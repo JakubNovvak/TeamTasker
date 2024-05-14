@@ -65,7 +65,7 @@ namespace TeamTasker.Server.Application.Services
             if (project == null)
                 throw new Exception("Project not found!");
 
-            var issues = project.Issues.ToList();
+            var issues = project.Issues.Where(i=>i.isFeedPost==false).ToList();
             var issueDtos = _mapper.Map<IEnumerable<ReadIssueDto>>(issues);
             return issueDtos;
         }

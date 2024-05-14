@@ -152,6 +152,7 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeaderService, LeaderService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddScoped<IFeedPostService, FeedPostService>();
 builder.Services.AddTransient<IGmailServiceClient, GmailServiceClient>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
