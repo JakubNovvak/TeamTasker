@@ -11,6 +11,7 @@ namespace TeamTasker.Server.Application.Dtos.FeedPosts
     {
         public int Id { get; set; }
         public int ProjectIssueId { get; set; }
+        public DateTime Created { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int EmployeeId { get; set; }
