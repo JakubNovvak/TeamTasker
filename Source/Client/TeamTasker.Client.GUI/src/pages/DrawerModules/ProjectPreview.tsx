@@ -108,7 +108,7 @@ export default function ProjectPreview({projectId}: {projectId: string | undefin
                     </Grid>
 
                     {/*Statistics - Grid item inside the component*/}
-                    <StatisticsWidget />
+                    {sendingState ? <></> : <StatisticsWidget projectId={projectId} projectEmployees={projectEmployees}/>}
 
                 </Grid>
             </Box>
