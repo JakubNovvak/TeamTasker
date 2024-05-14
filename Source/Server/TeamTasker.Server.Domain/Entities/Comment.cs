@@ -12,7 +12,6 @@ namespace TeamTasker.Server.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-        public bool isFeedComment { get; set; } = false;
         public DateTime Created { get; set; } = DateTime.Now;
         public string Content { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
