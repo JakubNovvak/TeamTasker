@@ -19,6 +19,8 @@ using TeamTasker.Server.Application.Dtos.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using TeamTasker.Server.Infrastructure.ApiService;
+using TeamTasker.Server.Application.Dtos.Projects;
+using TeamTasker.Server.Application.Dtos.Teams;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -150,9 +152,12 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeaderService, LeaderService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddScoped<IFeedPostService, FeedPostService>();
 builder.Services.AddTransient<IGmailServiceClient, GmailServiceClient>();
 
 builder.Services.AddScoped<IValidator<CreateEmployeeDto>, CreateEmployeeDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateProjectDto>, CreateProjectDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateTeamDto>, CreateTeamDtoValidator>();
 builder.Services.AddScoped<IJwtAuthorizationService, JwtAuthorizationService>();
 
 #endregion

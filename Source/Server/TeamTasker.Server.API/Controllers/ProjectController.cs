@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeamTasker.Server.Application.Authorization;
+using TeamTasker.Server.Application.Dtos.FeedPosts;
 using TeamTasker.Server.Application.Dtos.Issues;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Users;
 using TeamTasker.Server.Application.Interfaces;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Application.Services;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -15,13 +17,15 @@ namespace TeamTasker.Server.API.Controllers
     [Route("api/[controller]")]
     public class ProjectController : ControllerBase
     {
-        private readonly IIssueService _issueService;
         private readonly IProjectService _projectService;
+        private readonly IFeedPostService _feedPostService;
+        private readonly IJwtAuthorizationService _jwtService;
 
-        public ProjectController(IProjectService projectService,IIssueService issueService)
+        public ProjectController(IProjectService projectService,IFeedPostService feedPostService, IJwtAuthorizationService jwtService)
         {
             _projectService = projectService;
-            _issueService = issueService;
+            _feedPostService = feedPostService;
+            _jwtService = jwtService;
         }
 
         [HttpPut]
@@ -183,6 +187,61 @@ namespace TeamTasker.Server.API.Controllers
             {
                 Console.WriteLine($">[TasksCtr] <Update> Unhandled exception : {ex.Message}");
                 return BadRequest($"There was an unexpected error while getting projects : {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("CreateFeedPost", Name = "CreateFeedPost")]
+        public IActionResult CreateFeedPost(CreateFeedPostDto dto)
+        {
+            try
+            {
+                var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
+                _feedPostService.CreateFeedPost(dto, email);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no post provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting posts : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with adding the new post: {ex.Message}");
+                return BadRequest($"There was a problem with adding the new post: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting posts : {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        //[Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("GetAllFeedPostsFromProject", Name = "GetAllFeedPostsFromProject")]
+        public IActionResult GetAllFeedPostsFromProject(int projectId)
+        {
+            try
+            {
+                var posts = _feedPostService.GetAllFeedPostsFromProject(projectId);
+                return Ok(posts);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> No posts were found - the table is empty!: {ex.Message}");
+                return NotFound("There is no posts in the database.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Received null value - either list or DbSet{ex.Message}");
+                return BadRequest($"The returned data seems to be invalid: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <GetAll> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting posts : {ex.Message}");
             }
         }
 
