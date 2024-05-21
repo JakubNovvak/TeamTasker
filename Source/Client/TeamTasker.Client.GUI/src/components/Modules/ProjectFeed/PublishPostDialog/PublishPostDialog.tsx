@@ -1,6 +1,21 @@
 import { Input, Textarea } from "@mui/joy";
 import { Button, CircularProgress, Dialog, DialogContent, Divider, InputLabel, Typography } from "@mui/material";
 import { useState } from "react";
+import { handleFeedChange } from "../handleFeedChange";
+import { AddNewFeedPost } from "../../API/Feed/AddNewFeedPost";
+import { CreateFeedPostDto } from "../../../Types/CreateFeedPostDto";
+import DataPostSnackbar from "../../../Connection/Notifies/DataPostSnackbar";
+
+function tempValidateForm(titleValue: string | undefined, descriptionValue: string | undefined)
+{
+    if(titleValue === undefined || descriptionValue === undefined)
+        return true;
+
+    if(titleValue!.length > 3 && descriptionValue!.length > 3)
+        return false;
+
+    return true;
+}
 
 export default function PublishPostDialog({projectId, openDialog, setOpenDialog, userId}: 
     {projectId: string, openDialog: boolean, setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, userId: number})
@@ -13,6 +28,7 @@ export default function PublishPostDialog({projectId, openDialog, setOpenDialog,
 
     return(
         <>
+            {sendingState == false && sendSucess == 2 ? <DataPostSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             <Dialog
             maxWidth="lg"
             open={openDialog}
@@ -50,7 +66,26 @@ export default function PublishPostDialog({projectId, openDialog, setOpenDialog,
                         />
                     </InputLabel>
 
-                {sendingState ? <CircularProgress size={40} sx={{mt: "1.5rem", color: "#363b4d"}}/> : <Button type="submit" sx={{mt: "3rem", height: "2.3rem", backgroundColor: "#363b4d"}}variant="contained">Publish</Button>}
+                {sendingState 
+                ? 
+                    <CircularProgress size={40} sx={{mt: "1.5rem", color: "#363b4d"}}/> 
+                
+                : 
+                
+                <Button 
+                type="submit" 
+                sx={{mt: "3rem", height: "2.3rem", backgroundColor: "#363b4d"}}
+                variant="contained"
+                disabled={tempValidateForm(titleValue, descriptionValue)}
+                onClick={() => {
+                    const tempPost: CreateFeedPostDto = {name: titleValue!, description: descriptionValue!, projectId: Number(projectId)}
+                    console.log("Added post: " + tempPost.name + " | " + tempPost.description + " | " + tempPost.projectId);
+                    AddNewFeedPost(tempPost, setSendingState, setSendSucess);
+                    handleFeedChange(String(Math.random()));
+                }}
+                >
+                    Publish
+                </Button>}
 
                 </DialogContent>
             </Dialog>
