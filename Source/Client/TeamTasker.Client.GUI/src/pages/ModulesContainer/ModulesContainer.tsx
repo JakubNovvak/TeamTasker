@@ -40,7 +40,7 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
             return <Notifications/>; 
 
         case `/projectname/${projectId}/projectfeed`:
-            return <ProjectFeed/>;
+            return <ProjectFeed projectId={projectId}/>;
 
         case `/projectname/${projectId}/projectsettings`:
             return <ProjectSettings/>;

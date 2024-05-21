@@ -88,7 +88,7 @@ export default async function GetIssuesByStatus(setIssuesByUser: chartDataUseSta
         },
         { 
             id: 1,
-            value: response.data.length, 
+            value: response.data.length - response.data.filter(issue => issue.status === "IssueDone").length,
             label: 'Remaining' 
         }
     ]
