@@ -23,7 +23,7 @@ function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.E
 
         //TODO: Need to check leader permission
         case `/projectname/${projectId}/projectfeed`:
-            return <ProjectFeedOptions />
+            return <ProjectFeedOptions projectId={projectId!}/>
     
         default:
             return <></>;
