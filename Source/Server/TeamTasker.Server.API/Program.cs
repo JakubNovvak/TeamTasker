@@ -21,6 +21,7 @@ using Microsoft.OpenApi.Models;
 using TeamTasker.Server.Infrastructure.ApiService;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
+using TeamTasker.Server.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -115,9 +116,8 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-//TODO: Change database implementation to the SQL Server, instead of In Memory Database
-
-if (builder.Environment.IsProduction())
+builder.Services.AddInfrastructure(builder.Configuration); //DONE: Change database implementation to the SQL Server, instead of In Memory Database
+/*if (builder.Environment.IsProduction())
 {
     //TODO: SQL Server implementation
 }
@@ -128,7 +128,7 @@ else
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseInMemoryDatabase("In Memory database")
     );
-}
+}*/
 
 //Adds repositories to the Dependency Injection Container
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
