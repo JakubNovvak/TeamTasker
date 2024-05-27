@@ -24,6 +24,7 @@ namespace TeamTasker.Server.API.Controllers
             _jwtService = jwtService;
         }
         [HttpPut]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
         [Route("ChangePassword", Name = "ChangePassword")]
         public IActionResult ChangePassword(ChangePasswordDto dto)
         {
