@@ -19,6 +19,7 @@ namespace TeamTasker.Server.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string Position {  get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public bool resetPassword { get; set; } = true;
         public virtual Role Role { get; set; } = default!;
         [ForeignKey("Role")]
         public int RoleId { get; set; }

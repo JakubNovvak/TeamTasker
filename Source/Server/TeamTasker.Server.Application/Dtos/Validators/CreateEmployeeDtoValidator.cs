@@ -39,8 +39,6 @@ namespace TeamTasker.Server.Application.Dtos.Validators
             RuleFor(x => x.Position)
                 .NotEmpty();
 
-            RuleFor(x => x.Password)
-                .MinimumLength(6);
 
             RuleFor(x => x.RoleId)
                 .Must(x => x == 1 || x == 2)

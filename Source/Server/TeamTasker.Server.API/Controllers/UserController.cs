@@ -5,6 +5,7 @@ using TeamTasker.Server.Application.Authorization;
 using TeamTasker.Server.Application.Dtos.Projects;
 using TeamTasker.Server.Application.Dtos.Teams;
 using TeamTasker.Server.Application.Dtos.Users;
+using TeamTasker.Server.Application.Interfaces.Authorization;
 using TeamTasker.Server.Application.Services;
 using TeamTasker.Server.Domain.Interfaces;
 
@@ -15,12 +16,40 @@ namespace TeamTasker.Server.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IJwtAuthorizationService _jwtService;
 
-        public UserController(IEmployeeService employeeService)
+        public UserController(IEmployeeService employeeService, IJwtAuthorizationService jwtService)
         {
             _employeeService = employeeService;
+            _jwtService = jwtService;
         }
-
+        [HttpPut]
+        [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]
+        [Route("ChangePassword", Name = "ChangePassword")]
+        public IActionResult ChangePassword(ChangePasswordDto dto)
+        {
+            try
+            {
+                var email = _jwtService.GetEmailFromToken(Request.Headers.Authorization!);
+                _employeeService.ChangePassword(dto, email);
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was no user provided: {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with changing user's password: {ex.Message}");
+                return BadRequest($"There was a problem with changing user's password: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($">[TasksCtr] <Create> Unhandled exception : {ex.Message}");
+                return BadRequest($"There was an unexpected error while getting users : {ex.Message}");
+            }
+        }
 
         [HttpGet]
         [Authorize(Policy = AuthorizationPolicies.BothUserPolicy)]

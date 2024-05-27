@@ -30,12 +30,26 @@ namespace TeamTasker.Server.Application.Services
                 throw new ArgumentNullException(nameof(employeeDto));
 
             var employee = _mapper.Map<Employee>(employeeDto);
+            employee.Password = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8)
+            .Select(s => s[new Random().Next(s.Length)]).ToArray());
 
             _employeeRepository.CreateEmployee(employee);
-            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]Welcome", MessageContent = $"Welcome to TeamTasker!" };
+            var emailNotification = new CreateEmailDto { TargetEmail = employee.Email, MessageSubject = "[TeamTasker]Welcome", MessageContent = $"Welcome to TeamTasker! Your temporary password is {employee.Password}" };
             _tasksService.CreateEmailEntry(emailNotification);
         }
-
+        public void ChangePassword(ChangePasswordDto dto, string email)
+        {
+            var user = _employeeRepository.GetUserByEmail(email);
+            if (user == null)
+                throw new Exception("User not found!");
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+            if (user.Password != dto.OldPassword)
+                throw new Exception("Wrong old password!");
+            user.Password = dto.NewPassword;
+            user.resetPassword = false;
+            _employeeRepository.UpdateUser(user);
+        }
         public IEnumerable<ReadEmployeeDto> GetAllEmployees()
         {
             var employees = _employeeRepository.GetAllEmployees();
