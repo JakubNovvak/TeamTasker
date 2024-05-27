@@ -40,8 +40,8 @@ namespace TeamTasker.Server.API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine($">[TasksCtr] <Create> There was a problem with changing user's avatar: {ex.Message}");
-                return BadRequest($"There was a problem with changing user's avatar: {ex.Message}");
+                Console.WriteLine($">[TasksCtr] <Create> There was a problem with changing user's password: {ex.Message}");
+                return BadRequest($"There was a problem with changing user's password: {ex.Message}");
             }
             catch (Exception ex)
             {
