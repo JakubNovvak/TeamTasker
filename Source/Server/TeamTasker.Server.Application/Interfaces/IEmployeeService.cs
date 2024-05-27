@@ -7,6 +7,7 @@ namespace TeamTasker.Server.Domain.Interfaces
     public interface IEmployeeService
     {
         void CreateEmployee(CreateEmployeeDto userDto);
+        void ChangePassword(ChangePasswordDto dto, string email);
         IEnumerable<ReadEmployeeDto> GetAllEmployees();
         IEnumerable<ReadUserDto> GetAllUsers();
         ReadEmployeeDto GetEmployee(int id);
