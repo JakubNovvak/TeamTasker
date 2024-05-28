@@ -1,8 +1,8 @@
-import { Box, Typography, CircularProgress, Button } from "@mui/material";
+import { Box, Typography, CircularProgress, Button, FormControl, FormLabel } from "@mui/material";
 import ProjectCard from "../../components/ProjectsPage/ProjectCard";
 import { useEffect, useState } from "react";
 import { ReadUserDto } from "../../components/Types/ReadUserDto";
-import GetUserName from "../../components/ProjectsPage/API/GetUserName";
+import GetLoggedInUser from "../../components/ProjectsPage/API/GetUserName";
 import { NavLink } from "react-router-dom";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
@@ -11,12 +11,16 @@ import TempTeamEmployees from "../../components/Connection/API/TempTeamEmployees
 import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetUsersProjects } from "../../components/ProjectsPage/API/GetUsersProjects";
 import React from "react";
+import { Input } from "@mui/joy";
+import ChangePassword from "../../components/ProjectsPage/API/ChangePassword";
 
 export default function ProjectsPage()
 {
     //TODO: method to get 
     const [sendingState, setSendingState] = useState<boolean>(false);
-    const [readUserName, setUserName] = useState<string>("");
+    const [sendSuccess, setSendSuccess] = useState<number>(0);
+    const [readUser, setUser] = useState<ReadUserDto>();
+    const [newPassword, setNewPassword] = useState<string>("");
     const [userPermission, setUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
     //const [teamUserPermission, setTeamUserPermission] = useState<boolean>(false);
@@ -29,7 +33,7 @@ export default function ProjectsPage()
     //TempTeamEmployees(setTeamUserPermission);
 
     useEffect(() => {
-        GetUserName(setUserName, setSendingState, setUserId);
+        GetLoggedInUser(setUser, setSendingState, setUserId);
         GetUsersProjects(userId, setProjects);
     }, [userId]);
 
@@ -71,11 +75,44 @@ export default function ProjectsPage()
         }
     );
 
+    if(readUser?.resetPassword)
+        return(
+                <Box>
+                    <Box>
+                        <Typography fontSize={45} fontWeight={550} mt={-10}>
+                            Welcome {readUser?.firstName}!
+                        </Typography>
+                        <Typography fontSize={45} fontWeight={550} mb={7}>
+                            You can now set your new password:
+                        </Typography>
+                        <FormLabel>
+                            <FormControl>
+                                <Input id="password" 
+                                type="password"
+                                value={newPassword} 
+                                onChange={(event) => {setNewPassword(event.target.value)}} 
+                                placeholder="New password" 
+                                sx={{minWidth: "35rem", minHeight: "3rem"}}/>
+                            </FormControl>
+                        </FormLabel>
+                    </Box>
+                    <Button 
+                    type="submit" 
+                    sx={{ color: "black", backgroundColor: "lightBlue", minWidth: "10rem", mt: "2rem"}}
+                    onClick={() => {
+                        ChangePassword(newPassword, setSendingState, setSendSuccess);
+                    }}
+                    >
+                        Confirm</Button>
+                </Box>
+            );
+
+
     if((userPermission && projects.length == 0) || tempIterator == projects.length)
         return(
             <>
                 <Typography fontSize={45} fontWeight={550} mt={-10}>
-                    Welcome {readUserName}!
+                    Welcome {readUser?.firstName}!
                 </Typography>
                 <Typography fontSize={45} fontWeight={550} mb={7}>
                     Currently, you are not assigned to any project.
@@ -92,7 +129,7 @@ export default function ProjectsPage()
     return(<>
         <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <Typography fontSize={45} fontWeight={550} mt={-10}>
-                Welcome {readUserName}!
+                Welcome {readUser?.firstName}!
             </Typography>
             <Typography fontSize={45} fontWeight={550} mb={7}>
                 Choose a project to work on:

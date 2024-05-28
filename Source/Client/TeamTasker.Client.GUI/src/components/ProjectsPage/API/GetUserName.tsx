@@ -2,14 +2,14 @@ import { AxiosOptions } from "../../Types/AxiosOptions";
 import { ReadUserDto } from "../../Types/ReadUserDto";
 import axios from "axios";
 
-export default async function GetUserName(setUserName: React.Dispatch<React.SetStateAction<string>>, 
+export default async function GetLoggedInUser(setUserName: React.Dispatch<React.SetStateAction<ReadUserDto | undefined>>, 
                                           setSendingState: React.Dispatch<React.SetStateAction<boolean>>,
                                           setUserId: React.Dispatch<React.SetStateAction<number>>
                                           /*setSendSucess: React.Dispatch<React.SetStateAction<number>>*/)
 {
     setSendingState(true);
     try{
-        var tempUser: ReadUserDto = {id: 0, firstName: "", lastName: "", email: "", isTeamLeader: false, password: "", position: "", roleId: 1}
+        var tempUser: ReadUserDto = {id: 0, firstName: "", lastName: "", email: "", isTeamLeader: false, password: "", resetPassword: false, position: "", roleId: 1}
         //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
         const responseEmail = await axios.get("https://localhost:7014/api/Account/authorize/email", AxiosOptions);
         const responseUserName = await axios.get(`https://localhost:7014/api/User/email?email=${responseEmail.data}`, AxiosOptions);
@@ -18,7 +18,7 @@ export default async function GetUserName(setUserName: React.Dispatch<React.SetS
         
         console.log("Id: " + tempUser.id);
 
-        setUserName(tempUser.firstName);
+        setUserName(tempUser);
         setUserId(tempUser.id);
 
         setSendingState(false);
