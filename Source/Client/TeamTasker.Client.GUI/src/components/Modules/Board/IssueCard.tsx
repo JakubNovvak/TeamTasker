@@ -27,7 +27,7 @@ export default function IssueCard({ReadIssueDto, projectId}: {ReadIssueDto: Read
                     <Grid container>
                         <Grid item xs={2}>
                             <Typography fontSize={15} color="gray" sx={{mt: "0.2rem", ml: "0.2rem"}}>
-                                #{ReadIssueDto.id}
+                                #{ReadIssueDto.projectIssueId}
                             </Typography>
                         </Grid>
                         <Grid item xs={10}>
