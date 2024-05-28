@@ -1,5 +1,6 @@
 export type ReadIssueDto = {
     id: number,
+    projectIssueId: number,
     name: string,
     description: string,
     startDate: string,

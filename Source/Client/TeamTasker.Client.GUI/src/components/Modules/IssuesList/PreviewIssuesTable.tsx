@@ -198,7 +198,7 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
       <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell align="left">Topic</TableCell>
+            <TableCell align="left">Description</TableCell>
             <TableCell align="left">Status</TableCell>
             <TableCell align="left">Assigned to</TableCell>
             <TableCell align="right">Priority</TableCell>
@@ -213,9 +213,9 @@ export default function PreviewIssuesTable({projectId, reloadCondition}: {projec
             IssuesListFilter(issue, currentUserEmail, projectEmployees)
 
             ?
-            <TableRow key={issue.id}>
+            <TableRow key={issue.projectIssueId}>
             <TableCell component="th" scope="row">
-              {issue.id}
+              {issue.projectIssueId}
             </TableCell>
             <TableCell component="th" scope="row">
               {issue.name}

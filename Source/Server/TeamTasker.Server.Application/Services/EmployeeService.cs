@@ -44,8 +44,6 @@ namespace TeamTasker.Server.Application.Services
                 throw new Exception("User not found!");
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
-            if (user.Password != dto.OldPassword)
-                throw new Exception("Wrong old password!");
             user.Password = dto.NewPassword;
             user.resetPassword = false;
             _employeeRepository.UpdateUser(user);
