@@ -41,6 +41,7 @@ namespace TeamTasker.Server.Application.Services.Authorization
             httpResponse.Cookies.Append("JwtToken", jwtToken, new CookieOptions 
             { 
                 //HttpOnly = false,
+                Domain="localhost",
                 Path = "/",
                 Expires = DateTimeOffset.Now.AddDays(7),
                 IsEssential = true,
