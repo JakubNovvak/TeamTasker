@@ -51,7 +51,7 @@ export default function Board({projectId}: {projectId: string})
     //TODO: Change implementation of these lists, single generic component with issues list of a specific type
     return(
         <>
-             <Box sx={{width: "100%", height: "95%", mt: "5rem"}}>
+             <Box sx={{width: "100%", height: "95%", mt: "5rem", marginLeft: "6rem"}}>
                 <Grid container>
                     <Grid item xs={4} sx={{display: "flex", mb: "1.5rem"}}>
                         <Typography variant="h4" sx={{marginRight: "auto"}}>

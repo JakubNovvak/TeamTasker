@@ -45,7 +45,7 @@ export default function ProjectFeed({projectId}: {projectId: string})
 
     return(
         <>
-            <Box sx={{width: "100%", height: "94vh", mt: "5rem"}}>
+            <Box sx={{width: "100%", height: "94vh", mt: "5rem", marginLeft: "6rem"}}>
                 <Box sx={{display: "flex", mb: "0rem"}}>
                     <Typography variant="h4" sx={{marginRight: "auto"}}>
                         Project Feed
