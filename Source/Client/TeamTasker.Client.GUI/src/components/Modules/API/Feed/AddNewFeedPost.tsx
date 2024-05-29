@@ -8,7 +8,7 @@ export async function AddNewFeedPost(newFeedPost: CreateFeedPostDto, setSendingS
 {
     setSendingState(true);
     try{
-        await axios.post<CreateFeedPostDto>(`https://localhost:7014/api/Project/CreateFeedPost`, newFeedPost, AxiosOptions);
+        await axios.post<CreateFeedPostDto>(`https://185.143.119.23:7781/api/Project/CreateFeedPost`, newFeedPost, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         await new Promise(resolve => setTimeout(resolve, 3000));

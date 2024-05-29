@@ -10,7 +10,7 @@ export async function GetUsersProjects(userId: number, setProjects: React.Dispat
     //setSendingState(true);
     try{
         //console.log("przed" + userId);
-        const response = await axios.get<ReadProjectDto[]>(`https://localhost:7014/api/User/GetAllEmployeeProjects?id=${userId}`, AxiosOptions);
+        const response = await axios.get<ReadProjectDto[]>(`https://185.143.119.23:7781/api/User/GetAllEmployeeProjects?id=${userId}`, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         console.log("asdasdsasa" + response.data);
         setProjects(response.data);

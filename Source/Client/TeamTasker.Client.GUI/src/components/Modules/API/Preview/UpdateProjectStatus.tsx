@@ -13,7 +13,7 @@ export async function UpdateProjectStatus(projectId: number, newStatus: number, 
 {
     setSendingState(true);
     try{
-        await axios.put(`https://localhost:7014/api/Project/UpdateProjectStatus`, {"id": projectId, "priority": newStatus}, AxiosOptions);
+        await axios.put(`https://185.143.119.23:7781/api/Project/UpdateProjectStatus`, {"id": projectId, "priority": newStatus}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);

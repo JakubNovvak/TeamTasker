@@ -8,13 +8,13 @@ import { TempNotificationDto } from "../../Types/TempNotificationDto";
 export default async function TempSendNotification()
 {
     try {
-        const responseEmail = await axios.get<string>('https://localhost:7014/api/Account/authorize/email', AxiosOptions);
-        const responseEmployee = await axios.get<ReadEmployeeDto>(`https://localhost:7014/api/User/email?email=${responseEmail.data}`, AxiosOptions);
-        const notifications = await axios.get<TempNotificationDto[]>(`https://localhost:7014/api/Notification/GetUserNotifications?id=${responseEmployee.data.id}`, AxiosOptions);
+        const responseEmail = await axios.get<string>('https://185.143.119.23:7781/api/Account/authorize/email', AxiosOptions);
+        const responseEmployee = await axios.get<ReadEmployeeDto>(`https://185.143.119.23:7781/api/User/email?email=${responseEmail.data}`, AxiosOptions);
+        const notifications = await axios.get<TempNotificationDto[]>(`https://185.143.119.23:7781/api/Notification/GetUserNotifications?id=${responseEmployee.data.id}`, AxiosOptions);
         //const tempNewNotification = notifications.data.length + 1;
         const contentOfTheNotification = "Test notification nr: " + notifications.data.length++;
 
-        await axios.post(`https://localhost:7014/api/Notification/AddNotificationToUser`, {content: contentOfTheNotification, userId: responseEmployee.data.id});
+        await axios.post(`https://185.143.119.23:7781/api/Notification/AddNotificationToUser`, {content: contentOfTheNotification, userId: responseEmployee.data.id});
 
         console.log("All requests passed.");
     } catch (error) 

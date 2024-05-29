@@ -9,7 +9,7 @@ export async function GetProjectEmployees(projectId: string | undefined, setProj
 
     //setSendingState(true);
     try{
-        const response = await axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
         //console.log("ReadEmployeeDto[0]: " + response.data[0].email);
         console.log("Response: " + response.data[0].firstName);
         setProjectEmployees(response.data);

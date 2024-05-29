@@ -6,7 +6,7 @@ export async function AddCommentToIssue(newComment: [number, number, string], se
 {
     setSendingState(true);
     try{
-        await axios.post(`https://localhost:7014/api/Comment/AddCommentToIssue`, {issueId: newComment[0], userId: newComment[1], content: newComment[2]}, AxiosOptions);
+        await axios.post(`https://185.143.119.23:7781/api/Comment/AddCommentToIssue`, {issueId: newComment[0], userId: newComment[1], content: newComment[2]}, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setNewComment("");

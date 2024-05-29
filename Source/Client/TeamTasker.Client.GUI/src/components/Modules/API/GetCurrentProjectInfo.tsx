@@ -9,7 +9,7 @@ export async function GetCurrentProjectInfo(projectId: string | undefined, setPr
 
     setSendingState(true);
     try{
-        const response = await axios.get<ReadProjectDto>(`https://localhost:7014/api/Project/id?id=${projectId}`, AxiosOptions);
+        const response = await axios.get<ReadProjectDto>(`https://185.143.119.23:7781/api/Project/id?id=${projectId}`, AxiosOptions);
         console.log("ReadProjectDto: " + response.data.name);
         console.log("Response: " + response);
         setProject(response.data);

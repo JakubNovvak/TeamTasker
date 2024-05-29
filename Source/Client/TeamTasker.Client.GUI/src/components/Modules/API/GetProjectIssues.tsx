@@ -9,7 +9,7 @@ export async function GetProjectIssues(projectId: string | undefined, setProject
 
     setSendingState(true);
     try{
-        const response = await axios.get<ReadIssueDto[]>(`https://localhost:7014/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await axios.get<ReadIssueDto[]>(`https://185.143.119.23:7781/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
         console.log("GetProjectIssues[]: " + response.data[0].name);
         console.log("Response: " + response);
         setProjectIssues(response.data);

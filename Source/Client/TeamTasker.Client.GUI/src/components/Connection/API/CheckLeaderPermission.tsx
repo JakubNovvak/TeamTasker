@@ -10,7 +10,7 @@ async function FetchData(projectId: string | undefined, setUserPermission: React
         if(projectId === "0" || projectId === undefined)
             throw new Error();
 
-        const response = await axios.get<boolean>(`https://localhost:7014/api/Account/authorize/IsLeader?projectId=${projectId}`, AxiosOptions);
+        const response = await axios.get<boolean>(`https://185.143.119.23:7781/api/Account/authorize/IsLeader?projectId=${projectId}`, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         if(response.data)
             setUserPermission(true);

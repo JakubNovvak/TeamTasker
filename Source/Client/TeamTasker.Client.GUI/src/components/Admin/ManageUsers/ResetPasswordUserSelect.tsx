@@ -14,7 +14,7 @@ export default function ResetPasswordUserSelect({FormikValue, formikSetValue, id
 
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/User/GetAllEmployees`, AxiosOptions)
+        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/User/GetAllEmployees`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

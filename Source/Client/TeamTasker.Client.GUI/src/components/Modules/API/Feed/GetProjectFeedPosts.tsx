@@ -10,7 +10,7 @@ export async function GetProjectFeedPosts(setSendingState: setSendingState, setS
 {
     setSendingState(true);
     try{
-        const response = await axios.get<ReadIssueDto[]>(`https://localhost:7014/api/Project/GetAllFeedPostsFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await axios.get<ReadIssueDto[]>(`https://185.143.119.23:7781/api/Project/GetAllFeedPostsFromProject?projectId=${projectId}`, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setFeedPosts(response.data);

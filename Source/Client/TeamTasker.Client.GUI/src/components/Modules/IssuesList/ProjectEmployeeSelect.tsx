@@ -12,7 +12,7 @@ export default function ProjectEmployeeSelect({projectId, formikValue, formikHan
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
+        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

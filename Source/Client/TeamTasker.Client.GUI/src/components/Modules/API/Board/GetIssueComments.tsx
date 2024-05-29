@@ -7,7 +7,7 @@ export default async function GetIssueComments(issueId: number, setSendingState:
 {
     setSendingState(true);
     try{
-        const response = await axios.get<ReadCommentDto[]>(`https://localhost:7014/api/Comment/GetIssueComments?IssueId=${issueId}`, AxiosOptions);
+        const response = await axios.get<ReadCommentDto[]>(`https://185.143.119.23:7781/api/Comment/GetIssueComments?IssueId=${issueId}`, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);

@@ -8,7 +8,7 @@ export async function CreateProjectRequest(projectToCreate: CreateProjectDto, se
 {
     setSendingState(true);
     try{
-        const response = await axios.post<CreateProjectDto>('https://localhost:7014/api/Admin/CreateProject', projectToCreate, AxiosOptions);
+        const response = await axios.post<CreateProjectDto>('https://https://185.143.119.23:7781/api/Admin/CreateProject', projectToCreate, AxiosOptions);
         console.log("POST: Respone from API" + response.statusText);
         setSendingState(false);
         setSendSucess(1);
@@ -30,7 +30,7 @@ export async function AssignTeamRequest(teamToAssign: AddTeamToProjectDto, setSe
 {
     setSendingState(true);
     try{
-        const response = await axios.post('https://localhost:7014/api/Admin/AddTeamToProject', teamToAssign, AxiosOptions);
+        const response = await axios.post('https://185.143.119.23:7781/api/Admin/AddTeamToProject', teamToAssign, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

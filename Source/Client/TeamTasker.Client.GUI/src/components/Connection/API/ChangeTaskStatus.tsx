@@ -5,7 +5,7 @@ export async function ChangeTaskStatus(issueId: number, issueStatus: string | nu
 {
     setSendingState(true);
     try{
-        await axios.put(`https://localhost:7014/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
+        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);

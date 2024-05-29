@@ -7,7 +7,7 @@ export async function CreateUserRequest(userToCreate: CreateUserDto, setSendingS
 {
     setSendingState(true);
     try{
-        const response = await axios.post('https://localhost:7014/api/Admin/CreateEmployee', userToCreate, AxiosOptions);
+        const response = await axios.post('https://185.143.119.23:7781/api/Admin/CreateEmployee', userToCreate, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

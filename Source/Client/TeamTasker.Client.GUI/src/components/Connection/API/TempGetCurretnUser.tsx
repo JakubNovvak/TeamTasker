@@ -5,7 +5,7 @@ export default async function TempGetCurrentUser(setCurrentUserEmail: React.Disp
 {
 
     try{
-        const response = await axios.get<string>('https://localhost:7014/api/Account/authorize/email', AxiosOptions);
+        const response = await axios.get<string>('https://185.143.119.23:7781/api/Account/authorize/email', AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setCurrentUserEmail(response.data);
         //await new Promise(resolve => setTimeout(resolve, 4000));

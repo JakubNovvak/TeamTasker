@@ -12,7 +12,7 @@ export default function TeamsSelect({FormikValue, formikSetValue, idName}: {Form
     const [teams, setTeams] = useState<ReadTeamDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadTeamDto[]>(`https://localhost:7014/api/Team/GetAllTeams`, AxiosOptions)
+        axios.get<ReadTeamDto[]>(`https://185.143.119.23:7781/api/Team/GetAllTeams`, AxiosOptions)
             .then(response => 
                 {
                 setTeams(response.data);

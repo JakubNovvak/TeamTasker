@@ -12,7 +12,7 @@ export default async function ChangePassword(newPassword: string, setSendingStat
     }
     setSendingState(true);
     try{
-        const response = await axios.put('https://localhost:7014/api/User/ChangePassword', passwordJson, AxiosOptions);
+        const response = await axios.put('https://185.143.119.23:7781/api/User/ChangePassword', passwordJson, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

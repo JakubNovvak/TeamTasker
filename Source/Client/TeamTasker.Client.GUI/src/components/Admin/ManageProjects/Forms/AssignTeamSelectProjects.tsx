@@ -13,7 +13,7 @@ export default function AssignTeamSelectProjects({FormikValue, formikSetValue, i
     const [projects, setProjects] = useState<ReadProjectDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadProjectDto[]>(`https://localhost:7014/api/Project`, AxiosOptions)
+        axios.get<ReadProjectDto[]>(`https://185.143.119.23:7781/api/Project`, AxiosOptions)
             .then(response => 
                 {
                 setProjects(response.data);

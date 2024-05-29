@@ -9,7 +9,7 @@ export async function PostNewIssue(newIssue: CreateIssueDto, setSendingState: Re
 
     setSendingState(true);
     try{
-        await axios.post(`https://localhost:7014/api/Leader/CreateIssue`, newIssue, AxiosOptions);
+        await axios.post(`https://185.143.119.23:7781/api/Leader/CreateIssue`, newIssue, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         await new Promise(resolve => setTimeout(resolve, 3000));

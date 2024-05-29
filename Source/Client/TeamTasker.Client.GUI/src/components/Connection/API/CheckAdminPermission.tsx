@@ -6,7 +6,7 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
 {
     setLoadingPermissionState(true);
     try{
-        const response = await axios.get('https://localhost:7014/api/Account/authorize/admin', AxiosOptions);
+        const response = await axios.get('https://185.143.119.23:7781/api/Account/authorize/admin', AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setLoadingPermissionState(false);
         setUserPermission(true);

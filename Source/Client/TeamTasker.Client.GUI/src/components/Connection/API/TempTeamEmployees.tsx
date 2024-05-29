@@ -9,8 +9,8 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
     try{
         
         //TODO: Another endpoint needed - get user id by token
-        const responeEmail = await axios.get('https://localhost:7014/api/Account/authorize/email', AxiosOptions);
-        const responseEmployees = await axios.get('https://localhost:7014/api/Team/GetAllTeamEmployees?id=1', AxiosOptions);
+        const responeEmail = await axios.get('https://185.143.119.23:7781/api/Account/authorize/email', AxiosOptions);
+        const responseEmployees = await axios.get('https://185.143.119.23:7781/api/Team/GetAllTeamEmployees?id=1', AxiosOptions);
         for (const employee of responseEmployees.data) {
             console.log("Employee Name: " + employee.email);
             if(employee.email == responeEmail.data)

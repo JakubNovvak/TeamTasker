@@ -5,7 +5,7 @@ import { ReadEmployeeDto } from "../../Types/ReadEmployeeDto";
 export default async function TempGetUserById(employeeId: number,  setUserAvatar: React.Dispatch<React.SetStateAction<string>>, setTempUserInfo: React.Dispatch<React.SetStateAction<string>>)
 {
     try {
-        const respone = await axios.get<ReadEmployeeDto>(`https://localhost:7014/api/User/id?id=${employeeId}`, AxiosOptions);
+        const respone = await axios.get<ReadEmployeeDto>(`https://185.143.119.23:7781/api/User/id?id=${employeeId}`, AxiosOptions);
         console.log(respone.data.avatar);
         setUserAvatar(respone.data.avatar);
         setTempUserInfo(respone.data.firstName + " " + respone.data.lastName);

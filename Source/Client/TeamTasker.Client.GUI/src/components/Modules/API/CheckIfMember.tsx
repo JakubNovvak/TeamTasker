@@ -10,8 +10,8 @@ export async function CheckIfMember(projectId: string | undefined, setIsMember: 
 
     setGettingState(true);
     try{
-        const currentProjectEmployees = await axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
-        const currentUserEmail = await axios.get<string>(`https://localhost:7014/api/Account/authorize/email`, AxiosOptions);
+        const currentProjectEmployees = await axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
+        const currentUserEmail = await axios.get<string>(`https://185.143.119.23:7781/api/Account/authorize/email`, AxiosOptions);
 
         if(currentProjectEmployees.data.some(employee => employee.email === currentUserEmail.data))
         {
