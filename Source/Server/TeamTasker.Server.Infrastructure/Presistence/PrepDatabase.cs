@@ -125,19 +125,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
                     Position="Testing", Email="employee1@test.pl", Password ="password", Avatar = "https://mui.com/static/images/avatar/5.jpg"},
 
                 new Employee(){FirstName = "Employee", LastName = "No. 2", 
-                    Position="Testing", Email="employee2@test.pl", Password ="password"},
-
-                new Employee(){FirstName = "Employee", LastName = "No. 3", 
-                    Position="Testing", Email="employee3@test.pl", Password ="password"},
-
-                new Employee(){FirstName = "Employee", LastName = "No. 4", 
-                    Position="Testing", Email="employee4@test.pl", Password ="password"},
-                
-                new Employee(){FirstName = "Employee", LastName = "No. 5",
-                    Position="Testing", Email="employee5@test.pl", Password ="password"},
-                
-                new Employee(){FirstName = "Employee", LastName = "No. 6",
-                    Position="Testing", Email="employee6@test.pl", Password ="password"}
+                    Position="Testing", Email="employee2@test.pl", Password ="password"}
             };
             return users;
         }
