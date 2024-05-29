@@ -10,6 +10,8 @@ import { useState } from "react";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import PostErorrSnackbar from "../../components/Connection/Notifies/PostSnackbar";
+import appLogo from "../../assets/appLogoCircle.png";
+
 
 const ContentSeparator = styled("hr")({
     border: "0",
@@ -38,19 +40,26 @@ function LoginPageContent({sendingState}: {sendingState: boolean})
 
     return(
             <Form>
-                <Paper elevation={24} sx={{minWidth: "30rem", minHeight: "32rem", backgroundColor: "#ebf7ff", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <Typography sx={{mt: "3rem", mb: "2rem", textShadow: '2px 1px 4px rgba(0, 0, 0, 0.4)'}} variant="h4" color="#727273">
-                    <span style={{color: "#242c6b", fontWeight: "bold"}}>Team</span> Tasker
+                <Paper elevation={24} sx={{minWidth: "28rem", minHeight: "32rem", backgroundColor: "#f0f5ff", display: "flex", flexDirection: "column", alignItems: "center"}}>
+                
+                <img style={{marginTop: "1rem"}} src={appLogo} height="100rem"></img>
+                
+                <Typography sx={{mt: "0rem", mb: "0.5rem", textShadow: '4px 3px 3px rgba(0, 0, 0, 0.4)'}} variant="h4" color="#727273">
+                    <span style={{color: "#ff6633", fontWeight: "bold"}}>T</span>
+                    <span style={{color: "white", fontWeight: "bold"}}>eam</span> 
+                    <span style={{color: "#ff6633", fontWeight: "bold"}}>T</span> 
+                    <span style={{color: "white", fontWeight: "bold"}}>asker</span> 
                 </Typography>
 
-                <ContentSeparator sx={{marginBottom: "4.5rem"}}/>
 
-                <Input value={formikProps.values.email} onChange={formikProps.handleChange} id="email" defaultValue="" sx={{alignSelf: "flex-center", backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem", mb: "1.3rem"}}
+                <ContentSeparator sx={{marginBottom: "2.5rem"}}/>
+
+                <Input value={formikProps.values.email} onChange={formikProps.handleChange} id="email" defaultValue="" sx={{alignSelf: "flex-center", backgroundColor: "#ebf7ff", minWidth: "20rem",  maxWidth: "20rem", mb: "1.3rem"}}
                 startDecorator={<AccountCircle />}
                 placeholder="Account login"
                 />
 
-                <Input value={formikProps.values.password} onChange={formikProps.handleChange} id="password" defaultValue="" type="password" sx={{backgroundColor: "#cceaff", minWidth: "20rem",  maxWidth: "20rem"}}
+                <Input value={formikProps.values.password} onChange={formikProps.handleChange} id="password" defaultValue="" type="password" sx={{backgroundColor: "#ebf7ff", minWidth: "20rem",  maxWidth: "20rem"}}
                 startDecorator={<Key />}
                 placeholder="Account password"
                 />
@@ -61,17 +70,22 @@ function LoginPageContent({sendingState}: {sendingState: boolean})
                         ?
                         <CircularProgress sx={{mt: "3rem"}}/>
                         :
-                        <Button type="submit" sx={{mt: "3rem", backgroundColor: "#004679", minWidth: "10rem", fontFamily: "Roboto, sans-serif"}} variant="filled">LOG IN</Button>
+                        <Button type="submit" sx={{mt: "3rem", backgroundColor: "#363b4d", minWidth: "10rem", fontFamily: "Roboto, sans-serif"}} variant="filled">Log in</Button>
                     }
                 {/* </NavLink> */}
 
                 <Typography sx={{mt: "1rem", ml:"0.5rem"}} color="#242c" fontSize={15}>
-                    {"<Password reset placeholder>"}
+                    
                 </Typography>
 
             </Paper>
-            <Typography color="lightgray" sx={{mt:"1rem", fontFamily: "Roboto, sans-serif"}}>
-                Designed by <span style={{color: "#242c6b", fontWeight: "bold"}}>TeamTasker</span> ©
+            <Typography color="white" sx={{mt:"1rem", fontFamily: "Roboto, sans-serif"}}>
+                Designed by 
+                    <span style={{color: "#ff6633", fontWeight: "bold"}}> T</span>
+                    <span style={{color: "white", fontWeight: ""}}>eam</span> 
+                    <span style={{color: "#ff6633", fontWeight: "bold"}}>T</span> 
+                    <span style={{color: "white", fontWeight: ""}}>asker </span> 
+                ©
             </Typography>
         </Form>
     );
