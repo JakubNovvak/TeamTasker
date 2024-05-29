@@ -9,6 +9,8 @@ export default function ProjectSchedule({projectId}: {projectId: string})
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [allIssues, setAllIssues] = useState<ReadIssueDto[]>([]);
+    sendSucess;
+    allIssues;
 
     useEffect(() => {
         GetProjectIssues(projectId, setAllIssues, setSendingState, setSendSucess);

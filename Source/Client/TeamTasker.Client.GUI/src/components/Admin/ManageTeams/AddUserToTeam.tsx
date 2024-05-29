@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormLabel } from "@mui/joy";
 import UsersSelect from "./Forms/UsersSelect";
@@ -41,7 +41,7 @@ function AddUserToTheTeamContent({sendingState}: {sendingState: boolean})
 
                         <Grid item xs={4}>
                             <Grid container spacing={7} sx={{display: "flex", flexDirection: "column"}}>
-                                <Grid item xs={4}>
+                                <Grid item xs={5}>
                                     <FormLabel>
                                         <Typography sx={{mr: "1rem"}}>
                                             Choose a Team: 
@@ -49,7 +49,7 @@ function AddUserToTheTeamContent({sendingState}: {sendingState: boolean})
                                         <TeamsSelect FormikValue={formikProps.values.teamId} formikSetValue={formikProps.setFieldValue} idName="teamId"/>
                                     </FormLabel>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={5}>
                                     <FormLabel>
                                         <Typography sx={{mr: "1rem"}}>
                                             Choose a User: 

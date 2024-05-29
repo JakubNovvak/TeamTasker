@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { useEffect, useState } from "react";
 import { Avatar, Box, CircularProgress, Divider, Grid, IconButton, Input, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { ReadCommentDto } from "../../../../Types/CommentDtos";
 import CommentCard from "./CommentCard";
 import { ReadEmployeeDto } from "../../../../Types/ReadEmployeeDto";
 import TempGetCurrentUserByEmail from "../../../../Connection/API/TempGetCurrentUserByEmail";
-import TempGetUserById from "../../../../Connection/API/TempGetUserById";
 import { GetProjectEmployees } from '../../../API/GetProjectEmployees';
 import GetIssueComments from "../../../API/Board/GetIssueComments";
 import { AddCommentToIssue } from "../../../API/Board/AddCommentToIssue";

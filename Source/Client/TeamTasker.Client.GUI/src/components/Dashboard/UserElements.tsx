@@ -1,16 +1,16 @@
-import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Input } from "@mui/joy";
-import SearchIcon from '@mui/icons-material/Search';
+//import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+//import { Input } from "@mui/joy";
+//import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from "react";
-import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
+//import CheckLeaderPermission from "../Connection/API/CheckLeaderPermission";
 import TempGetNavbarAvatar from "../Connection/API/TempGetNavbarAvatar";
 import UserAvatarMenu from "./UserAvatarMenu";
 import { useParams } from "react-router-dom";
 import IssuesListOptions from "./NavbarOptions/IssuesListOptions";
-import React from "react";
+//import React from "react";
 import TempSendNotification from "../Connection/API/TempSendNotification";
 import ProjectFeedOptions from "./NavbarOptions/ProjectFeedOptions";
 
@@ -30,53 +30,53 @@ function renderSwitchJSX(pathName: string, projectId: string | undefined): JSX.E
     }
 }
 
-function renderSwitch(pathnName: string, projectId: string | undefined): string[]
-{
-    const [userPermission, setUserPermission] = useState<boolean>(false);
-    CheckLeaderPermission(setUserPermission);
-    //TODO: Implement better solution ASAP - this is only a temporary solution
-    switch(pathnName)
-    {
-        case "/projectname/test":
-            return ["", "", ""];
+// function renderSwitch(pathnName: string, projectId: string | undefined): string[]
+// {
+//     const [userPermission, setUserPermission] = useState<boolean>(false);
+//     CheckLeaderPermission(setUserPermission);
+//     //TODO: Implement better solution ASAP - this is only a temporary solution
+//     switch(pathnName)
+//     {
+//         case "/projectname/test":
+//             return ["", "", ""];
 
-        case `/projectname/${projectId}/preview`:
-            if(userPermission)
-                return ["Components", "Add", "Remove"];
-            else
-                return ["", "", ""];
+//         case `/projectname/${projectId}/preview`:
+//             if(userPermission)
+//                 return ["Components", "Add", "Remove"];
+//             else
+//                 return ["", "", ""];
 
-        case `/projectname/${projectId}/issueslist`:
-            return ["Your Issues", "", ""];
+//         case `/projectname/${projectId}/issueslist`:
+//             return ["Your Issues", "", ""];
 
-        case `/projectname/${projectId}/notifications`:
-            return ["Mentions", "Shared", ""];
+//         case `/projectname/${projectId}/notifications`:
+//             return ["Mentions", "Shared", ""];
 
-        case `/projectname/${projectId}/projectfeed`:
-            if(userPermission)
-                return ["Publish", "", ""];
-            else
-                return ["", "", ""];
+//         case `/projectname/${projectId}/projectfeed`:
+//             if(userPermission)
+//                 return ["Publish", "", ""];
+//             else
+//                 return ["", "", ""];
 
-        case `/projectname/${projectId}/projectsettings`:
-            return ["", "", ""];
+//         case `/projectname/${projectId}/projectsettings`:
+//             return ["", "", ""];
 
-        case `/projectname/usersettings`:
-            return ["", "", ""];
+//         case `/projectname/usersettings`:
+//             return ["", "", ""];
 
-        case `/projectname/${projectId}/board`:
-            return ["Switch Board", "", ""];
+//         case `/projectname/${projectId}/board`:
+//             return ["Switch Board", "", ""];
 
-        case `/projectname/${projectId}/projectmembers`:
-            if(userPermission)
-                return ["Manage Users", "Manage Roles", ""];
-            else
-                return ["", "", ""];
+//         case `/projectname/${projectId}/projectmembers`:
+//             if(userPermission)
+//                 return ["Manage Users", "Manage Roles", ""];
+//             else
+//                 return ["", "", ""];
             
-        default:
-            return ["", "", ""];
-    }
-}
+//         default:
+//             return ["", "", ""];
+//     }
+// }
 
 export default function UserElements()
 {

@@ -1,22 +1,21 @@
-import { Box, Button, CircularProgress, FormControl, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Form, Formik, useFormikContext } from "formik";
+import { Form, Formik } from "formik";
 import { useState } from "react";
-import { CreateTeamForm } from "../../Types/CommonTypes";
-import { FormLabel, Input } from "@mui/joy";
+import { FormLabel } from "@mui/joy";
 import DataPostSnackbar from "../../Connection/Notifies/DataPostSnackbar";
 import ResetPasswordUserSelect from "./ResetPasswordUserSelect";
 
-function onSubmit(formikValues: any, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, sendSucess: React.Dispatch<React.SetStateAction<number>>)
-{
+// function onSubmit(formikValues: any, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, sendSucess: React.Dispatch<React.SetStateAction<number>>)
+// {
 
 
-    //CreateTeamRequest(teamToCreate, setSendingState, sendSucess);
-}
+//     //CreateTeamRequest(teamToCreate, setSendingState, sendSucess);
+// }
 
 function ResetPasswordContent({sendingState}: {sendingState: boolean})
 {
-    const formikProps = useFormikContext<string>();
+    //const formikProps = useFormikContext<string>();
 
     return(
         <>
@@ -70,13 +69,15 @@ export default function ResetPassword()
 {
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    setSendingState(false);
+    setSendSucess(0);
 
     return(
         <>
             {sendSucess == 2 ? <DataPostSnackbar TextIndex={0} IsDangerSnackBar={true}/> : <></>}
             {sendSucess == 1 ? <DataPostSnackbar TextIndex={1} IsDangerSnackBar={false}/> : <></>}
             <Formik initialValues={{}}
-            onSubmit={(values) => {console.log(values), onSubmit(values, setSendingState, setSendSucess)}}
+            onSubmit={(/*values*/) => {/*onsole.log(values), onSubmit(values, setSendingState, setSendSucess)*/}}
             >
                 <ResetPasswordContent sendingState={sendingState}/>
             </Formik>

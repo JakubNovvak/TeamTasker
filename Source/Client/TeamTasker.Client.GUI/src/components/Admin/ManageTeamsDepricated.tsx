@@ -1,4 +1,4 @@
-import { Button, CircularProgress, MenuItem, Typography } from "@mui/material";
+import { Button, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
@@ -9,19 +9,21 @@ import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AppBar from "../Navigation/AppBar/AppBar.tsx";
-import UserAvatarMenu from '../Dashboard/UserAvatarMenu.tsx';
-import { Grid, Paper, } from '@mui/material';
+import { Grid,} from '@mui/material';
 
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { width } from "@mui/system";
+import Select from '@mui/material/Select';
 
 export default function ManageTeams()
 {
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(true);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
+    loadingLoggedInState;
+    loadingAdminState;
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
 
     if(!adminUserPermission && !loggedInUserPermission)
         return(

@@ -1,8 +1,8 @@
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import FeedPostCommentCard from "./FeedPostCommentCard";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FeedPostAddComment from "./FeedPostAddComment";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReadEmployeeDto } from "../../../Types/ReadEmployeeDto";
@@ -25,6 +25,8 @@ export default function FeedPostCommentSection({postId, projectId, tempAvatarUrl
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [comments, setComments] = useState<ReadCommentDto[]>([]);
+    sendingState;
+    sendSucess;
 
     const [selectedOption, setSelectedOption] = useState<string>(() => {
         const storedOption = sessionStorage.getItem('issuesChange');

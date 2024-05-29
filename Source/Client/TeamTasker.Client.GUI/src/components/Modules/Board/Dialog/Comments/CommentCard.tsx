@@ -1,5 +1,4 @@
 import { Avatar, Box, Button, Card, CardContent, Typography } from "@mui/material";
-import React from "react";
 import { ReadCommentDto } from "../../../../Types/CommentDtos";
 import { ReadEmployeeDto } from "../../../../Types/ReadEmployeeDto";
 import dayjs from "dayjs";

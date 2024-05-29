@@ -1,11 +1,9 @@
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {Variants, motion} from "framer-motion";
-import React, { useEffect, useState } from 'react';
+import { motion} from "framer-motion";
+import { useEffect, useState } from 'react';
 import { TempIssuesDto } from '../Connection/API/ProjectProgress/TempIssuesDto';
 import TempGetCountOfAllIssues from '../Connection/API/ProjectProgress/TempGetCountOfAllIssues';
 

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
-import { ReadProjectDto } from "../../Types/ReadProjectDto";
 import { ReadIssueDto } from "../../Types/ReadIssuesDto";
 
 export async function GetProjectIssues(projectId: string | undefined, setProjectIssues: React.Dispatch<React.SetStateAction<ReadIssueDto[]>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
@@ -15,16 +14,16 @@ export async function GetProjectIssues(projectId: string | undefined, setProject
         console.log("Response: " + response);
         setProjectIssues(response.data);
         setSendingState(false);
-        //setSendSucess(1);
+        setSendSucess(0);
         // await new Promise(resolve => setTimeout(resolve, 3000));
-        // setSendSucess(0);
+        setSendSucess(0);
     }
     catch(error)
     {
         console.error("There was an issie with \"GetProjectIssues\" GET request: ", {error});
-        //setSendSucess(2);
+        setSendSucess(0);
         setSendingState(false);
-        // await new Promise(resolve => setTimeout(resolve, 3000));
-        // setSendSucess(0);
+        //await new Promise(resolve => setTimeout(resolve, 3000));
+        setSendSucess(0);
     }
 }

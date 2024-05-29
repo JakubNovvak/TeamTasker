@@ -3,8 +3,7 @@ import Button from '@mui/material/Button';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Typography } from '@mui/material';
 
 export default function IssuesListOptions() 
 {

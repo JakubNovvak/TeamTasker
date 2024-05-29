@@ -1,6 +1,6 @@
-import { Box, Button, CircularProgress, FormControl, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Form, Formik, FormikErrors, useFormikContext } from "formik";
+import { Form, Formik, useFormikContext } from "formik";
 import { useState } from "react";
 import { FormLabel, Input, Textarea } from "@mui/joy";
 //import { CreateTeamRequest } from "./ProjectsApi";

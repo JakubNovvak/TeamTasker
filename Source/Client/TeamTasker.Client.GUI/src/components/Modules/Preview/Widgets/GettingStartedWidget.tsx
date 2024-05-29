@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import tempText from "./previewText";
 import { Textarea } from "@mui/joy";
 

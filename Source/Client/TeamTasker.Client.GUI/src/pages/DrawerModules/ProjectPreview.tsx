@@ -29,6 +29,7 @@ export default function ProjectPreview({projectId}: {projectId: string | undefin
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [projectEmployees, setProjectEmployees] = useState<ReadEmployeeDto[]>([]);
+    sendSucess;
 
     const [leaderPermission, setLeaderPermission] = useState<boolean>(false);
     CheckLeaderPermission(setLeaderPermission);

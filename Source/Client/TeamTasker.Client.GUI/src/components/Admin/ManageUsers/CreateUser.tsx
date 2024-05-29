@@ -1,15 +1,14 @@
-import { Box, Button, CircularProgress, FormControl, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Form, Formik, useFormikContext } from "formik";
-import { useEffect, useState } from "react";
-import { CreateTeamForm } from "../../Types/CommonTypes";
+import { useState } from "react";
 import { FormLabel, Input } from "@mui/joy";
 import DataPostSnackbar from "../../Connection/Notifies/DataPostSnackbar";
 import { CreateUserDto } from "../../Types/CreateUserDto";
 import { CreateUserRequest } from "./UsersApi";
 
 function onSubmit(formikValues: CreateUserDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
-    setSendSucess: React.Dispatch<React.SetStateAction<number>>, sendSucess: number)
+    setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
     const userToCreate: CreateUserDto = {
         firstName: formikValues.firstName,
@@ -119,7 +118,7 @@ export default function CreateUser()
             {sendSucess == 1 ? <DataPostSnackbar TextIndex={1} IsDangerSnackBar={false}/> : <></>}
             <Formik initialValues={{firstName: "", lastName: "", email: "", position: ""}}
             onSubmit={(values) => {
-                console.log(values), onSubmit(values, setSendingState, setSendSucess, sendSucess);
+                console.log(values), onSubmit(values, setSendingState, setSendSucess);
                 values.firstName = "";
                 values.lastName = "";
                 values.email = "";

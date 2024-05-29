@@ -1,20 +1,19 @@
-import { Box, Button, ButtonGroup, Divider, Grid, Paper, Typography } from "@mui/material";
-import ShareIcon from '@mui/icons-material/Share';
-import SwapCallsIcon from '@mui/icons-material/SwapCalls';
-import EditNotificationsIcon from '@mui/icons-material/EditNotifications';
+import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import IssueCard from "../../components/Modules/Board/IssueCard";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 import { ReadIssueDto } from "../../components/Types/ReadIssuesDto";
 import { GetProjectIssues } from "../../components/Modules/API/GetProjectIssues";
-import React from "react";
 
 export default function Board({projectId}: {projectId: string})
 {
     const [leaderPermission, setLeaderPermission] = useState<boolean>(false);
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    sendingState;
+    sendSucess;
+    
 
     //TODO: Temp solution - implement proper and more optimal data storing
     const [allIssues, setAllIssues] = useState<ReadIssueDto[]>([]);

@@ -3,7 +3,6 @@ import PreviewIssuesTable from "../../components/Modules/IssuesList/PreviewIssue
 import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 import CreateIssueDialog from "../../components/Modules/IssuesList/Dialog/CreateIssueDialog";
-import React from "react";
 
 export default function IssuesList({projectId}: {projectId: string})
 {

@@ -4,11 +4,6 @@ import { AxiosOptions } from "../../../Types/AxiosOptions";
 
 //TODO: Github Issue #87 - make temp methods more generic
 
-export async function UpdateUserRequest()
-{
-
-}
-
 export async function UpdatePriorityRequest(issueId: number, issuePriority: string | number, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>, setSelectPriority: React.Dispatch<React.SetStateAction<string | number>>)
 {

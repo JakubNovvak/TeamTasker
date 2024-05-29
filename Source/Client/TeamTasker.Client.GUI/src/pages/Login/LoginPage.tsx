@@ -3,7 +3,6 @@ import { Input } from "@mui/joy";
 import { Paper, Typography, styled, CircularProgress } from "@mui/material";
 import Button from '@mui/material-next/Button';
 import { Form, Formik, useFormikContext } from "formik";
-import { NavLink, redirect } from "react-router-dom";
 import { LoginDto } from "../../components/Types/LoginDto";
 import FetchData from "../../components/Login/API/FetchData";
 import { useState } from "react";
@@ -26,7 +25,7 @@ const ContentSeparator = styled("hr")({
 function onSubmit(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>, sendSucess: number)
 {    
     FetchData(LoginDto, setSendingState, setSendSucess);
-
+    sendSucess;
     // if(sendSucess == 1)
     // {
     //     console.log("Success!");
@@ -99,8 +98,14 @@ export default function LoginPage()
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(true);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
+    loadingLoggedInState;
+    loadingAdminState;
+
+
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
 
     if(loggedInUserPermission && !adminUserPermission)
     {

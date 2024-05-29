@@ -25,6 +25,7 @@ export default function PublishPostDialog({projectId, openDialog, setOpenDialog,
 
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    userId;
 
     return(
         <>

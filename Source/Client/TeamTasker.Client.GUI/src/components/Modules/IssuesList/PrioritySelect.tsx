@@ -5,20 +5,23 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import CheckLeaderPermission from '../../Connection/API/CheckLeaderPermission';
-import { useEffect } from 'react';
 import { FormikCreateIssueHandleChange } from '../../Types/CommonTypes';
 
 export default function PrioritySelect({formikValue, formikHandleChange}: 
                                        {formikValue: number, formikHandleChange: FormikCreateIssueHandleChange})
 {
   const [priority, setPriority] = React.useState("Medium");
+  priority;
 
   const [leaderPermission, setLeaderPermission] = React.useState<boolean>(false);
+  leaderPermission;
   CheckLeaderPermission(setLeaderPermission);
 
   const handleChange = (event: SelectChangeEvent) => {
     setPriority(event.target.value as string);
   };
+
+  handleChange;
 
   const priorityString: {[key: string]: string} = {
     "High": "🔴 High",

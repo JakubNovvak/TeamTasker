@@ -1,5 +1,4 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";

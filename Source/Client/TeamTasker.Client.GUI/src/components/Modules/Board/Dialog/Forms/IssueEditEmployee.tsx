@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar, Box, FormControl } from '@mui/material';
-import { FormikUsersSetValue } from '../../../../Types/CommonTypes';
-import { ReadEmployeeDto } from '../../../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../../../Types/AxiosOptions';
 import { handleIssueChange } from '../BoardReloadOnChange';
 import { UpdateEmployeeRequest } from '../../../API/Board/EditIssueRequests';
+import { ReadEmployeeDto } from '../../../../Types/ReadEmployeeDto';
 
 
 export default function IssueEditEmployee({projectId, issueId, issueEmployee, leaderPermission}: {projectId: string, issueId: number, issueEmployee: number, leaderPermission: boolean})
@@ -16,6 +15,7 @@ export default function IssueEditEmployee({projectId, issueId, issueEmployee, le
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    sendSucess;
 
     useEffect(() => {
         axios.get<ReadEmployeeDto[]>(`https://localhost:7014/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
