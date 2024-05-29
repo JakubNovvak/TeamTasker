@@ -187,6 +187,7 @@ namespace TeamTasker.Server.Infrastructure.Presistence
             var issues = new List<Issue>()
             {
                 new Issue() { 
+                    Id = 1,
                     Name = "Single Test Issue Title, Week 7", 
                     Description = "Single Test Issue Description, Week 7",
                     StartDate = DateTime.Now,
