@@ -52,7 +52,7 @@ export default function ManageTeams()
             </Toolbar>
         </AppBar>
 
-        <Box sx={{width: "93vw", height: "75vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+        <Box sx={{width: "93vw", height: "75vh", backgroundColor: "none"}}>
             <Grid container>
                 <Grid item xs={12} sx={{display: "flex"}}>
                     <Button onClick={() => {location.href = "/admindashboard";}}>

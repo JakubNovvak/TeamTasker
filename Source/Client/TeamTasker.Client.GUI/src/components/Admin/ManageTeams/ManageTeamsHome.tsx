@@ -13,7 +13,7 @@ export default function ManageTeamsHome()
 {
     return(
         <>
-        <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+        <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none"}}>
             <Grid container spacing={12}>
 
                 <Grid item xs={12} sx={{display: "flex"}}>
@@ -28,7 +28,7 @@ export default function ManageTeamsHome()
             <Grid item xs={3}>
                 <NavLink to="/admindashboard/manageteams/addusertoteam" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-                <Paper elevation={5} sx={{padding: "2rem"}}>
+                <Paper elevation={5} sx={{padding: "2rem", minWidth: "13rem"}}>
                     <GroupAddIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Add User to the Team
@@ -41,7 +41,7 @@ export default function ManageTeamsHome()
             <Grid item xs={3}>
                 <NavLink to="/admindashboard/manageteams/createteam" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-                <Paper elevation={5} sx={{padding: "2rem"}}>
+                <Paper elevation={5} sx={{padding: "2rem", minWidth: "13rem"}}>
                     <LoupeIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Create New Team
@@ -54,7 +54,7 @@ export default function ManageTeamsHome()
             <Grid item xs={3}>
                 <NavLink to="/admindashboard/manageteams/manageteamleader" style={{textDecoration: "none"}}>
                 <motion.div whileHover={{scale: 1.05, boxShadow: "7px 8px 54px -6px rgba(0, 0, 0, 0.2)"}}>
-                <Paper elevation={5} sx={{padding: "2rem"}}>
+                <Paper elevation={5} sx={{padding: "2rem", minWidth: "13rem"}}>
                     <EngineeringIcon sx={{fontSize: "3rem"}}/>
                     <Typography>
                     Manage Team Leader
@@ -65,7 +65,7 @@ export default function ManageTeamsHome()
             </Grid>
 
             <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3", minWidth: "13rem"}}>
               <ManageAccountsIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Edit Team
@@ -74,7 +74,7 @@ export default function ManageTeamsHome()
             </Grid>
 
             <Grid item xs={3}>
-            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3"}}>
+            <Paper elevation={5} sx={{padding: "2rem", backgroundColor: "#e3e3e3", minWidth: "13rem"}}>
               <ViewListIcon sx={{fontSize: "3rem"}}/>
               <Typography>
                 Teams List
