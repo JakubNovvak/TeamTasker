@@ -12,7 +12,7 @@ import React from "react";
 
 export default function Board({projectId}: {projectId: string})
 {
-    const [userPermission, setUserPermission] = useState<boolean>(false);
+    const [leaderPermission, setLeaderPermission] = useState<boolean>(false);
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
 
@@ -46,7 +46,7 @@ export default function Board({projectId}: {projectId: string})
 
     }, [selectedOption]);
     
-    CheckLeaderPermission(setUserPermission);
+    CheckLeaderPermission(setLeaderPermission);
 
     //TODO: Change implementation of these lists, single generic component with issues list of a specific type
     return(
@@ -79,7 +79,7 @@ export default function Board({projectId}: {projectId: string})
                                 </Typography>
                                 <Typography fontWeight={550} sx={{marginRight: "auto"}}>
                                     New Issue
-                                    {userPermission ? 
+                                    {leaderPermission ? 
                                         <NavLink to={`/projectname/${projectId}/issueslist`}><Button sx={{width:"5rem", height: "1.5rem", ml: "2rem"}} variant="outlined">+</Button></NavLink>
                                     :
                                         <></>
@@ -90,7 +90,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "NewIssue" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
+                                issue.status === "NewIssue" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId} leaderPermission={leaderPermission}/>
                                 : <></> 
                             ))
                             }
@@ -113,7 +113,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "InProgress" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
+                                issue.status === "InProgress" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId} leaderPermission={leaderPermission}/>
                                 : <></> 
                             ))
                             }
@@ -136,7 +136,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "OnHold" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
+                                issue.status === "OnHold" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId} leaderPermission={leaderPermission}/>
                                 : <></> 
                             ))
                             }
@@ -159,7 +159,7 @@ export default function Board({projectId}: {projectId: string})
                             {allIssues.length == 0 ? <></> 
                             : 
                             allIssues.map((issue) => (
-                                issue.status === "IssueDone" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId}/>
+                                issue.status === "IssueDone" ? <IssueCard key={issue.id} ReadIssueDto={issue} projectId={projectId} leaderPermission={leaderPermission}/>
                                 : <></> 
                             ))
                             }

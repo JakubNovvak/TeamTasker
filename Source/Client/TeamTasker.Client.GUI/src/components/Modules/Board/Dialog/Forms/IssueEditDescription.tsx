@@ -6,7 +6,7 @@ import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
 import { UpdateDescriptionRequest } from "../../../API/Board/EditIssueRequests";
 import { handleIssueChange } from "../BoardReloadOnChange";
 
-export default function IssueEditDescription({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
+export default function IssueEditDescription({ReadIssueDto, leaderPermission}: {ReadIssueDto: ReadIssueDto, leaderPermission: boolean})
 {
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
@@ -49,6 +49,7 @@ export default function IssueEditDescription({ReadIssueDto}: {ReadIssueDto: Read
                 onFocus={()=> {setTitleFocus(true)}}
                 value={issueDesc}
                 onChange={handleInputChange}
+                disabled={!leaderPermission ? true : (sendingState ? true : false)}
                 sx={{minHeight: "8rem", maxHeight: "8rem", backgroundColor: "white"}} 
                 placeholder="Description...."
                 />

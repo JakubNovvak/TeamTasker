@@ -10,7 +10,7 @@ export default function ProjectDescriptionWidget({project}: {project: ReadProjec
                 Project Description
             </Typography>
 
-            <Textarea defaultValue={project.description} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "5rem"}} variant="plain"/>
+            <Textarea disabled={true} defaultValue={project.description} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "5rem"}} variant="plain"/>
 
         </Paper>
     );

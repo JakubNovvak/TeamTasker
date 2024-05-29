@@ -32,6 +32,30 @@ export async function UpdatePriorityRequest(issueId: number, issuePriority: stri
     }
 }
 
+export async function UpdateEmployeeRequest(issueId: number, employeeId: string | number, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
+    setSendSucess: React.Dispatch<React.SetStateAction<number>>, setSelectEmployee: React.Dispatch<React.SetStateAction<string | number>>)
+{
+    setSendingState(true);
+    try{
+        await axios.put(`https://localhost:7014/api/Issue/UpdateIssueEmployee`, {"id": issueId, "employeeId": employeeId}, AxiosOptions);
+        console.log("Success!");
+        setSendingState(false);
+        setSendSucess(1);
+        setSelectEmployee(employeeId);
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setSendSucess(0);
+    }
+    catch(error)
+    {
+        console.error("There was an issie with \"UpdatePriorityRequest\" POST request: ", {error});
+        setSendSucess(2);
+        setSendingState(false);
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setSendSucess(0);
+    }
+}
+
+
 export async function UpdateStatusRequest(issueId: number, issueStatus: string | number, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>, setSelectStatus: React.Dispatch<React.SetStateAction<string | number>>)
 {

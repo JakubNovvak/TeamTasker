@@ -9,7 +9,7 @@ import { UpdatePriorityRequest } from '../../../API/Board/EditIssueRequests';
 import DataPostSnackbar from '../../../../Connection/Notifies/DataPostSnackbar';
 import { handleIssueChange } from '../BoardReloadOnChange';
 
-export default function IssueEditPriority({issuePriority, issueId}: {issuePriority: string, issueId: number})
+export default function IssueEditPriority({issuePriority, issueId, leaderPermission}: {issuePriority: string, issueId: number, leaderPermission: boolean})
 {
   const priorityString: {[key: string]: string} = {
     "High": "🔴 High",
@@ -34,7 +34,7 @@ export default function IssueEditPriority({issuePriority, issueId}: {issuePriori
           sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
           name="priority"
           defaultValue={2}
-          disabled={sendingState ? true : false}
+          disabled={!leaderPermission ? true : (sendingState ? true : false)}
           label=""
           value={selectPriority}
           onChange={(event) => {

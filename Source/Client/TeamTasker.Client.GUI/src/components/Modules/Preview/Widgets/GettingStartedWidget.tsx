@@ -10,7 +10,7 @@ export default function GettingStartedWidget()
                 Getting Started
             </Typography>
 
-                <Textarea defaultValue={tempText} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "30rem"}} variant="plain"/>
+                <Textarea disabled={true} defaultValue={tempText} sx={{width: "90%", ml: "2rem", mt: "1.5rem", height: "30rem"}} variant="plain"/>
         </Paper>
     );
 }
