@@ -8,7 +8,7 @@ import {UpdateEndDateRequest, UpdateStartDateRequest} from "../../../API/Board/E
 import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
 import { handleIssueChange } from "../BoardReloadOnChange";
 
-export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
+export default function IssueEditDate({ReadIssueDto, leaderPermission}: {ReadIssueDto: ReadIssueDto, leaderPermission: boolean})
 {
     const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(ReadIssueDto.startDate));
     const [endDate, setEndDate] = useState<Dayjs | null>(dayjs(ReadIssueDto.endDate));
@@ -33,7 +33,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                         label="Start Date"
                         maxDate={dayjs(endDate)}
                         minDate={dayjs()}
-                        disabled={sendingState ? true : false}
+                        disabled={!leaderPermission ? true : (sendingState ? true : false)}
                         //defaultValue={dayjs(startDate)}
                         value={startDate}
                         onChange={(value) => {
@@ -53,7 +53,7 @@ export default function IssueEditDate({ReadIssueDto}: {ReadIssueDto: ReadIssueDt
                 name="endDate"
                 label="End Date"
                 minDate={dayjs(startDate)}
-                disabled={sendingState ? true : false}
+                disabled={!leaderPermission ? true : (sendingState ? true : false)}
                 defaultValue={endDate}
                 onChange={(value) => {
                     UpdateEndDateRequest(value, ReadIssueDto.id, setSendingState, setSendSucess, setEndDate);

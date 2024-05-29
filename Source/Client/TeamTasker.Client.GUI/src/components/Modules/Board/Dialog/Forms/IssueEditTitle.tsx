@@ -6,7 +6,7 @@ import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
 import { UpdateTitleRequest } from "../../../API/Board/EditIssueRequests";
 import { handleIssueChange } from "../BoardReloadOnChange";
 
-export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueDto})
+export default function IssueEditTitle({ReadIssueDto, leaderPermission}: {ReadIssueDto: ReadIssueDto, leaderPermission: boolean})
 {
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
@@ -43,7 +43,7 @@ export default function IssueEditTitle({ReadIssueDto}: {ReadIssueDto: ReadIssueD
                 <Textarea
                 variant="plain"
                 id="name"
-                disabled={sendingState ? true : false}
+                disabled={!leaderPermission ? true : (sendingState ? true : false)}
                 onFocus={()=> {setTitleFocus(true)}}
                 value={issueTitle}
                 onChange={handleInputChange}

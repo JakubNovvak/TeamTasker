@@ -19,6 +19,9 @@ import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
 import ProjectSchedule from "../DrawerModules/ProjectSchedule";
 import React from "react";
+import GetLoggedInUser from "../../components/ProjectsPage/API/GetUserName";
+import { ReadUserDto } from "../../components/Types/ReadUserDto";
+import { CheckIfMember } from "../../components/Modules/API/CheckIfMember";
 
 function renderSwitch(pathnName: string, projectId: string | undefined)
 {
@@ -64,16 +67,6 @@ function renderSwitch(pathnName: string, projectId: string | undefined)
 
 export default function ModulesContainer()
 {
-    // const temp: ReadProjectDto = {
-    //     id: 0,
-    //     name: "",
-    //     description: "",
-    //     deadline: "",
-    //     isComplete: false,
-    //     teamId: 0,
-    //     picture: "",
-    //     comments: []
-    // }
 
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
@@ -84,11 +77,42 @@ export default function ModulesContainer()
 
     const { projectId } = useParams<{projectId: string}>();
 
+    const temp: ReadProjectDto = {
+        id: 0,
+        name: "",
+        status: "default",
+        description: "",
+        deadline: "",
+        isComplete: false,
+        teamId: 0,
+        picture: "",
+        comments: []
+    }
+
+    const [sendingState, setSendingState] = useState<boolean>(false);
+    const [sendSucess, setSendSucess] = useState<number>(0);
+    const [project, setProject] = useState<ReadProjectDto>(temp);
+    
+    const [isMember, setIsMember] = useState<boolean>(false);
+    const [gettingState, setGettingState] = useState<boolean>(false);
+    const [isMemberSuccess, setIsMemberSuccess] = useState<number>(0);
+
     useEffect(() => {
-        //GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
+        GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
+        CheckIfMember(projectId, setIsMember, setGettingState, setIsMemberSuccess);
     }, [projectId, loggedInUserPermission]);
 
     //console.log("Zmienna z url: " + projectId);
+
+    if(!sendingState && project.id == 0)
+    {
+        return(
+            <>
+                <h1>404 - We could not find a project with given Id.</h1>
+                <NavLink to="/projectspage" style={{textDecoration: "none"}}><Button size="large" variant="contained">Back to projects</Button></NavLink>
+            </>
+        );
+    }
 
     if(!adminUserPermission && !loggedInUserPermission)
         return(
@@ -106,6 +130,16 @@ export default function ModulesContainer()
                 <NavLink to="/login" style={{textDecoration: "none"}}><Button size="large" variant="contained" onClick={() => {DeleteTokenFromCookies()}}>LOG OUT</Button></NavLink>
             </>
             );
+
+    if(!isMember && !gettingState)
+    {
+        return(
+            <>
+                <h1>403 - You are not authorized to view this project.</h1>
+                <NavLink to="/projectspage" style={{textDecoration: "none"}}><Button size="large" variant="contained">Back to projects</Button></NavLink>
+            </>
+        );
+    }
 
     return(
         <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>

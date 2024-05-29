@@ -19,7 +19,7 @@ export default function ProjectStatusWidget({project, sendingState}: {project: R
             <Typography variant="h6" fontWeight={550} sx={{marginRight: "auto", ml: "1.5rem", mt: "1rem"}}>
                 Project Status
             </Typography>
-            {!sendingState ? <StatusSelect projectStatus={project.status}/> : <></>}
+            {!sendingState ? <StatusSelect projectId={project.id} projectStatus={project.status}/> : <></>}
         
             <Textarea defaultValue={!sendingState ? statusString[project.status] : ""} sx={{width: "97%", ml: "1rem", mt:"1rem", height: "2rem"}} variant="plain"/>
 

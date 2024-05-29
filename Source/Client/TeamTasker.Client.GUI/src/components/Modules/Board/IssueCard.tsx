@@ -6,7 +6,7 @@ import TempGetUserById from "../../Connection/API/TempGetUserById";
 import IssueDescDialog from "./Dialog/IssueDescDialog";
 
 
-export default function IssueCard({ReadIssueDto, projectId}: {ReadIssueDto: ReadIssueDto, projectId: string})
+export default function IssueCard({ReadIssueDto, projectId, leaderPermission}: {ReadIssueDto: ReadIssueDto, projectId: string, leaderPermission: boolean})
 {
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
@@ -20,7 +20,7 @@ export default function IssueCard({ReadIssueDto, projectId}: {ReadIssueDto: Read
 
     return(
         <>
-            <IssueDescDialog userId={ReadIssueDto.employeeId} projectId={projectId} openDialog={openDialog} setOpenDialog={setOpenDialog} ReadIssueDto={ReadIssueDto}/>
+            <IssueDescDialog projectId={projectId} openDialog={openDialog} setOpenDialog={setOpenDialog} ReadIssueDto={ReadIssueDto} leaderPermission={leaderPermission}/>
 
             <Box onClick={() => {setOpenDialog(true)}} sx={{cursor: "pointer"}}>
                 <Paper elevation={2} sx={{width: "100%", minHeight: "6rem", mt: "1rem"}}>

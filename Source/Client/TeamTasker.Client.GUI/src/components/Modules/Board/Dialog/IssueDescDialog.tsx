@@ -11,9 +11,10 @@ import SendIcon from '@mui/icons-material/Send';
 import IssueEditTitle from "./Forms/IssueEditTitle";
 import IssueEditDescription from "./Forms/IssueEditDescription";
 import CommentsSection from "./Comments/CommentsSection";
+import IssueEditEmployee from "./Forms/IssueEditEmployee";
 
-export default function IssueDescDialog({projectId, openDialog, setOpenDialog, userId, ReadIssueDto}: 
-    {projectId: string, openDialog: boolean, setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, userId: number, ReadIssueDto: ReadIssueDto})
+export default function IssueDescDialog({projectId, openDialog, setOpenDialog, ReadIssueDto, leaderPermission}: 
+    {projectId: string, openDialog: boolean, setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, ReadIssueDto: ReadIssueDto, leaderPermission: boolean})
 {
     //TODO: Change these states implementation
     //*//
@@ -27,7 +28,7 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, u
     var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
 
     useEffect(() => {
-        TempGetUserById(userId, setUserAvatar, setTempUserInfo);
+        TempGetUserById(ReadIssueDto.employeeId, setUserAvatar, setTempUserInfo);
     }, []);
 
     return(
@@ -43,7 +44,7 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, u
                     Issue Summary
                 </Typography>
 
-                <IssueEditTitle ReadIssueDto={ReadIssueDto}/>
+                <IssueEditTitle ReadIssueDto={ReadIssueDto} leaderPermission={leaderPermission}/>
 
                 <Divider sx={{mt: "1rem"}}/>
 
@@ -54,29 +55,25 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, u
 
                     <Grid item xs={7} sx={{backgroundColor: "none"}}>
                         <Typography fontFamily={"Arial"} color={"gray"} marginLeft={"auto"} sx={{fontStyle: 'italic'}}>
-                            #{ReadIssueDto.id} - Created by Placeholder Text, on {trimmedDate}
+                            #{ReadIssueDto.id} - Created on {trimmedDate}
                         </Typography>
                     </Grid>
 
                     <Grid  item xs={2}>
-                        <Select disabled defaultValue={1} sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
-                            <MenuItem value={1}>
-                                <Box display={"flex"} flexDirection={"row"} alignItems={"center"}><Avatar src={userAvatar}></Avatar>{" "}{tempUserInfo}</Box>
-                                </MenuItem>
-                        </Select>
+                        <IssueEditEmployee projectId={projectId} issueId={ReadIssueDto.id} issueEmployee={ReadIssueDto.employeeId} leaderPermission={leaderPermission}/>
                     </Grid>
 
                 </Grid>
 
-                <IssueEditDescription ReadIssueDto={ReadIssueDto} /> 
+                <IssueEditDescription ReadIssueDto={ReadIssueDto} leaderPermission={leaderPermission} /> 
 
                 <Divider sx={{mt: "1rem"}}/>
 
                 <Grid container mt={"1rem"}>
                     <Grid item xs={3}>
-                        <IssueEditPriority issueId={ReadIssueDto.id} issuePriority={ReadIssueDto.priority}/>
+                        <IssueEditPriority issueId={ReadIssueDto.id} issuePriority={ReadIssueDto.priority} leaderPermission={leaderPermission}/>
                     </Grid>
-                    <IssueEditDate ReadIssueDto={ReadIssueDto}/>
+                    <IssueEditDate ReadIssueDto={ReadIssueDto} leaderPermission={leaderPermission}/>
                 </Grid>
                 
                 <CommentsSection issueId={ReadIssueDto.id} projectId={projectId}/>
