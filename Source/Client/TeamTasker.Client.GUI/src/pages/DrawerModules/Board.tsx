@@ -59,11 +59,11 @@ export default function Board({projectId}: {projectId: string})
                         </Typography>
                     </Grid>
                     <Grid item xs={8} sx={{display: "flex", flexDirection: "row"}}>
-                        <ButtonGroup variant="text" aria-label="Basic button group" sx={{ml: "1rem", marginLeft: "auto"}}>
+                        {/* <ButtonGroup variant="text" aria-label="Basic button group" sx={{ml: "1rem", marginLeft: "auto"}}>
                             <Button sx={{color: "#363b4d"}}><ShareIcon/></Button>
                             <Button sx={{color: "#363b4d"}}><SwapCallsIcon/></Button>
                             <Button sx={{color: "#363b4d"}}><EditNotificationsIcon/></Button>
-                        </ButtonGroup>
+                        </ButtonGroup> */}
                     </Grid>
                 </Grid>
 
@@ -168,9 +168,9 @@ export default function Board({projectId}: {projectId: string})
 
                     <Grid item xs={4}>
                         <Box display={"flex"} flexDirection={"column"}>
-                            <Typography sx={{marginRight: "auto", mt: "0.5rem", ml: "0.5rem"}}>
+                            {/* <Typography sx={{marginRight: "auto", mt: "0.5rem", ml: "0.5rem"}}>
                                 + Add another list to the board
-                            </Typography>
+                            </Typography> */}
                         </Box>
                     </Grid>
                 </Grid>

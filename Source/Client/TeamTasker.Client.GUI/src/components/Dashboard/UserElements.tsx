@@ -111,11 +111,11 @@ export default function UserElements()
 
                 {/*Right Side of the Navbar*/}
                 <Box display="flex" flexDirection="row" sx={{marginLeft: "auto", alignItems: "center"}}>
-                    <Input 
+                    {/* <Input 
                     startDecorator={<SearchIcon/>}
                     placeholder="Search for..."
                     sx={{mr: "1.5rem"}}
-                    />
+                    /> */}
                     <IconButton onClick={() => {TempSendNotification();}}>
                         <Badge badgeContent={0} color="primary" sx={{mr: "0rem"}}>
                             <NotificationsIcon fontSize="medium" sx={{color: "#363b4d"}} />
