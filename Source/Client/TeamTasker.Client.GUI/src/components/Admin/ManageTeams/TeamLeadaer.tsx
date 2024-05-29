@@ -1,12 +1,11 @@
-import { Box, Button, CircularProgress, FormControl, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import { FormLabel, Input } from "@mui/joy";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Formik, useFormikContext } from "formik";
 import { ChangeTeamLeader } from "../../Types/CommonTypes";
 import DataPostSnackbar from "../../Connection/Notifies/DataPostSnackbar";
-import { ChangeTeamLeaderRequest, GetUserNameAndEmail } from "./TeamsApi";
+import { ChangeTeamLeaderRequest } from "./TeamsApi";
 import ChangeLeaderTeamsSelect from "./Forms/ChangeLeaderTeamsSelect";
 import ChangeLeaderEmployeesSelect from "./Forms/ChangeLeaderEmployeesSelect";
 
@@ -28,7 +27,7 @@ function TeamLeaderContent({sendingState}: {sendingState: boolean})
     return(
         <>
             <Form>
-                <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+                <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none"}}>
                     <Grid container spacing={12}>
 
                         <Grid item xs={12} sx={{display: "flex"}}>

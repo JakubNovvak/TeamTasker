@@ -1,5 +1,5 @@
 import { MenuItem, Select } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { UpdateStatusRequest } from "../../../API/Board/EditIssueRequests";
 import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
 import { handleIssueChange } from "../BoardReloadOnChange";
@@ -22,12 +22,12 @@ export default function EditIssueStatusSelect({issueStatus, issueId}: {issueStat
         default: -1
     }
 
-    const statusValueNumber: {[key: number]: string} = {
-        1: "NewIssue",
-        2: "InProgress",
-        3: "OnHold",
-        4: "IssueDone"
-    }
+    // const statusValueNumber: {[key: number]: string} = {
+    //     1: "NewIssue",
+    //     2: "InProgress",
+    //     3: "OnHold",
+    //     4: "IssueDone"
+    // }
 
     const [selectStatus, setSelectStatus] = useState<number | string>(statusValue[issueStatus]);
     const [sendingState, setSendingState] = useState<boolean>(false);

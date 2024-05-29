@@ -7,10 +7,8 @@ import { NavLink } from "react-router-dom";
 import CheckLoggedInPermission from "../../components/Connection/API/CheckLoggedInPermission";
 import CheckAdminPermission from "../../components/Connection/API/CheckAdminPermission";
 import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromCookies";
-import TempTeamEmployees from "../../components/Connection/API/TempTeamEmployees";
 import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetUsersProjects } from "../../components/ProjectsPage/API/GetUsersProjects";
-import React from "react";
 import { Input } from "@mui/joy";
 import ChangePassword from "../../components/ProjectsPage/API/ChangePassword";
 
@@ -19,6 +17,7 @@ export default function ProjectsPage()
     //TODO: method to get 
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSuccess, setSendSuccess] = useState<number>(0);
+    sendSuccess;
     const [readUser, setUser] = useState<ReadUserDto>();
     const [newPassword, setNewPassword] = useState<string>("");
     const [userPermission, setUserPermission] = useState<boolean>(false);
@@ -27,24 +26,27 @@ export default function ProjectsPage()
     const [projects, setProjects] = useState<ReadProjectDto[]>([]);
     const [userId, setUserId] = useState<number>(0);
 
-    console.log("PRZED:::  userPermission: " + userPermission + "projects.length: " + projects.length);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(true);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
 
-    CheckAdminPermission(setAdminUserPermission);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
     //TempTeamEmployees(setTeamUserPermission);
-
+    
     useEffect(() => {
         GetLoggedInUser(setUser, setSendingState, setUserId);
         GetUsersProjects(userId, setProjects);
     }, [userId]);
+    
+    
+    CheckLoggedInPermission(setUserPermission, setLoadingLoggedInState);
 
 
-
-    CheckLoggedInPermission(setUserPermission);
-
-    if(sendingState)
+    if(sendingState || loadingLoggedInState || loadingAdminState)
+    {
         return(
             <CircularProgress sx={{color: "white"}} size={100}/>
         );
+    }
 
     if(!adminUserPermission && !userPermission)
         return(

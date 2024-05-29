@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import CheckLeaderPermission from '../../Connection/API/CheckLeaderPermission';
 import { useEffect, useState } from 'react';
 import { UpdateProjectStatus } from '../API/Preview/UpdateProjectStatus';
@@ -25,6 +25,7 @@ export default function StatusSelect({projectId, projectStatus}: {projectId: num
   }
 
   const [leaderPermission, setLeaderPermission] = React.useState<boolean>(false);
+  leaderPermission;
   CheckLeaderPermission(setLeaderPermission);
 
   const [selectStatus, setSelectStatus] = useState<string>("OnTheRightPath");

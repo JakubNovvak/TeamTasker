@@ -1,7 +1,5 @@
-import axios, { AxiosProxyConfig, AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
+import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
-import { ReadEmployeeDto } from "../../Types/ReadEmployeeDto";
 
 export default async function TempGetCurrentUser(setCurrentUserEmail: React.Dispatch<React.SetStateAction<string>>)
 {

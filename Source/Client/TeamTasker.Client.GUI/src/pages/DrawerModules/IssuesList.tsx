@@ -3,7 +3,6 @@ import PreviewIssuesTable from "../../components/Modules/IssuesList/PreviewIssue
 import { useEffect, useState } from "react";
 import CheckLeaderPermission from "../../components/Connection/API/CheckLeaderPermission";
 import CreateIssueDialog from "../../components/Modules/IssuesList/Dialog/CreateIssueDialog";
-import React from "react";
 
 export default function IssuesList({projectId}: {projectId: string})
 {
@@ -19,7 +18,7 @@ export default function IssuesList({projectId}: {projectId: string})
         <>
             <CreateIssueDialog projectId={projectId} openDialog={openDialog} setOpenDialog={setOpenDialog} setUpdateList={setUpdateList}/>
 
-            <Box sx={{width: "100%", minHeight: "38rem"}}>
+            <Box sx={{width: "100%", minHeight: "38rem", marginLeft: "6rem"}}>
                 <Box sx={{display: "flex", mb: "1.5rem", mt: "4rem"}}>
                     <Typography variant="h4" sx={{marginRight: "auto"}}>
                         Issues List 

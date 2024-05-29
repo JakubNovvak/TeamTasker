@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Avatar, Box, CircularProgress, FormControl, MenuItem, Select } from '@mui/material';
+import { Avatar, Box, CircularProgress, MenuItem, Select } from '@mui/material';
 import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../Types/AxiosOptions';
-import { FormikCreateIsssueSetValue, FormikCreateIssueHandleChange } from '../../Types/CommonTypes';
+import { FormikCreateIssueHandleChange } from '../../Types/CommonTypes';
 
 
 export default function ProjectEmployeeSelect({projectId, formikValue, formikHandleChange: formikSetFieldValue}: 

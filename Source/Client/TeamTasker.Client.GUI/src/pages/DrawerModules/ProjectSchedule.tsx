@@ -9,6 +9,8 @@ export default function ProjectSchedule({projectId}: {projectId: string})
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [allIssues, setAllIssues] = useState<ReadIssueDto[]>([]);
+    sendSucess;
+    allIssues;
 
     useEffect(() => {
         GetProjectIssues(projectId, setAllIssues, setSendingState, setSendSucess);
@@ -19,15 +21,17 @@ export default function ProjectSchedule({projectId}: {projectId: string})
 
     return (
         <>
-            <Box sx={{width: "100%", height: "95vh", mt: "7rem"}}>
-                <Box sx={{display: "flex", mb: "1.5rem"}}>
-                    <Typography variant="h4" sx={{marginRight: "auto"}}>
-                        Gantt Chart
-                    </Typography>
+            <Box sx={{marginLeft: "7rem"}}>
+                <Box sx={{width: "100%", height: "95vh", mt: "7rem"}}>
+                    <Box sx={{display: "flex", mb: "1.5rem"}}>
+                        <Typography variant="h4" sx={{marginRight: "auto"}}>
+                            Gantt Chart
+                        </Typography>
+                    </Box>
+
+                    <GanttIndex projectId={projectId}/>
+
                 </Box>
-
-                <GanttIndex projectId={projectId}/>
-
             </Box>
         </>
     );

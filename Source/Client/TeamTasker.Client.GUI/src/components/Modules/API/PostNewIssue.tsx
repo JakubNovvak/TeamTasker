@@ -1,7 +1,5 @@
 import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
-import { ReadProjectDto } from "../../Types/ReadProjectDto";
-import { ReadIssueDto } from "../../Types/ReadIssuesDto";
 import { CreateIssueDto } from "../../Types/CreateIssueDto";
 
 export async function PostNewIssue(newIssue: CreateIssueDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)

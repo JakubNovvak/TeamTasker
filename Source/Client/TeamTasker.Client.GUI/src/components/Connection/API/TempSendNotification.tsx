@@ -11,7 +11,7 @@ export default async function TempSendNotification()
         const responseEmail = await axios.get<string>('https://localhost:7014/api/Account/authorize/email', AxiosOptions);
         const responseEmployee = await axios.get<ReadEmployeeDto>(`https://localhost:7014/api/User/email?email=${responseEmail.data}`, AxiosOptions);
         const notifications = await axios.get<TempNotificationDto[]>(`https://localhost:7014/api/Notification/GetUserNotifications?id=${responseEmployee.data.id}`, AxiosOptions);
-        const tempNewNotification = notifications.data.length + 1;
+        //const tempNewNotification = notifications.data.length + 1;
         const contentOfTheNotification = "Test notification nr: " + notifications.data.length++;
 
         await axios.post(`https://localhost:7014/api/Notification/AddNotificationToUser`, {content: contentOfTheNotification, userId: responseEmployee.data.id});

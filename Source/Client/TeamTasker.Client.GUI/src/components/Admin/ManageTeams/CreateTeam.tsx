@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, FormControl, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Form, Formik, useFormikContext } from "formik";
 import { useState } from "react";
@@ -27,7 +27,7 @@ function CreateTeamContent({sendingState}: {sendingState: boolean})
     return(
         <>
             <Form>
-                <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none", marginLeft: "-14vw"}}>
+                <Box sx={{width: "93vw", height: "85vh", backgroundColor: "none"}}>
                     <Grid container spacing={12}>
 
                         <Grid item xs={12} sx={{display: "flex"}}>

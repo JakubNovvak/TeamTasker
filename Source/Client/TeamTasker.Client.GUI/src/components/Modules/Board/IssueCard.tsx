@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
 import { ReadIssueDto } from "../../Types/ReadIssuesDto";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TempGetUserById from "../../Connection/API/TempGetUserById";
 import IssueDescDialog from "./Dialog/IssueDescDialog";
 
@@ -11,6 +11,7 @@ export default function IssueCard({ReadIssueDto, projectId, leaderPermission}: {
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
     const [openDialog, setOpenDialog] = useState<boolean>(false);
+    tempUserInfo;
 
     var trimmedDate = dayjs(ReadIssueDto.startDate).format('DD MMMM HH:mm');
 

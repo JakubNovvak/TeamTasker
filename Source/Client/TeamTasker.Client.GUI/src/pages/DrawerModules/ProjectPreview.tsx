@@ -29,6 +29,7 @@ export default function ProjectPreview({projectId}: {projectId: string | undefin
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [projectEmployees, setProjectEmployees] = useState<ReadEmployeeDto[]>([]);
+    sendSucess;
 
     const [leaderPermission, setLeaderPermission] = useState<boolean>(false);
     CheckLeaderPermission(setLeaderPermission);
@@ -75,7 +76,7 @@ export default function ProjectPreview({projectId}: {projectId: string | undefin
 
     return(
         <>
-            <Box sx={{width: "100%", height: "95%", mt: "5rem"}}>
+            <Box sx={{width: "100%", height: "95%", mt: "5rem", marginLeft: "6rem"}}>
                 <Box sx={{display: "flex", mb: "1.5rem"}}>
                     <Typography variant="h4" sx={{marginRight: "auto"}}>
                         Preview

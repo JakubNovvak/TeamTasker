@@ -1,7 +1,5 @@
 import axios from "axios";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
-import { CreateCommentDto } from "../../../Types/CommentDtos";
-
 
 export async function AddCommentToIssue(newComment: [number, number, string], setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>, setNewComment: React.Dispatch<React.SetStateAction<string>>)

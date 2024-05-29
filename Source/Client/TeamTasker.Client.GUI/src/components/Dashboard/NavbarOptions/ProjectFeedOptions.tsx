@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import PublishPostDialog from "../../Modules/ProjectFeed/PublishPostDialog/PublishPostDialog";
 import CheckLeaderPermission from "../../Connection/API/CheckLeaderPermission";
 

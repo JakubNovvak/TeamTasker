@@ -26,7 +26,10 @@ export default function UserAvatarMenu({avatarUrl}: {avatarUrl: string})
   };
 
   const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
-  CheckAdminPermission(setAdminUserPermission);
+  const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
+  loadingAdminState;
+
+  CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
 
   return (
     <>

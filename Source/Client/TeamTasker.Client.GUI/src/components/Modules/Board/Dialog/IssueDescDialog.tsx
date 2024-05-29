@@ -1,13 +1,11 @@
-import { Box, Button, Textarea } from "@mui/joy";
-import { Avatar, Dialog, DialogContent, Divider, Grid, IconButton, Input, InputAdornment, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-import React, { cloneElement, useEffect, useState } from "react";
+import { Dialog, DialogContent, Divider, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import EditIssueStatusSelect from "./Forms/IssueEditStatus";
 import IssueEditPriority from "./Forms/IssueEditPriority";
 import IssueEditDate from "./Forms/IssueEditDate";
 import dayjs from "dayjs";
 import TempGetUserById from "../../../Connection/API/TempGetUserById";
 import { ReadIssueDto } from "../../../Types/ReadIssuesDto";
-import SendIcon from '@mui/icons-material/Send';
 import IssueEditTitle from "./Forms/IssueEditTitle";
 import IssueEditDescription from "./Forms/IssueEditDescription";
 import CommentsSection from "./Comments/CommentsSection";
@@ -20,6 +18,9 @@ export default function IssueDescDialog({projectId, openDialog, setOpenDialog, R
     //*//
     const [userAvatar, setUserAvatar] = useState<string>("");
     const [tempUserInfo, setTempUserInfo] = useState<string>("");
+    userAvatar;
+    tempUserInfo;
+
     //*//
 
     // Cancel and submit related states - on hold, because of the bug

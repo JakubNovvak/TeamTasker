@@ -1,4 +1,4 @@
-import axios, { AxiosProxyConfig, AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 
@@ -34,6 +34,7 @@ export default function TempTeamEmployees(setUserPermission: React.Dispatch<Reac
 {
     //const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(false);
     const [sendingState, setSendingState] = useState<boolean>(false);
+    sendingState;
 
     useEffect(() => {
         FetchData(setUserPermission, setSendingState);

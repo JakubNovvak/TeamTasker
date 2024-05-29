@@ -9,7 +9,7 @@ type barChartData = MakeOptional<BarSeriesType, "type">;
 type pieChartData = MakeOptional<PieValueType, "id">;
 type chartDataUseState = React.Dispatch<React.SetStateAction<MakeOptional<BarSeriesType, "type">[]>>;
 type chartDoneAndAll = React.Dispatch<React.SetStateAction<MakeOptional<PieValueType, "id">[]>>;
-type setSuccessState = React.Dispatch<React.SetStateAction<number>>;
+//type setSuccessState = React.Dispatch<React.SetStateAction<number>>;
 type setSendindStatus = React.Dispatch<React.SetStateAction<boolean>>;
 
 //{data: [10], stack: '1', label: 'Leader User'}, {data: [3], stack: '2', label: 'Test Testowy'}

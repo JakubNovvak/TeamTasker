@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import { ReadIssueDto } from "../../components/Types/ReadIssuesDto";
 import { GetProjectFeedPosts } from "../../components/Modules/API/Feed/GetProjectFeedPosts";
-import dayjs from "dayjs";
 import { ReadEmployeeDto } from "../../components/Types/ReadEmployeeDto";
 import { GetProjectEmployees } from "../../components/Modules/API/GetProjectEmployees";
 
@@ -12,6 +11,7 @@ export default function ProjectFeed({projectId}: {projectId: string})
 {
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
+    sendSucess;
 
     //TODO: Temp solution - change to something better
     const [feedPosts, setFeedPosts] = useState<ReadIssueDto[]>([]);
@@ -45,8 +45,8 @@ export default function ProjectFeed({projectId}: {projectId: string})
 
     return(
         <>
-            <Box sx={{width: "100%", height: "94vh", mt: "5rem"}}>
-                <Box sx={{display: "flex", mb: "0rem"}}>
+            <Box sx={{width: "100%", minHeight: "38rem", marginLeft: "6rem", backgroundColor: "white !important"}}>
+                <Box sx={{display: "flex", mb: "0rem", mt: "4rem"}}>
                     <Typography variant="h4" sx={{marginRight: "auto"}}>
                         Project Feed
                     </Typography>

@@ -1,4 +1,4 @@
-import axios, { AxiosProxyConfig, AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { useParams } from "react-router-dom";
@@ -33,6 +33,7 @@ export default function CheckLeaderPermission(setUserPermission: React.Dispatch<
 {
     //const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(false);
     const [sendingState, setSendingState] = useState<boolean>(false);
+    sendingState;
 
     const { projectId } = useParams<{projectId: string}>();
 

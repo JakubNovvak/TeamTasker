@@ -1,7 +1,7 @@
 import { Box, InputLabel } from "@mui/material";
 import { ReadIssueDto } from "../../../../Types/ReadIssuesDto";
 import { Button, Textarea } from "@mui/joy";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import DataPostSnackbar from "../../../../Connection/Notifies/DataPostSnackbar";
 import { UpdateDescriptionRequest } from "../../../API/Board/EditIssueRequests";
 import { handleIssueChange } from "../BoardReloadOnChange";

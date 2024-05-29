@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
-import { ReadProjectDto } from "../../Types/ReadProjectDto";
 import { ReadEmployeeDto } from "../../Types/ReadEmployeeDto";
 
 export async function CheckIfMember(projectId: string | undefined, setIsMember: React.Dispatch<React.SetStateAction<boolean>>, 

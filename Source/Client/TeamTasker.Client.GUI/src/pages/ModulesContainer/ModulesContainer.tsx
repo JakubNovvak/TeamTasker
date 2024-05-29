@@ -18,9 +18,6 @@ import DeleteTokenFromCookies from "../../components/Connection/DeleteTokenFromC
 import { ReadProjectDto } from "../../components/Types/ReadProjectDto";
 import { GetCurrentProjectInfo } from "../../components/Modules/API/GetCurrentProjectInfo";
 import ProjectSchedule from "../DrawerModules/ProjectSchedule";
-import React from "react";
-import GetLoggedInUser from "../../components/ProjectsPage/API/GetUserName";
-import { ReadUserDto } from "../../components/Types/ReadUserDto";
 import { CheckIfMember } from "../../components/Modules/API/CheckIfMember";
 
 function renderSwitch(pathnName: string, projectId: string | undefined)
@@ -71,8 +68,11 @@ export default function ModulesContainer()
     const [loggedInUserPermission, setloggedInUserPermission] = useState<boolean>(false);
     const [adminUserPermission, setAdminUserPermission] = useState<boolean>(false);
 
-    CheckLoggedInPermission(setloggedInUserPermission);
-    CheckAdminPermission(setAdminUserPermission);
+    const [loadingLoggedInState, setLoadingLoggedInState] = useState<boolean>(true);
+    const [loadingAdminState, setLoadingAdminState] = useState<boolean>(true);
+
+    CheckLoggedInPermission(setloggedInUserPermission, setLoadingLoggedInState);
+    CheckAdminPermission(setAdminUserPermission, setLoadingAdminState);
     let pathName = location.pathname;
 
     const { projectId } = useParams<{projectId: string}>();
@@ -92,17 +92,24 @@ export default function ModulesContainer()
     const [sendingState, setSendingState] = useState<boolean>(false);
     const [sendSucess, setSendSucess] = useState<number>(0);
     const [project, setProject] = useState<ReadProjectDto>(temp);
+    sendSucess;
     
     const [isMember, setIsMember] = useState<boolean>(false);
     const [gettingState, setGettingState] = useState<boolean>(false);
     const [isMemberSuccess, setIsMemberSuccess] = useState<number>(0);
+    isMemberSuccess;
 
     useEffect(() => {
         GetCurrentProjectInfo(projectId, setProject, setSendingState, setSendSucess);
         CheckIfMember(projectId, setIsMember, setGettingState, setIsMemberSuccess);
     }, [projectId, loggedInUserPermission]);
 
-    //console.log("Zmienna z url: " + projectId);
+    if(loadingAdminState || loadingLoggedInState)
+        return(
+        <>
+            <MuiMiniDrawer />
+        </>
+    );
 
     if(!sendingState && project.id == 0)
     {
@@ -142,7 +149,7 @@ export default function ModulesContainer()
     }
 
     return(
-        <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem"}}>
+        <Box sx={{ display: 'flex', width: "90vw", ml: "-15rem", backgroundColor: "white"}}>
             
             <MuiMiniDrawer />
             <Box component="main" sx={{ flexGrow: 1, p: 0}}>
