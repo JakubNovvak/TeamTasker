@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
 import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../Types/AxiosOptions';
+import APIUrlConfig from '../../Connection/API/APIUrlConfig';
 
 //TODO: Create generic Employees Select component. This in only a temporary, development solution
 
@@ -14,7 +14,7 @@ export default function ResetPasswordUserSelect({FormikValue, formikSetValue, id
 
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/User/GetAllEmployees`, AxiosOptions)
+        APIUrlConfig.get<ReadEmployeeDto[]>(`/api/User/GetAllEmployees`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

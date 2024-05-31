@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { useParams } from "react-router-dom";
+import APIUrlConfig from "./APIUrlConfig";
 
 async function FetchData(projectId: string | undefined, setUserPermission: React.Dispatch<React.SetStateAction<boolean>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>)
 {
@@ -10,7 +10,7 @@ async function FetchData(projectId: string | undefined, setUserPermission: React
         if(projectId === "0" || projectId === undefined)
             throw new Error();
 
-        const response = await axios.get<boolean>(`https://185.143.119.23:7781/api/Account/authorize/IsLeader?projectId=${projectId}`, AxiosOptions);
+        const response = await APIUrlConfig.get<boolean>(`/api/Account/authorize/IsLeader?projectId=${projectId}`, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         if(response.data)
             setUserPermission(true);

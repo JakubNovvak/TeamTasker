@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { AxiosOptions } from '../../../Types/AxiosOptions';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
 import { FormikAssignTeamSetValue } from '../../../Types/CommonTypes';
 import { ReadProjectDto } from '../../../Types/ReadProjectDto';
+import APIUrlConfig from '../../../Connection/API/APIUrlConfig';
 
 //TODO: Create generic Employees Select component. This in only a temporary, development solution
 
@@ -13,7 +13,7 @@ export default function AssignTeamSelectProjects({FormikValue, formikSetValue, i
     const [projects, setProjects] = useState<ReadProjectDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadProjectDto[]>(`https://185.143.119.23:7781/api/Project`, AxiosOptions)
+        APIUrlConfig.get<ReadProjectDto[]>(`/api/Project`, AxiosOptions)
             .then(response => 
                 {
                 setProjects(response.data);

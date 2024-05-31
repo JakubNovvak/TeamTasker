@@ -1,9 +1,10 @@
 import { BarSeriesType, PieValueType } from "@mui/x-charts";
 import { MakeOptional } from "@mui/x-date-pickers/internals";
 import { ReadIssueDto } from "../../../Types/ReadIssuesDto";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
 import { ReadEmployeeDto } from "../../../Types/ReadEmployeeDto";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 type barChartData = MakeOptional<BarSeriesType, "type">;
 type pieChartData = MakeOptional<PieValueType, "id">;
@@ -28,7 +29,7 @@ export default async function GetIssuesByStatus(setIssuesByUser: chartDataUseSta
 
     try 
     {
-        response = await axios.get<ReadIssueDto[]>(`https://185.143.119.23:7781/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
+        response = await APIUrlConfig.get<ReadIssueDto[]>(`/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
         console.log("Project Preview: " + response.data);
     } 
     catch (error)

@@ -1,5 +1,5 @@
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 import { LoginDto } from "../../Types/LoginDto";
-import axios from "axios";
 
 export default async function FetchData(LoginDto: LoginDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
@@ -7,7 +7,7 @@ export default async function FetchData(LoginDto: LoginDto, setSendingState: Rea
     setSendingState(true);
     try{
         //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
-        const response = await axios.post('https://185.143.119.23:7781/api/Account/login/credentials', LoginDto, options);
+        const response = await APIUrlConfig.post('/api/Account/login/credentials', LoginDto, options);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { ReadEmployeeDto } from '../../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../../Types/AxiosOptions';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
 import { FormikUsersSetValue } from '../../../Types/CommonTypes';
+import APIUrlConfig from '../../../Connection/API/APIUrlConfig';
 
 
 export default function UsersSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikUsersSetValue, idName: string})
@@ -12,7 +12,7 @@ export default function UsersSelect({FormikValue, formikSetValue, idName}: {Form
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/User/GetAllEmployees`, AxiosOptions)
+        APIUrlConfig.get<ReadEmployeeDto[]>(`/api/User/GetAllEmployees`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

@@ -1,6 +1,6 @@
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { ReadUserDto } from "../../Types/ReadUserDto";
-import axios from "axios";
 
 export default async function GetLoggedInUser(setUserName: React.Dispatch<React.SetStateAction<ReadUserDto | undefined>>, 
                                           setSendingState: React.Dispatch<React.SetStateAction<boolean>>,
@@ -11,8 +11,8 @@ export default async function GetLoggedInUser(setUserName: React.Dispatch<React.
     try{
         var tempUser: ReadUserDto = {id: 0, firstName: "", lastName: "", email: "", isTeamLeader: false, password: "", resetPassword: false, position: "", roleId: 1}
         //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
-        const responseEmail = await axios.get("https://185.143.119.23:7781/api/Account/authorize/email", AxiosOptions);
-        const responseUserName = await axios.get(`https://185.143.119.23:7781/api/User/email?email=${responseEmail.data}`, AxiosOptions);
+        const responseEmail = await APIUrlConfig.get("/api/Account/authorize/email", AxiosOptions);
+        const responseUserName = await APIUrlConfig.get(`/api/User/email?email=${responseEmail.data}`, AxiosOptions);
         
         tempUser = responseUserName.data;
         

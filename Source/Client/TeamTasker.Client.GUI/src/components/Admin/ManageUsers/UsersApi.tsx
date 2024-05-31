@@ -1,13 +1,13 @@
-import axios from "axios";
 import { CreateUserDto } from "../../Types/CreateUserDto";
 import { AxiosOptions } from "../../Types/AxiosOptions";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function CreateUserRequest(userToCreate: CreateUserDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>)    
 {
     setSendingState(true);
     try{
-        const response = await axios.post('https://185.143.119.23:7781/api/Admin/CreateEmployee', userToCreate, AxiosOptions);
+        const response = await APIUrlConfig.post('/api/Admin/CreateEmployee', userToCreate, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

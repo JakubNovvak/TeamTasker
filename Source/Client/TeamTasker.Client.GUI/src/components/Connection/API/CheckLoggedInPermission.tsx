@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { AxiosOptions } from "../../Types/AxiosOptions";
+import APIUrlConfig from "./APIUrlConfig";
 
 async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<boolean>>,
     setLoadingPermissionState: React.Dispatch<React.SetStateAction<boolean>>)
 {
     setLoadingPermissionState(true);
     try{
-        const response = await axios.get('https://185.143.119.23:7781/api/Account/authorize/loggedin', AxiosOptions);
+        const response = await APIUrlConfig.get('/api/Account/authorize/loggedin', AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setLoadingPermissionState(false);
         setUserPermission(true);

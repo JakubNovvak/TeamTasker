@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { AxiosOptions } from '../../../Types/AxiosOptions';
 import { Option, Select } from '@mui/joy';
 import { FormControl } from '@mui/material';
 import { FormikUsersSetValue } from '../../../Types/CommonTypes';
 import { ReadTeamDto } from '../../../Types/ReadTeamDto';
+import APIUrlConfig from '../../../Connection/API/APIUrlConfig';
 
 
 export default function TeamsSelect({FormikValue, formikSetValue, idName}: {FormikValue: number, formikSetValue: FormikUsersSetValue, idName: string})
@@ -12,7 +12,7 @@ export default function TeamsSelect({FormikValue, formikSetValue, idName}: {Form
     const [teams, setTeams] = useState<ReadTeamDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadTeamDto[]>(`https://185.143.119.23:7781/api/Team/GetAllTeams`, AxiosOptions)
+        APIUrlConfig.get<ReadTeamDto[]>(`/api/Team/GetAllTeams`, AxiosOptions)
             .then(response => 
                 {
                 setTeams(response.data);

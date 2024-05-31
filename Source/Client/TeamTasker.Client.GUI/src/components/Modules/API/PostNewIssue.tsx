@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { CreateIssueDto } from "../../Types/CreateIssueDto";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function PostNewIssue(newIssue: CreateIssueDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
@@ -9,7 +9,7 @@ export async function PostNewIssue(newIssue: CreateIssueDto, setSendingState: Re
 
     setSendingState(true);
     try{
-        await axios.post(`https://185.143.119.23:7781/api/Leader/CreateIssue`, newIssue, AxiosOptions);
+        await APIUrlConfig.post(`/api/Leader/CreateIssue`, newIssue, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         await new Promise(resolve => setTimeout(resolve, 3000));

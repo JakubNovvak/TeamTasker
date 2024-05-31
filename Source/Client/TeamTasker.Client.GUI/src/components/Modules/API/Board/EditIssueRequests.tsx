@@ -1,6 +1,6 @@
-import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 //TODO: Github Issue #87 - make temp methods more generic
 
@@ -9,7 +9,7 @@ export async function UpdatePriorityRequest(issueId: number, issuePriority: stri
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssuePriority`, {"id": issueId, "priority": issuePriority}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssuePriority`, {"id": issueId, "priority": issuePriority}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);
@@ -32,7 +32,7 @@ export async function UpdateEmployeeRequest(issueId: number, employeeId: string 
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueEmployee`, {"id": issueId, "employeeId": employeeId}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueEmployee`, {"id": issueId, "employeeId": employeeId}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);
@@ -56,7 +56,7 @@ export async function UpdateStatusRequest(issueId: number, issueStatus: string |
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);
@@ -79,7 +79,7 @@ export async function UpdateTitleRequest(issueId: number, issueTitle: string, se
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueName`, {"id": issueId, "name": issueTitle}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueName`, {"id": issueId, "name": issueTitle}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);
@@ -103,7 +103,7 @@ export async function UpdateDescriptionRequest(issueId: number, issueDescription
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueDescription`, {"id": issueId, "description": issueDescription}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueDescription`, {"id": issueId, "description": issueDescription}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);
@@ -138,7 +138,7 @@ export async function UpdateStartDateRequest(startDate: Dayjs | null, issueId: n
 
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueStartDate`, startDateToSend, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueStartDate`, startDateToSend, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setStartDate(startDate);
@@ -172,7 +172,7 @@ export async function UpdateEndDateRequest(endDate: Dayjs | null, issueId: numbe
 
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueEndtDate`, endDateToSend, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueEndtDate`, endDateToSend, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setEndDate(endDate);

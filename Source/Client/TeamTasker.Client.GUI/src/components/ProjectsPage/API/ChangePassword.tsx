@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import DeleteTokenFromCookies from "../../Connection/DeleteTokenFromCookies";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export default async function ChangePassword(newPassword: string, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
@@ -12,7 +12,7 @@ export default async function ChangePassword(newPassword: string, setSendingStat
     }
     setSendingState(true);
     try{
-        const response = await axios.put('https://185.143.119.23:7781/api/User/ChangePassword', passwordJson, AxiosOptions);
+        const response = await APIUrlConfig.put('/api/User/ChangePassword', passwordJson, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);

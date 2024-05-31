@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { ReadEmployeeDto } from "../../Types/ReadEmployeeDto";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function CheckIfMember(projectId: string | undefined, setIsMember: React.Dispatch<React.SetStateAction<boolean>>, 
     setGettingState: React.Dispatch<React.SetStateAction<boolean>>, setIsMemberSuccess: React.Dispatch<React.SetStateAction<number>>)
@@ -10,8 +10,8 @@ export async function CheckIfMember(projectId: string | undefined, setIsMember: 
 
     setGettingState(true);
     try{
-        const currentProjectEmployees = await axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
-        const currentUserEmail = await axios.get<string>(`https://185.143.119.23:7781/api/Account/authorize/email`, AxiosOptions);
+        const currentProjectEmployees = await APIUrlConfig.get<ReadEmployeeDto[]>(`/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
+        const currentUserEmail = await APIUrlConfig.get<string>(`/api/Account/authorize/email`, AxiosOptions);
 
         if(currentProjectEmployees.data.some(employee => employee.email === currentUserEmail.data))
         {

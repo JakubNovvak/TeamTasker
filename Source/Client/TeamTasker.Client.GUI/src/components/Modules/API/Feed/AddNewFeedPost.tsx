@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
 import { CreateFeedPostDto } from "../../../Types/CreateFeedPostDto";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 
 export async function AddNewFeedPost(newFeedPost: CreateFeedPostDto, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
@@ -8,7 +8,7 @@ export async function AddNewFeedPost(newFeedPost: CreateFeedPostDto, setSendingS
 {
     setSendingState(true);
     try{
-        await axios.post<CreateFeedPostDto>(`https://185.143.119.23:7781/api/Project/CreateFeedPost`, newFeedPost, AxiosOptions);
+        await APIUrlConfig.post<CreateFeedPostDto>(`/api/Project/CreateFeedPost`, newFeedPost, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         await new Promise(resolve => setTimeout(resolve, 3000));

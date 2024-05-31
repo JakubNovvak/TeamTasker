@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { ReadEmployeeDto } from "../../Types/ReadEmployeeDto";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function GetProjectEmployees(projectId: string | undefined, setProjectEmployees: React.Dispatch<React.SetStateAction<ReadEmployeeDto[]>>)
 {
@@ -9,7 +9,7 @@ export async function GetProjectEmployees(projectId: string | undefined, setProj
 
     //setSendingState(true);
     try{
-        const response = await axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await APIUrlConfig.get<ReadEmployeeDto[]>(`/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions);
         //console.log("ReadEmployeeDto[0]: " + response.data[0].email);
         console.log("Response: " + response.data[0].firstName);
         setProjectEmployees(response.data);

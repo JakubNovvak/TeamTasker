@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { AxiosOptions } from "../../Types/AxiosOptions";
+import APIUrlConfig from "./APIUrlConfig";
 
 async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<boolean>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>)
 {
@@ -9,8 +9,8 @@ async function FetchData(setUserPermission: React.Dispatch<React.SetStateAction<
     try{
         
         //TODO: Another endpoint needed - get user id by token
-        const responeEmail = await axios.get('https://185.143.119.23:7781/api/Account/authorize/email', AxiosOptions);
-        const responseEmployees = await axios.get('https://185.143.119.23:7781/api/Team/GetAllTeamEmployees?id=1', AxiosOptions);
+        const responeEmail = await APIUrlConfig.get('/api/Account/authorize/email', AxiosOptions);
+        const responseEmployees = await APIUrlConfig.get('/api/Team/GetAllTeamEmployees?id=1', AxiosOptions);
         for (const employee of responseEmployees.data) {
             console.log("Employee Name: " + employee.email);
             if(employee.email == responeEmail.data)

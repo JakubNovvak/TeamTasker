@@ -1,12 +1,12 @@
-import axios from "axios";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 export async function AddCommentToPost(newComment: [number, number, string], setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>, setNewComment: React.Dispatch<React.SetStateAction<string>>)
 {
     setSendingState(true);
     try{
-        await axios.post(`https://185.143.119.23:7781/api/Comment/AddCommentToIssue`, {issueId: newComment[0], userId: newComment[1], content: newComment[2]}, AxiosOptions);
+        await APIUrlConfig.post(`/api/Comment/AddCommentToIssue`, {issueId: newComment[0], userId: newComment[1], content: newComment[2]}, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setNewComment("");

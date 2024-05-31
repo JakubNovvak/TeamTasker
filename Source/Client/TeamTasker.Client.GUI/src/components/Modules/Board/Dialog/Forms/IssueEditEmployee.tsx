@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar, Box, FormControl } from '@mui/material';
@@ -7,6 +6,7 @@ import { AxiosOptions } from '../../../../Types/AxiosOptions';
 import { handleIssueChange } from '../BoardReloadOnChange';
 import { UpdateEmployeeRequest } from '../../../API/Board/EditIssueRequests';
 import { ReadEmployeeDto } from '../../../../Types/ReadEmployeeDto';
+import APIUrlConfig from '../../../../Connection/API/APIUrlConfig';
 
 
 export default function IssueEditEmployee({projectId, issueId, issueEmployee, leaderPermission}: {projectId: string, issueId: number, issueEmployee: number, leaderPermission: boolean})
@@ -18,7 +18,7 @@ export default function IssueEditEmployee({projectId, issueId, issueEmployee, le
     sendSucess;
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
+        APIUrlConfig.get<ReadEmployeeDto[]>(`/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

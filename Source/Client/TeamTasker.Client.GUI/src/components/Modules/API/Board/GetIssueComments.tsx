@@ -1,13 +1,13 @@
-import axios from "axios";
 import { ReadCommentDto } from "../../../Types/CommentDtos";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 export default async function GetIssueComments(issueId: number, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
     setSendSucess: React.Dispatch<React.SetStateAction<number>>, setComments: React.Dispatch<React.SetStateAction<ReadCommentDto[]>>)
 {
     setSendingState(true);
     try{
-        const response = await axios.get<ReadCommentDto[]>(`https://185.143.119.23:7781/api/Comment/GetIssueComments?IssueId=${issueId}`, AxiosOptions);
+        const response = await APIUrlConfig.get<ReadCommentDto[]>(`/api/Comment/GetIssueComments?IssueId=${issueId}`, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);

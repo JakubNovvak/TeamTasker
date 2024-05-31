@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { ReadIssueDto } from "../../Types/ReadIssuesDto";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function GetProjectIssues(projectId: string | undefined, setProjectIssues: React.Dispatch<React.SetStateAction<ReadIssueDto[]>>, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
@@ -9,7 +9,7 @@ export async function GetProjectIssues(projectId: string | undefined, setProject
 
     setSendingState(true);
     try{
-        const response = await axios.get<ReadIssueDto[]>(`https://185.143.119.23:7781/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await APIUrlConfig.get<ReadIssueDto[]>(`/api/Issue/GetAllIssuesFromProject?projectId=${projectId}`, AxiosOptions);
         console.log("GetProjectIssues[]: " + response.data[0].name);
         console.log("Response: " + response);
         setProjectIssues(response.data);

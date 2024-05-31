@@ -1,11 +1,11 @@
-import axios from "axios";
 import { AxiosOptions } from "../../Types/AxiosOptions";
+import APIUrlConfig from "./APIUrlConfig";
 
 export async function ChangeTaskStatus(issueId: number, issueStatus: string | number, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, setSendSucess: React.Dispatch<React.SetStateAction<number>>)
 {
     setSendingState(true);
     try{
-        await axios.put(`https://185.143.119.23:7781/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
+        await APIUrlConfig.put(`/api/Issue/UpdateIssueStatus`, {"id": issueId, "status": issueStatus}, AxiosOptions);
         console.log("Success!");
         setSendingState(false);
         setSendSucess(1);

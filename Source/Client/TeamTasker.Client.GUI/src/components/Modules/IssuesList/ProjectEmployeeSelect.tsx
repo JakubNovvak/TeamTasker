@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Avatar, Box, CircularProgress, MenuItem, Select } from '@mui/material';
 import { ReadEmployeeDto } from '../../Types/ReadEmployeeDto';
 import { AxiosOptions } from '../../Types/AxiosOptions';
 import { FormikCreateIssueHandleChange } from '../../Types/CommonTypes';
+import APIUrlConfig from '../../Connection/API/APIUrlConfig';
 
 
 export default function ProjectEmployeeSelect({projectId, formikValue, formikHandleChange: formikSetFieldValue}: 
@@ -12,7 +12,7 @@ export default function ProjectEmployeeSelect({projectId, formikValue, formikHan
     const [employees, setEmployees] = useState<ReadEmployeeDto[]>([]);
 
     useEffect(() => {
-        axios.get<ReadEmployeeDto[]>(`https://185.143.119.23:7781/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
+        APIUrlConfig.get<ReadEmployeeDto[]>(`/api/Project/GetEmployeesFromProject?projectId=${projectId}`, AxiosOptions)
             .then(response => 
                 {
                 setEmployees(response.data);

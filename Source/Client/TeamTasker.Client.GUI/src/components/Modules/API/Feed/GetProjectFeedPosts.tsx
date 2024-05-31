@@ -1,6 +1,6 @@
-import axios from "axios";
 import { AxiosOptions } from "../../../Types/AxiosOptions";
 import { ReadIssueDto } from "../../../Types/ReadIssuesDto";
+import APIUrlConfig from "../../../Connection/API/APIUrlConfig";
 
 type setSendingState = React.Dispatch<React.SetStateAction<boolean>>;
 type setSendSuccess =  React.Dispatch<React.SetStateAction<number>>;
@@ -10,7 +10,7 @@ export async function GetProjectFeedPosts(setSendingState: setSendingState, setS
 {
     setSendingState(true);
     try{
-        const response = await axios.get<ReadIssueDto[]>(`https://185.143.119.23:7781/api/Project/GetAllFeedPostsFromProject?projectId=${projectId}`, AxiosOptions);
+        const response = await APIUrlConfig.get<ReadIssueDto[]>(`/api/Project/GetAllFeedPostsFromProject?projectId=${projectId}`, AxiosOptions);
         setSendingState(false);
         setSendSucess(1);
         setFeedPosts(response.data);

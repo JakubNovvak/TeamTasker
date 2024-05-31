@@ -1,8 +1,8 @@
 import { AxiosOptions } from "../../Types/AxiosOptions";
 import { AddUserToTeamForm, ChangeTeamLeader, CreateTeamForm } from "../../Types/CommonTypes";
-import axios from "axios";
 import { UserNameAndEmailDto } from "../../Types/UserNameAndEmailDto";
 import { ReadTeamDto } from "../../Types/ReadTeamDto";
+import APIUrlConfig from "../../Connection/API/APIUrlConfig";
 
 export async function AddUserToTeamRequest(UserToAdd: AddUserToTeamForm, setSendingState: React.Dispatch<React.SetStateAction<boolean>>, 
                                                                                               setSendSucess: React.Dispatch<React.SetStateAction<number>>)
@@ -10,7 +10,7 @@ export async function AddUserToTeamRequest(UserToAdd: AddUserToTeamForm, setSend
     setSendingState(true);
     try{
         //CAUTION: there is only one tutor in DB, with no near plans of adding more. Should me changed if needed
-        const response = await axios.post('https://185.143.119.23:7781/api/Admin/AddEmployeeToTeam', UserToAdd, AxiosOptions);
+        const response = await APIUrlConfig.post('/api/Admin/AddEmployeeToTeam', UserToAdd, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);
@@ -32,7 +32,7 @@ export async function CreateTeamRequest(teamToCreate: CreateTeamForm, setSending
 {
     setSendingState(true);
     try{
-        const response = await axios.post('https://185.143.119.23:7781/api/Admin/CreateTeam', teamToCreate, AxiosOptions);
+        const response = await APIUrlConfig.post('/api/Admin/CreateTeam', teamToCreate, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);
@@ -57,9 +57,9 @@ export async function GetUserNameAndEmail(setCurrentLeader: React.Dispatch<React
         return;
     }
 
-    var firstResponse = await axios.get<ReadTeamDto>(`https://185.143.119.23:7781/api/Team/id?id=${teamId}`);
+    var firstResponse = await APIUrlConfig.get<ReadTeamDto>(`/api/Team/id?id=${teamId}`);
     console.log("firstResponse: " + firstResponse.data.leaderId);
-    axios.get<UserNameAndEmailDto>(`https://185.143.119.23:7781/api/User/GetUserNameAndEmail?id=${firstResponse.data.leaderId}`, AxiosOptions)
+    APIUrlConfig.get<UserNameAndEmailDto>(`/api/User/GetUserNameAndEmail?id=${firstResponse.data.leaderId}`, AxiosOptions)
     .then(response => 
         {
             setCurrentLeader(response.data.firstName + " " + response.data.lastName + ", " + response.data.email);
@@ -74,7 +74,7 @@ export async function ChangeTeamLeaderRequest(newTeamLeader: ChangeTeamLeader, s
 {
     setSendingState(true);
     try{
-        const response = await axios.put('https://185.143.119.23:7781/api/Admin/ChangeTeamLeader', newTeamLeader, AxiosOptions);
+        const response = await APIUrlConfig.put('/api/Admin/ChangeTeamLeader', newTeamLeader, AxiosOptions);
         console.log("POST: Respone from API" + response.data);
         setSendingState(false);
         setSendSucess(1);
