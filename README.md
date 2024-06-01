@@ -10,7 +10,7 @@
    <li>Jakub Janas</li>
 </div>
 
-## [Wersja poglądowa online](teamtaskerclient.azurewebsites.net)
+## [Wersja poglądowa online](https://teamtaskerclient.azurewebsites.net)
 
 ## [Czym jest TeamTasker?](https://github.com/JakubNovvak/TeamTasker/wiki/Strona-g%C5%82%C3%B3wna-projektu#czym-jest-teamtasker)
 
