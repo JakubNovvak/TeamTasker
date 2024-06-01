@@ -19,3 +19,5 @@
 ## [Dokumentacja techniczna](https://github.com/JakubNovvak/TeamTasker/wiki/Dokumentacja-techniczna)
 
 ## [Dokumentacja użytkownika](https://github.com/JakubNovvak/TeamTasker/wiki/Dokumentacja-użytkownika)
+
+## [Domyślne konta projektu](https://github.com/JakubNovvak/TeamTasker/wiki/Domyślne-konta-projektu)
