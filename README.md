@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center;">
-   <img src="https://i.ibb.co/Kznq3gH/documentation-Logo-Transparent1.png" alt="Logo" width="35%" height="35%">
+   <img src="TTLogo.png" alt="Logo" width="35%" height="35%">
    <h1>Aplikacja do Zarządzania Projektami</h1>
 </div>
 
